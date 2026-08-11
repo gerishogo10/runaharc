@@ -1,15 +1,29 @@
 import { cardArtwork } from './art.js';
-import { CARD_LIBRARY, createGame, availableRunes, cardCost, placeRune, playCard, attack, endTurn, aiTakeTurn, openLanes } from './engine.js';
+import { CARD_LIBRARY, createGame, availableRunes, cardCost, placeRune, playCard, attack, moveCard, endTurn, aiTakeTurn, openLanes, MAX_RUNES } from './engine.js';
 import { isSoundEnabled, playGameEvent, primeAudio, setSoundEnabled } from './effects.js';
 
 let game = createGame();
 let selected = null;
 let lastEventSeq = 0;
 const $ = id => document.getElementById(id);
-const ids = ['hand','playerBoard','enemyBoard','playerShields','enemyShields','playerRunes','enemyRunes','playerMeta','enemyMeta','turnPill','selectedName','selectedText','actions','log','endTurnBtn','toast','rulesDialog','rulesBtn','closeRules','soundBtn','spellReveal'];
+const ids = ['hand','playerBoard','enemyBoard','playerShields','enemyShields','playerCore','enemyCore','playerRunes','enemyRunes','playerMeta','enemyMeta','turnPill','selectedName','selectedMeta','selectedText','actions','log','endTurnBtn','toast','rulesDialog','rulesBtn','closeRules','soundBtn','spellReveal'];
 const els = Object.fromEntries(ids.map(id => [id, $(id)]));
 const elementMeta = { tuz:['TŰZ','🔥'], vihar:['VIHAR','⚡'], fold:['FÖLD','◆'], viz:['VÍZ','◉'], szellem:['SZELLEM','☾'], semleges:['SEMLEGES','•'] };
 const isBoardCard = card => card.type === 'creature' || card.type === 'structure';
+const cardKeyword = card => ({
+  turul:'KIJÁTSZÁS', liderc:'ALAPLÉNY', betyar:'+1 TÁMADÁS', sarkany:'ÁTTÖRÉS', taltos:'HÚZÁS', vasorr:'KIJÁTSZÁS',
+  bastya:'VÉDŐMEZŐ', szellovas:'ÁTREPÜLÉS', zivatar:'LÁNCSEBZÉS', parazs:'PARÁZS', forras:'GYÓGYÍTÁS',
+  vereshold:'+1 TÁMADÁS', rovaskor:'-3 KÖLTSÉG', deak:'RÚNAVISSZHANG', javas:'FORRÁSGYÓGYÍTÁS', kobzos:'UTOLSÓ DAL',
+  rovasvalto:'RÚNAVISSZAFEJTÉS', csodaszarvas:'VÁNDORLÁS', ostromlo:'OSTROM 1', orkokovac:'ŐRKŐJAVÍTÁS', betoro:'SEBZETT FAL', korepesztes:'ŐRKŐSEBZÉS'
+}[card.id] || 'KÉPESSÉG');
+function cardMetaText(card) {
+  const typeLabel = card.type === 'creature' ? 'Lény' : card.type === 'structure' ? 'Bástya' : 'Ige';
+  const [elementName] = elementMeta[card.element || 'semleges'];
+  const remaining = Math.max(0, (card.hp || 0) - (card.damage || 0));
+  const stats = card.type === 'creature' ? ` · ⚔ ${card.atk + card.bonusAtk} · ♥ ${remaining}` : card.type === 'structure' ? ` · 🛡 ${remaining}` : '';
+  const lane = Number.isInteger(card.lane) ? ` · ${card.lane + 1}. folyosó` : '';
+  return `${typeLabel} · ${elementName} · ${card.cost} rúna${stats}${lane}`;
+}
 
 function updateSoundButton() {
   els.soundBtn.textContent = isSoundEnabled() ? 'HANG: BE' : 'HANG: KI';
@@ -24,11 +38,13 @@ function cardEl(card, zone, owner) {
   const remaining = Math.max(0, (card.hp || 0) - (card.damage || 0));
   const typeLabel = card.type === 'creature' ? 'LÉNY' : card.type === 'structure' ? 'BÁSTYA' : 'IGE';
   const [elementName, elementIcon] = elementMeta[card.element || 'semleges'];
-  el.setAttribute('aria-label', `${card.name}, költsége ${card.cost} rúna, ${typeLabel.toLowerCase()}${card.type === 'creature' ? `, ${card.atk + card.bonusAtk} támadás, ${remaining} életerő` : card.type === 'structure' ? `, ${remaining} védelem` : ''}`);
+  el.setAttribute('aria-label', `${card.name}. ${cardMetaText(card)}. ${card.text}`);
   const stats = card.type === 'creature'
     ? `<div class="stats"><span class="atk">⚔ ${card.atk + card.bonusAtk}</span><span class="hp">♥ ${remaining}</span></div>`
     : card.type === 'structure' ? `<div class="stats structure-stats"><span class="guard">🛡 ${remaining}</span><span class="passive-word">PASSZÍV</span></div>` : '';
-  el.innerHTML = `<div class="card-top"><span class="cost">${card.cost}</span><span class="card-name">${card.name}</span><span class="card-kind">${typeLabel}</span></div><div class="art">${cardArtwork(card.id, card.uid)}<span class="element-badge" title="${elementName}">${elementIcon}</span>${card.burn ? '<span class="burn-badge" title="Parázs">🔥</span>' : ''}</div><div class="card-text">${card.text}</div>${stats}<i class="rarity-gem" aria-hidden="true"></i>`;
+  const keyword = cardKeyword(card);
+  el.title = card.text;
+  el.innerHTML = `<div class="card-top"><span class="cost">${card.cost}</span><span class="card-name">${card.name}</span><span class="card-kind">${typeLabel}</span></div><div class="art">${cardArtwork(card.id, card.uid)}<span class="element-badge" title="${elementName}">${elementIcon}</span>${card.burn ? '<span class="burn-badge" title="Parázs">🔥</span>' : ''}</div><div class="card-keywords"><span class="element-word">${elementName}</span><span>${keyword}</span></div>${stats}<i class="rarity-gem" aria-hidden="true"></i>`;
   el.onclick = () => { primeAudio(); selected = { ...card, zone, owner }; render(); };
   return el;
 }
@@ -59,11 +75,19 @@ function renderBoard(el, player, owner) {
   el.replaceChildren(...slots);
 }
 
-function renderShields(el, count) {
+function renderShields(el, guardians) {
   el.innerHTML = '';
-  for (let i = 0; i < 5; i++) { const shield = document.createElement('i'); shield.className = `shield ${i >= count ? 'broken' : ''}`; el.appendChild(shield); }
+  guardians.forEach((hp, lane) => {
+    const shield = document.createElement('i');
+    shield.className = `shield ${hp <= 0 ? 'broken' : hp <= 2 ? 'critical' : ''}`;
+    shield.dataset.lane = lane;
+    shield.setAttribute('aria-label', `${lane + 1}. Őrkő: ${hp}/5 életerő`);
+    shield.innerHTML = `<span>${hp}</span>`;
+    el.appendChild(shield);
+  });
 }
-function renderRunes(el, player) { el.textContent = `RÚNÁK: ${availableRunes(player)} / ${player.runes.length}`; }
+function renderCore(el, player) { el.textContent = `MAG ${player.coreHp}/10`; el.classList.toggle('open', player.coreOpen); }
+function renderRunes(el, player) { el.textContent = `RÚNÁK: ${availableRunes(player)} / ${player.runes.length}${player.runes.length >= 3 ? ' · VISSZHANG' : ''}`; }
 function button(label, cls, fn) { const b = document.createElement('button'); b.type = 'button'; b.className = `action-btn ${cls || ''}`; b.textContent = label; b.onclick = () => { primeAudio(); fn(); }; return b; }
 
 function showSpellReveal(event) {
@@ -78,10 +102,10 @@ function render() {
   const player = game.players[0], enemy = game.players[1];
   els.hand.replaceChildren(...player.hand.map(card => cardEl(card, 'hand', 0)));
   renderBoard(els.playerBoard, player, 0); renderBoard(els.enemyBoard, enemy, 1);
-  renderShields(els.playerShields, player.shields); renderShields(els.enemyShields, enemy.shields);
+  renderShields(els.playerShields, player.guardians); renderShields(els.enemyShields, enemy.guardians); renderCore(els.playerCore, player); renderCore(els.enemyCore, enemy);
   renderRunes(els.playerRunes, player); renderRunes(els.enemyRunes, enemy);
-  els.playerMeta.textContent = `Kéz: ${player.hand.length} lap · Pakli: ${player.deck.length} lap`;
-  els.enemyMeta.textContent = `Kéz: ${enemy.hand.length} lap · Pakli: ${enemy.deck.length} lap`;
+  els.playerMeta.textContent = `Kéz: ${player.hand.length} lap · Pakli: ${player.deck.length} lap${player.fatigue ? ` · Kimerülés: ${player.fatigue}` : ''}`;
+  els.enemyMeta.textContent = `Kéz: ${enemy.hand.length} lap · Pakli: ${enemy.deck.length} lap${enemy.fatigue ? ` · Kimerülés: ${enemy.fatigue}` : ''}`;
   els.turnPill.textContent = game.winner !== null ? `${game.players[game.winner].name} győzött` : `${game.turn}. kör · ${game.active === 0 ? 'TE KÖVETKEZEL' : 'AZ ELLENFÉL KÖVETKEZIK'}`;
   els.endTurnBtn.disabled = game.active !== 0 || game.winner !== null;
   els.log.innerHTML = game.log.slice(0, 5).map(entry => `<span>${entry}</span>`).join('');
@@ -96,13 +120,13 @@ function render() {
 
 function renderActions() {
   els.actions.innerHTML = '';
-  if (!selected) { els.selectedName.textContent = 'Nincs kiválasztott lap'; els.selectedText.textContent = 'Válassz egy kézlapot vagy egy támadásra kész lényt. A pálya öt támadási folyosóból áll.'; return; }
-  els.selectedName.textContent = selected.name; els.selectedText.textContent = selected.text;
+  if (!selected) { els.selectedName.textContent = 'Nincs kiválasztott lap'; els.selectedMeta.textContent = 'Kattints egy lapra a részletekhez'; els.selectedText.textContent = 'Válassz egy kézlapot vagy egy támadásra kész lényt. A pálya öt támadási folyosóból áll.'; return; }
+  els.selectedName.textContent = selected.name; els.selectedMeta.textContent = cardMetaText(selected); els.selectedText.textContent = selected.text;
   const player = game.players[0], enemy = game.players[1];
   if (game.active !== 0 || game.winner !== null) return;
   if (selected.zone === 'hand' && selected.owner === 0) {
     const live = player.hand.find(card => card.uid === selected.uid); if (!live) return;
-    if (!player.runePlayed) els.actions.append(button('RÚNÁVÁ ALAKÍTOM', '', () => { placeRune(game, 0, live.uid); selected = null; render(); }));
+    if (!player.runePlayed && player.runes.length < MAX_RUNES) els.actions.append(button('RÚNÁVÁ ALAKÍTOM', '', () => { placeRune(game, 0, live.uid); selected = null; render(); }));
     const cost = cardCost(player, live);
     if (availableRunes(player) >= cost) {
       if (isBoardCard(live)) {
@@ -115,11 +139,18 @@ function renderActions() {
     const live = player.board.find(card => card.uid === selected.uid); if (!live) return;
     if (live.type === 'structure' || live.passive) { els.selectedText.textContent = `${live.text} Ez a lap passzív, ezért nem indíthat támadást.`; return; }
     if (live.exhausted) return;
+    if (live.id === 'csodaszarvas' && !live.moved) {
+      for (const lane of [live.lane - 1, live.lane + 1].filter(lane => lane >= 0 && lane < 5 && !player.board.some(card => card.lane === lane))) {
+        els.actions.append(button(`VÁNDORLÁS → ${lane + 1}. HELY`, 'move-action', () => { if (moveCard(game, 0, live.uid, lane)) { selected = null; render(); } }));
+      }
+    }
     const opposite = enemy.board.find(card => card.lane === live.lane);
     if (opposite) {
       els.actions.append(button(`TÁMADÁS: ${opposite.name}`, '', () => { attack(game, 0, live.uid, opposite.uid); selected = null; render(); }));
-      if (live.bypassShield && enemy.shields > 0) els.actions.append(button('ŐRKŐ MEGKERÜLÉSE', 'warn', () => { attack(game, 0, live.uid); selected = null; render(); }));
-    } else els.actions.append(button(enemy.shields > 0 ? 'ŐRKŐ MEGTÁMADÁSA' : 'MAG MEGTÁMADÁSA', 'warn', () => { attack(game, 0, live.uid); selected = null; render(); }));
+      if (live.bypassShield && enemy.guardians[live.lane] > 0) els.actions.append(button(`ŐRKŐ MEGKERÜLÉSE · ${enemy.guardians[live.lane]}/5 ÉP`, 'warn', () => { attack(game, 0, live.uid); selected = null; render(); }));
+    } else if (enemy.guardians[live.lane] > 0) els.actions.append(button(`ŐRKŐ MEGTÁMADÁSA · ${enemy.guardians[live.lane]}/5 ÉP`, 'warn', () => { attack(game, 0, live.uid); selected = null; render(); }));
+    else if (enemy.coreOpen) els.actions.append(button(`MAG MEGTÁMADÁSA · ${enemy.coreHp}/10 ÉP`, 'warn', () => { attack(game, 0, live.uid); selected = null; render(); }));
+    else els.selectedText.textContent = `${live.text} Ezen a folyosón az Őrkő már elpusztult. A Mag csak akkor támadható, ha mind az öt Őrkő megsemmisült.`;
   }
 }
 

@@ -1,288 +1,474 @@
 {
+  "deckSize": 30,
   "mirror": {
-    "games": 200000,
-    "completed": 200000,
+    "games": 25000,
+    "completed": 25000,
     "timeouts": 0,
     "wins": [
-      100198,
-      99802
+      12669,
+      12331
     ],
-    "firstPlayerWinRate": 0.50099,
-    "averageTurn": 16.51034,
+    "firstPlayerWinRate": 0.50676,
+    "averageTurn": 42.4008,
+    "winCauses": {
+      "core": 11027,
+      "fatigue": 13973,
+      "other": 0
+    },
     "byStyle": {
       "aggro": {
-        "games": 66666,
+        "games": 8333,
         "wins": [
-          38091,
-          28575
+          4336,
+          3997
         ],
-        "turns": 863665,
-        "firstPlayerWinRate": 0.5713707137071371,
-        "averageTurn": 12.95510455104551
+        "turns": 320360,
+        "firstPlayerWinRate": 0.5203408136325453,
+        "averageTurn": 38.44473778951158
       },
       "value": {
-        "games": 66667,
+        "games": 8334,
         "wins": [
-          31807,
-          34860
+          4220,
+          4114
         ],
-        "turns": 1189135,
-        "firstPlayerWinRate": 0.4771026144869276,
-        "averageTurn": 17.836935815320924
+        "turns": 365762,
+        "firstPlayerWinRate": 0.5063594912407008,
+        "averageTurn": 43.88792896568275
       },
       "control": {
-        "games": 66667,
+        "games": 8333,
         "wins": [
-          30300,
-          36367
+          4113,
+          4220
         ],
-        "turns": 1249268,
-        "firstPlayerWinRate": 0.45449772751136247,
-        "averageTurn": 18.738926305368473
+        "turns": 373898,
+        "firstPlayerWinRate": 0.4935797431897276,
+        "averageTurn": 44.86955478219129
       }
+    },
+    "handEconomy": {
+      "turn6": {
+        "samples": 50000,
+        "total": 233767,
+        "low": 390,
+        "average": 4.67534,
+        "lowRate": 0.0078
+      },
+      "turn8": {
+        "samples": 50000,
+        "total": 205492,
+        "low": 2709,
+        "average": 4.10984,
+        "lowRate": 0.05418
+      },
+      "echoes": 231505,
+      "echoesPerGame": 9.2602
     },
     "cards": {
       "turul": {
-        "plays": 262639,
-        "playersPlaying": 218661,
-        "winsWhenPlayed": 127089,
-        "runes": 297323,
-        "winRateWhenPlayed": 0.5812147570897417,
-        "playShare": 0.07543031400314083
+        "plays": 62541,
+        "playersPlaying": 43513,
+        "winsWhenPlayed": 22082,
+        "runes": 37193,
+        "winRateWhenPlayed": 0.5074805230620734,
+        "playShare": 0.055354100377488745
       },
       "liderc": {
-        "plays": 470304,
-        "playersPlaying": 324398,
-        "winsWhenPlayed": 162826,
-        "runes": 396933,
-        "winRateWhenPlayed": 0.5019328109297838,
-        "playShare": 0.13507201290338886
+        "plays": 61615,
+        "playersPlaying": 43048,
+        "winsWhenPlayed": 21402,
+        "runes": 40195,
+        "winRateWhenPlayed": 0.4971659542835904,
+        "playShare": 0.05453451167648373
       },
       "betyar": {
-        "plays": 373727,
-        "playersPlaying": 282509,
-        "winsWhenPlayed": 151587,
-        "runes": 161746,
-        "winRateWhenPlayed": 0.536574056047772,
-        "playShare": 0.10733495391564778
+        "plays": 78209,
+        "playersPlaying": 47832,
+        "winsWhenPlayed": 24126,
+        "runes": 20740,
+        "winRateWhenPlayed": 0.504390366281987,
+        "playShare": 0.06922161200529281
       },
       "sarkany": {
-        "plays": 246823,
-        "playersPlaying": 246823,
-        "winsWhenPlayed": 136392,
-        "runes": 0,
-        "winRateWhenPlayed": 0.5525903177580695,
-        "playShare": 0.07088793512462822
+        "plays": 49436,
+        "playersPlaying": 49436,
+        "winsWhenPlayed": 24798,
+        "runes": 37,
+        "winRateWhenPlayed": 0.5016182539040376,
+        "playShare": 0.0437550615797882
       },
       "taltos": {
-        "plays": 440874,
-        "playersPlaying": 312660,
-        "winsWhenPlayed": 164422,
-        "runes": 73533,
-        "winRateWhenPlayed": 0.5258811488517879,
-        "playShare": 0.1266196728430306
+        "plays": 49088,
+        "playersPlaying": 49088,
+        "winsWhenPlayed": 24786,
+        "runes": 188,
+        "winRateWhenPlayed": 0.5049299217731421,
+        "playShare": 0.043447052003168604
       },
       "vasorr": {
-        "plays": 279008,
-        "playersPlaying": 279008,
-        "winsWhenPlayed": 147291,
-        "runes": 797,
-        "winRateWhenPlayed": 0.5279095939901365,
-        "playShare": 0.080131515309563
+        "plays": 47200,
+        "playersPlaying": 47200,
+        "winsWhenPlayed": 23817,
+        "runes": 2350,
+        "winRateWhenPlayed": 0.5045974576271186,
+        "playShare": 0.04177601154150827
       },
       "bastya": {
-        "plays": 407772,
-        "playersPlaying": 296709,
-        "winsWhenPlayed": 147333,
-        "runes": 138863,
-        "winRateWhenPlayed": 0.496557232844302,
-        "playShare": 0.11711272888523314
+        "plays": 35571,
+        "playersPlaying": 35571,
+        "winsWhenPlayed": 17629,
+        "runes": 14382,
+        "winRateWhenPlayed": 0.4956003485985775,
+        "playShare": 0.031483358189470144
       },
       "szellovas": {
-        "plays": 510666,
-        "playersPlaying": 348676,
-        "winsWhenPlayed": 178368,
-        "runes": 44315,
-        "winRateWhenPlayed": 0.5115580080074338,
-        "playShare": 0.1466640397303063
+        "plays": 94178,
+        "playersPlaying": 49793,
+        "winsWhenPlayed": 24898,
+        "runes": 4708,
+        "winRateWhenPlayed": 0.5000301247163256,
+        "playShare": 0.08335553421517301
       },
       "zivatar": {
-        "plays": 121907,
-        "playersPlaying": 121907,
-        "winsWhenPlayed": 64586,
-        "runes": 148475,
-        "winRateWhenPlayed": 0.5297973045026126,
-        "playShare": 0.035011872909891106
+        "plays": 62253,
+        "playersPlaying": 43412,
+        "winsWhenPlayed": 22144,
+        "runes": 41223,
+        "winRateWhenPlayed": 0.510089376209343,
+        "playShare": 0.05509919590028633
       },
       "parazs": {
-        "plays": 88559,
-        "playersPlaying": 88559,
-        "winsWhenPlayed": 47444,
-        "runes": 193831,
-        "winRateWhenPlayed": 0.5357332399869014,
-        "playShare": 0.025434277383801145
+        "plays": 26800,
+        "playersPlaying": 26800,
+        "winsWhenPlayed": 13939,
+        "runes": 26413,
+        "winRateWhenPlayed": 0.5201119402985075,
+        "playShare": 0.02372027773966995
       },
       "forras": {
-        "plays": 91152,
-        "playersPlaying": 91152,
-        "winsWhenPlayed": 46189,
-        "runes": 192866,
-        "winRateWhenPlayed": 0.5067250307179217,
-        "playShare": 0.026178990865843587
+        "plays": 26448,
+        "playersPlaying": 26448,
+        "winsWhenPlayed": 11338,
+        "runes": 23558,
+        "winRateWhenPlayed": 0.42869026013309136,
+        "playShare": 0.023408727823089212
       },
       "vereshold": {
-        "plays": 77963,
-        "playersPlaying": 77963,
-        "winsWhenPlayed": 36981,
-        "runes": 210074,
-        "winRateWhenPlayed": 0.47434039223734337,
-        "playShare": 0.02239109032027562
+        "plays": 29901,
+        "playersPlaying": 29901,
+        "winsWhenPlayed": 14445,
+        "runes": 24286,
+        "winRateWhenPlayed": 0.48309421089595667,
+        "playShare": 0.026464926294547435
       },
       "rovaskor": {
-        "plays": 110482,
-        "playersPlaying": 110482,
-        "winsWhenPlayed": 52740,
-        "runes": 179670,
-        "winRateWhenPlayed": 0.47736282833402727,
-        "playShare": 0.03173059580524981
+        "plays": 13443,
+        "playersPlaying": 13443,
+        "winsWhenPlayed": 6412,
+        "runes": 27004,
+        "winRateWhenPlayed": 0.47697686528304695,
+        "playShare": 0.011898197524417281
+      },
+      "deak": {
+        "plays": 42836,
+        "playersPlaying": 42836,
+        "winsWhenPlayed": 22030,
+        "runes": 6514,
+        "winRateWhenPlayed": 0.5142870482771501,
+        "playShare": 0.03791350064389933
+      },
+      "javas": {
+        "plays": 48210,
+        "playersPlaying": 48210,
+        "winsWhenPlayed": 24408,
+        "runes": 1032,
+        "winRateWhenPlayed": 0.5062850031113877,
+        "playShare": 0.042669947381697326
+      },
+      "kobzos": {
+        "plays": 42142,
+        "playersPlaying": 42142,
+        "winsWhenPlayed": 21561,
+        "runes": 7153,
+        "winRateWhenPlayed": 0.5116273551326468,
+        "playShare": 0.037299251660640714
+      },
+      "rovasvalto": {
+        "plays": 30083,
+        "playersPlaying": 30083,
+        "winsWhenPlayed": 15254,
+        "runes": 19248,
+        "winRateWhenPlayed": 0.5070637901805006,
+        "playShare": 0.02662601176277952
+      },
+      "csodaszarvas": {
+        "plays": 49329,
+        "playersPlaying": 49329,
+        "winsWhenPlayed": 24778,
+        "runes": 163,
+        "winRateWhenPlayed": 0.502300877779805,
+        "playShare": 0.043660357485827576
+      },
+      "ostromlo": {
+        "plays": 97438,
+        "playersPlaying": 49952,
+        "winsWhenPlayed": 24989,
+        "runes": 1571,
+        "winRateWhenPlayed": 0.5002602498398463,
+        "playShare": 0.086240911283506
+      },
+      "orkokovac": {
+        "plays": 41090,
+        "playersPlaying": 41090,
+        "winsWhenPlayed": 20912,
+        "runes": 8438,
+        "winRateWhenPlayed": 0.5089316135312728,
+        "playShare": 0.03636814225085964
+      },
+      "betoro": {
+        "plays": 92846,
+        "playersPlaying": 49760,
+        "winsWhenPlayed": 24929,
+        "runes": 6155,
+        "winRateWhenPlayed": 0.5009847266881029,
+        "playShare": 0.0821766010081118
+      },
+      "korepesztes": {
+        "plays": 49178,
+        "playersPlaying": 37633,
+        "winsWhenPlayed": 18513,
+        "runes": 52559,
+        "winRateWhenPlayed": 0.49193526957723277,
+        "playShare": 0.04352670965229436
       }
     }
   },
   "diverse": {
-    "games": 100000,
-    "completed": 100000,
+    "games": 25000,
+    "completed": 25000,
     "timeouts": 0,
-    "averageTurn": 16.65983,
+    "averageTurn": 41.75552,
     "cards": {
       "turul": {
-        "playerDecks": 165431,
-        "wins": 84407,
-        "totalCopies": 309195,
-        "winnerCopies": 160470,
-        "loserCopies": 148725,
-        "winRateWhenPresent": 0.5102248067169999,
-        "copyDeltaPerGame": 0.11745,
-        "averageCopiesWhenPresent": 1.8690269659253707
+        "playerDecks": 38906,
+        "wins": 19718,
+        "totalCopies": 69236,
+        "winnerCopies": 35396,
+        "loserCopies": 33840,
+        "winRateWhenPresent": 0.5068112887472369,
+        "copyDeltaPerGame": 0.06224,
+        "averageCopiesWhenPresent": 1.77957127435357
       },
       "liderc": {
-        "playerDecks": 165375,
-        "wins": 81952,
-        "totalCopies": 308859,
-        "winnerCopies": 151571,
-        "loserCopies": 157288,
-        "winRateWhenPresent": 0.4955525321239607,
-        "copyDeltaPerGame": -0.05717,
-        "averageCopiesWhenPresent": 1.867628117913832
+        "playerDecks": 39072,
+        "wins": 19187,
+        "totalCopies": 69703,
+        "winnerCopies": 33995,
+        "loserCopies": 35708,
+        "winRateWhenPresent": 0.4910677723177723,
+        "copyDeltaPerGame": -0.06852,
+        "averageCopiesWhenPresent": 1.7839629402129402
       },
       "betyar": {
-        "playerDecks": 165520,
-        "wins": 83732,
-        "totalCopies": 310223,
-        "winnerCopies": 158425,
-        "loserCopies": 151798,
-        "winRateWhenPresent": 0.5058724021266312,
-        "copyDeltaPerGame": 0.06627,
-        "averageCopiesWhenPresent": 1.8742327211213146
+        "playerDecks": 39024,
+        "wins": 19769,
+        "totalCopies": 69642,
+        "winnerCopies": 35726,
+        "loserCopies": 33916,
+        "winRateWhenPresent": 0.5065856908569085,
+        "copyDeltaPerGame": 0.0724,
+        "averageCopiesWhenPresent": 1.7845940959409594
       },
       "sarkany": {
-        "playerDecks": 165548,
-        "wins": 84365,
-        "totalCopies": 309959,
-        "winnerCopies": 160460,
-        "loserCopies": 149499,
-        "winRateWhenPresent": 0.5096105057143547,
-        "copyDeltaPerGame": 0.10961,
-        "averageCopiesWhenPresent": 1.8723210186773624
+        "playerDecks": 39066,
+        "wins": 19681,
+        "totalCopies": 69455,
+        "winnerCopies": 35214,
+        "loserCopies": 34241,
+        "winRateWhenPresent": 0.5037884605539343,
+        "copyDeltaPerGame": 0.03892,
+        "averageCopiesWhenPresent": 1.777888701172375
       },
       "taltos": {
-        "playerDecks": 165565,
-        "wins": 83038,
-        "totalCopies": 309693,
-        "winnerCopies": 153888,
-        "loserCopies": 155805,
-        "winRateWhenPresent": 0.501543200555673,
-        "copyDeltaPerGame": -0.01917,
-        "averageCopiesWhenPresent": 1.870522151420892
+        "playerDecks": 37766,
+        "wins": 18998,
+        "totalCopies": 65265,
+        "winnerCopies": 32938,
+        "loserCopies": 32327,
+        "winRateWhenPresent": 0.5030450669914738,
+        "copyDeltaPerGame": 0.02444,
+        "averageCopiesWhenPresent": 1.7281417147698988
       },
       "vasorr": {
-        "playerDecks": 165413,
-        "wins": 84462,
-        "totalCopies": 310650,
-        "winnerCopies": 161720,
-        "loserCopies": 148930,
-        "winRateWhenPresent": 0.5106128297050413,
-        "copyDeltaPerGame": 0.1279,
-        "averageCopiesWhenPresent": 1.8780265154492088
+        "playerDecks": 39015,
+        "wins": 19890,
+        "totalCopies": 69468,
+        "winnerCopies": 35946,
+        "loserCopies": 33522,
+        "winRateWhenPresent": 0.5098039215686274,
+        "copyDeltaPerGame": 0.09696,
+        "averageCopiesWhenPresent": 1.7805459438677431
       },
       "bastya": {
-        "playerDecks": 165373,
-        "wins": 81415,
-        "totalCopies": 309651,
-        "winnerCopies": 149436,
-        "loserCopies": 160215,
-        "winRateWhenPresent": 0.4923113204694841,
-        "copyDeltaPerGame": -0.10779,
-        "averageCopiesWhenPresent": 1.8724398783356413
+        "playerDecks": 37694,
+        "wins": 18425,
+        "totalCopies": 64881,
+        "winnerCopies": 31048,
+        "loserCopies": 33833,
+        "winRateWhenPresent": 0.48880458428397094,
+        "copyDeltaPerGame": -0.1114,
+        "averageCopiesWhenPresent": 1.7212553722077784
       },
       "szellovas": {
-        "playerDecks": 165629,
-        "wins": 83209,
-        "totalCopies": 309590,
-        "winnerCopies": 155137,
-        "loserCopies": 154453,
-        "winRateWhenPresent": 0.502381829269029,
-        "copyDeltaPerGame": 0.00684,
-        "averageCopiesWhenPresent": 1.8691774991094554
+        "playerDecks": 39035,
+        "wins": 19394,
+        "totalCopies": 69577,
+        "winnerCopies": 34350,
+        "loserCopies": 35227,
+        "winRateWhenPresent": 0.4968361726655566,
+        "copyDeltaPerGame": -0.03508,
+        "averageCopiesWhenPresent": 1.7824260279236583
       },
       "zivatar": {
-        "playerDecks": 165006,
-        "wins": 82279,
-        "totalCopies": 304819,
-        "winnerCopies": 151561,
-        "loserCopies": 153258,
-        "winRateWhenPresent": 0.49864247360702035,
-        "copyDeltaPerGame": -0.01697,
-        "averageCopiesWhenPresent": 1.84732070348957
+        "playerDecks": 39393,
+        "wins": 19991,
+        "totalCopies": 70135,
+        "winnerCopies": 35968,
+        "loserCopies": 34167,
+        "winRateWhenPresent": 0.5074759475033636,
+        "copyDeltaPerGame": 0.07204,
+        "averageCopiesWhenPresent": 1.7803924555124007
       },
       "parazs": {
-        "playerDecks": 164854,
-        "wins": 82736,
-        "totalCopies": 304076,
-        "winnerCopies": 152994,
-        "loserCopies": 151082,
-        "winRateWhenPresent": 0.5018743858201803,
-        "copyDeltaPerGame": 0.01912,
-        "averageCopiesWhenPresent": 1.8445169665279582
+        "playerDecks": 39503,
+        "wins": 19784,
+        "totalCopies": 70300,
+        "winnerCopies": 35461,
+        "loserCopies": 34839,
+        "winRateWhenPresent": 0.5008227223248867,
+        "copyDeltaPerGame": 0.02488,
+        "averageCopiesWhenPresent": 1.7796116750626534
       },
       "forras": {
-        "playerDecks": 164877,
-        "wins": 81873,
-        "totalCopies": 304353,
-        "winnerCopies": 149724,
-        "loserCopies": 154629,
-        "winRateWhenPresent": 0.49657017049072943,
-        "copyDeltaPerGame": -0.04905,
-        "averageCopiesWhenPresent": 1.8459397005040121
+        "playerDecks": 38029,
+        "wins": 17836,
+        "totalCopies": 65161,
+        "winnerCopies": 28708,
+        "loserCopies": 36453,
+        "winRateWhenPresent": 0.46901049199295275,
+        "copyDeltaPerGame": -0.3098,
+        "averageCopiesWhenPresent": 1.7134555207867679
       },
       "vereshold": {
-        "playerDecks": 164942,
-        "wins": 81341,
-        "totalCopies": 304466,
-        "winnerCopies": 147512,
-        "loserCopies": 156954,
-        "winRateWhenPresent": 0.49314910695880976,
-        "copyDeltaPerGame": -0.09442,
-        "averageCopiesWhenPresent": 1.8458973457336518
+        "playerDecks": 39463,
+        "wins": 19065,
+        "totalCopies": 70220,
+        "winnerCopies": 32688,
+        "loserCopies": 37532,
+        "winRateWhenPresent": 0.4831107619795758,
+        "copyDeltaPerGame": -0.19376,
+        "averageCopiesWhenPresent": 1.7793882877632212
       },
       "rovaskor": {
-        "playerDecks": 164901,
-        "wins": 81118,
-        "totalCopies": 304466,
-        "winnerCopies": 147102,
-        "loserCopies": 157364,
-        "winRateWhenPresent": 0.4919193940606788,
-        "copyDeltaPerGame": -0.10262,
-        "averageCopiesWhenPresent": 1.8463562986276614
+        "playerDecks": 39388,
+        "wins": 19140,
+        "totalCopies": 70162,
+        "winnerCopies": 33130,
+        "loserCopies": 37032,
+        "winRateWhenPresent": 0.48593480247791204,
+        "copyDeltaPerGame": -0.15608,
+        "averageCopiesWhenPresent": 1.781303950441759
+      },
+      "deak": {
+        "playerDecks": 37783,
+        "wins": 19061,
+        "totalCopies": 64995,
+        "winnerCopies": 32945,
+        "loserCopies": 32050,
+        "winRateWhenPresent": 0.5044861445623693,
+        "copyDeltaPerGame": 0.0358,
+        "averageCopiesWhenPresent": 1.720218087499669
+      },
+      "javas": {
+        "playerDecks": 37677,
+        "wins": 19425,
+        "totalCopies": 64710,
+        "winnerCopies": 34262,
+        "loserCopies": 30448,
+        "winRateWhenPresent": 0.5155665259972928,
+        "copyDeltaPerGame": 0.15256,
+        "averageCopiesWhenPresent": 1.7174934310056533
+      },
+      "kobzos": {
+        "playerDecks": 37758,
+        "wins": 19107,
+        "totalCopies": 65105,
+        "winnerCopies": 33229,
+        "loserCopies": 31876,
+        "winRateWhenPresent": 0.5060384554266646,
+        "copyDeltaPerGame": 0.05412,
+        "averageCopiesWhenPresent": 1.7242703533026114
+      },
+      "rovasvalto": {
+        "playerDecks": 37695,
+        "wins": 18757,
+        "totalCopies": 64671,
+        "winnerCopies": 31868,
+        "loserCopies": 32803,
+        "winRateWhenPresent": 0.49759915108104524,
+        "copyDeltaPerGame": -0.0374,
+        "averageCopiesWhenPresent": 1.7156386788698765
+      },
+      "csodaszarvas": {
+        "playerDecks": 39095,
+        "wins": 19893,
+        "totalCopies": 69497,
+        "winnerCopies": 35815,
+        "loserCopies": 33682,
+        "winRateWhenPresent": 0.5088374472438931,
+        "copyDeltaPerGame": 0.08532,
+        "averageCopiesWhenPresent": 1.7776442000255788
+      },
+      "ostromlo": {
+        "playerDecks": 38904,
+        "wins": 19947,
+        "totalCopies": 69120,
+        "winnerCopies": 36187,
+        "loserCopies": 32933,
+        "winRateWhenPresent": 0.5127236273904997,
+        "copyDeltaPerGame": 0.13016,
+        "averageCopiesWhenPresent": 1.7766810610734114
+      },
+      "orkokovac": {
+        "playerDecks": 38982,
+        "wins": 19543,
+        "totalCopies": 69061,
+        "winnerCopies": 34885,
+        "loserCopies": 34176,
+        "winRateWhenPresent": 0.5013339490021035,
+        "copyDeltaPerGame": 0.02836,
+        "averageCopiesWhenPresent": 1.7716125391206197
+      },
+      "betoro": {
+        "playerDecks": 39110,
+        "wins": 20031,
+        "totalCopies": 69662,
+        "winnerCopies": 36205,
+        "loserCopies": 33457,
+        "winRateWhenPresent": 0.5121708003068269,
+        "copyDeltaPerGame": 0.10992,
+        "averageCopiesWhenPresent": 1.781181283559192
+      },
+      "korepesztes": {
+        "playerDecks": 39451,
+        "wins": 19459,
+        "totalCopies": 69974,
+        "winnerCopies": 34036,
+        "loserCopies": 35938,
+        "winRateWhenPresent": 0.4932447846695901,
+        "copyDeltaPerGame": -0.07608,
+        "averageCopiesWhenPresent": 1.7736939494562876
       }
     }
   }

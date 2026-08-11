@@ -62,6 +62,9 @@ export function playSound(kind) {
   if (kind === 'rune') {
     tone({freq:720,endFreq:980,duration:.12,type:'sine',gain:.035});
     tone({freq:1080,endFreq:1320,duration:.11,type:'triangle',gain:.018,delay:.045});
+  } else if (kind === 'move') {
+    tone({freq:260,endFreq:520,duration:.16,type:'sine',gain:.03});
+    tone({freq:520,endFreq:780,duration:.12,type:'triangle',gain:.018,delay:.05});
   } else if (kind === 'summon') {
     tone({freq:135,endFreq:260,duration:.22,type:'triangle',gain:.045});
     tone({freq:390,endFreq:610,duration:.16,type:'sine',gain:.025,delay:.08});
@@ -100,12 +103,19 @@ export function playGameEvent(event, viewerSeat=0) {
   const targetCard=event.targetUid ? document.querySelector(`[data-uid="${event.targetUid}"]`) : null;
   if (event.type === 'rune') {
     playSound('rune'); pulse(actorIsViewer?document.getElementById('playerRunes'):document.getElementById('enemyRunes'),'fx-rune',500);
+  } else if (event.type === 'move') {
+    playSound('move');
+    const moved=event.cardUid ? document.querySelector(`[data-uid="${event.cardUid}"]`) : null;
+    pulse(moved,'fx-move',520);
   } else if (event.type === 'summon') {
     playSound('summon');
     const summoned=event.cardUid ? document.querySelector(`[data-uid="${event.cardUid}"]`) : null;
     pulse(summoned,'fx-summon',650);
   } else if (event.type === 'spell') {
     playSound('spell'); pulse(arena,'fx-spell',620);
+  } else if (event.type === 'fatigue') {
+    playSound('core');
+    pulse(actorIsViewer?document.getElementById('playerCore'):document.getElementById('enemyCore'),'fx-core',620);
   } else if (event.type === 'attack') {
     playSound(event.targetKind==='shield'?'shield':event.targetKind==='core'?'core':'attack');
     pulse(actorCard,'fx-attack',520); pulse(targetCard,'fx-hit',520);

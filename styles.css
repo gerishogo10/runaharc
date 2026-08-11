@@ -186,3 +186,156 @@
   .enemy-board .card:hover,.enemy-board .card.selected{transform:translateY(-8px)}
 }
 @media(prefers-reduced-motion:reduce){.lane-slot.summon-target{animation:none}.spell-reveal,.spell-reveal-card{animation:none}}
+
+
+/* Wendy v6 — olvasható, középre rendezett digitális kártyák */
+.card-text{display:none!important}
+.card-keywords{position:relative;z-index:2;display:flex;align-items:center;gap:4px;min-height:22px;padding:2px 2px 1px;overflow:hidden}
+.card-keywords span{display:inline-flex;align-items:center;min-width:0;padding:3px 5px;border-radius:999px;border:1px solid rgba(255,255,255,.13);background:rgba(5,9,13,.72);color:#e8edf2;font-size:7.5px;font-weight:900;line-height:1;letter-spacing:.055em;white-space:nowrap}
+.card-keywords .element-word{color:#bdf6ed;border-color:rgba(117,227,212,.28)}
+.card.element-tuz .element-word{color:#ffc0a8;border-color:rgba(255,119,74,.35)}
+.card.element-vihar .element-word{color:#c6f4ff;border-color:rgba(119,226,255,.35)}
+.card.element-fold .element-word{color:#dce9bd;border-color:rgba(174,195,128,.32)}
+.card.element-viz .element-word{color:#c7e4ff;border-color:rgba(103,183,255,.35)}
+.card.element-szellem .element-word{color:#e1ccff;border-color:rgba(199,161,255,.34)}
+.selected-meta{display:block;margin:1px 0 4px;color:#82dacc;font-size:10px;font-weight:800;letter-spacing:.035em}
+.action-copy small{font-size:12px;line-height:1.45;color:#c0c8d1}
+
+/* A folyosó egy taktikai útvonal, nem egy óriási kártyadoboz. */
+.board-row{width:min(1080px,calc(100% - 28px));margin-inline:auto;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;padding-inline:0}
+.lane-slot{border:0;background:radial-gradient(ellipse at center,rgba(117,227,212,.028),transparent 64%);min-height:174px}
+.lane-slot:before{content:"";position:absolute;z-index:0;left:50%;top:5px;bottom:5px;width:min(158px,82%);transform:translateX(-50%);border:1px dashed rgba(255,255,255,.10);border-radius:15px;background:linear-gradient(180deg,rgba(255,255,255,.018),rgba(255,255,255,.004));box-shadow:inset 0 0 28px rgba(0,0,0,.16);pointer-events:none}
+.lane-slot:after{left:50%;top:12px;bottom:12px;background:linear-gradient(transparent,rgba(117,227,212,.16),transparent)}
+.lane-number{left:50%;top:8px;transform:translateX(-72px);width:19px;height:19px;font-size:7.5px;background:#080d13}
+.lane-empty{writing-mode:horizontal-tb;transform:none;font-size:7px;letter-spacing:.14em;color:#667382;background:rgba(7,11,16,.8);padding:4px 7px;border-radius:999px;border:1px solid rgba(255,255,255,.06)}
+.lane-slot.summon-target{border:0;background:radial-gradient(circle at 50% 50%,rgba(117,227,212,.10),transparent 66%);box-shadow:none}
+.lane-slot.summon-target:before{border-color:rgba(117,227,212,.62);background:radial-gradient(circle at 50% 50%,rgba(117,227,212,.10),rgba(117,227,212,.018) 70%);box-shadow:inset 0 0 30px rgba(117,227,212,.05),0 0 24px rgba(117,227,212,.07);animation:lane-pulse 1.45s ease-in-out infinite}
+.lane-slot.summon-target .lane-empty{color:#c5fff6;border-color:rgba(117,227,212,.28)}
+
+@media (min-width:900px) and (min-height:760px){
+  body.game-active .shell{grid-template-rows:52px minmax(0,1fr) 94px clamp(210px,25vh,230px);gap:8px;padding:8px 16px 10px}
+  body.game-active .topbar{min-height:52px}
+  body.game-active .arena{grid-template-rows:44px minmax(0,1fr) 20px minmax(0,1fr) 44px}
+  body.game-active .board-row{width:min(1080px,calc(100% - 28px));gap:12px;padding:2px 0;overflow:visible}
+  body.game-active .lane-slot{height:100%;min-height:0;border-radius:14px}
+  body.game-active .lane-slot:before{width:min(158px,82%);top:3px;bottom:3px}
+  body.game-active .lane-number{top:6px;left:50%;transform:translateX(-72px);width:18px;height:18px;font-size:7px}
+  body.game-active .lane-empty{font-size:6.6px}
+  body.game-active .board-row .card{height:clamp(158px,19.5vh,188px);width:auto;max-width:148px;aspect-ratio:.76;padding:6px;border-radius:14px}
+  body.game-active .board-row .card-top{min-height:25px;gap:5px}
+  body.game-active .board-row .cost{width:22px;height:22px;flex-basis:22px;font-size:10px}
+  body.game-active .board-row .card-name{font-size:10px;line-height:1.03;max-width:76px}
+  body.game-active .board-row .card-kind{font-size:5.5px;padding:2px 4px}
+  body.game-active .board-row .art{flex:1 1 auto;min-height:0;margin:3px 0 4px;border-radius:9px}
+  body.game-active .board-row .card-keywords{min-height:19px;gap:3px;padding:1px}
+  body.game-active .board-row .card-keywords span{padding:3px 4px;font-size:6.4px}
+  body.game-active .board-row .stats{font-size:10.5px;gap:4px;padding:0 1px 1px}
+  body.game-active .board-row .stats span{min-width:34px;padding:3px 5px}
+  body.game-active .element-badge,body.game-active .burn-badge{width:18px;height:18px;font-size:8px}
+  body.game-active .action-panel{padding:9px 13px;gap:14px;overflow:visible}
+  body.game-active .action-copy{min-width:0;flex:1}
+  body.game-active .action-copy .eyebrow{font-size:7px}
+  body.game-active .action-copy b{font-size:12px;margin:1px 0}
+  body.game-active .selected-meta{font-size:9px;margin:1px 0 3px}
+  body.game-active .action-copy small{display:block;font-size:10.5px;line-height:1.3;max-width:820px;max-height:2.7em;overflow:hidden;color:#c5cdd6}
+  body.game-active .actions{max-height:62px}
+  body.game-active .action-btn{padding:8px 10px;font-size:9px}
+  body.game-active .hand-panel{padding:7px 10px 8px;overflow:hidden}
+  body.game-active .hand{gap:10px;padding:2px 3px 4px;align-items:flex-start}
+  body.game-active .hand .card{height:clamp(174px,20.5vh,198px);width:auto;max-width:158px;aspect-ratio:.76;padding:6px;border-radius:14px}
+  body.game-active .hand .card-top{min-height:26px;gap:5px}
+  body.game-active .hand .cost{width:23px;height:23px;flex-basis:23px;font-size:10px}
+  body.game-active .hand .card-name{font-size:10.5px;line-height:1.03;max-width:84px}
+  body.game-active .hand .card-kind{display:inline-flex;font-size:5.5px;padding:2px 4px}
+  body.game-active .hand .art{flex:1 1 auto;min-height:0;margin:3px 0 4px;border-radius:9px}
+  body.game-active .hand .card-keywords{min-height:21px;gap:4px;padding:1px}
+  body.game-active .hand .card-keywords span{padding:3px 5px;font-size:6.8px}
+  body.game-active .hand .stats{font-size:11px;gap:4px;padding:0 1px 1px}
+  body.game-active .hand .stats span{min-width:36px;padding:3px 5px}
+}
+
+@media (min-width:900px) and (min-height:900px){
+  body.game-active .shell{grid-template-rows:54px minmax(0,1fr) 96px 232px;gap:8px}
+  body.game-active .arena{grid-template-rows:46px minmax(0,1fr) 22px minmax(0,1fr) 46px}
+  body.game-active .board-row .card{height:clamp(174px,20.5vh,196px)}
+  body.game-active .hand .card{height:200px}
+}
+
+@media(max-width:899px){
+  .board-row{width:100%;grid-template-columns:repeat(5,150px);justify-content:start;gap:8px;padding:8px 10px;overflow-x:auto}
+  .lane-slot{min-height:202px}
+  .lane-slot:before{width:138px}
+  .lane-number{transform:translateX(-63px)}
+  .card{width:146px;height:208px}
+  .hand .card{width:154px;height:218px}
+  .card-name{font-size:10.5px;max-width:82px}
+  .card-keywords span{font-size:7px}
+  .action-copy small{font-size:11px}
+}
+
+@media(max-width:520px){
+  .board-row{grid-template-columns:repeat(5,142px)}
+  .lane-slot{min-height:194px}
+  .lane-slot:before{width:132px}
+  .lane-number{transform:translateX(-60px)}
+  .hand .card{width:150px;height:214px}
+  .action-panel{padding:12px}
+  .selected-meta{font-size:9px}
+}
+
+/* v6 accessibility polish */
+.card:focus-visible,.lane-slot.summon-target:focus-visible{outline:2px solid #bdf6ed;outline-offset:3px}
+@media (min-width:900px) and (min-height:760px){body.game-active .action-copy small{font-size:11.5px;line-height:1.32}}
+/* v6.1 finomhangolás: nagyobb tipográfia és teljes leírás a részletpanelen */
+@media (min-width:900px) and (min-height:760px){
+  body.game-active .board-row .card-name{font-size:10.8px;max-width:82px}
+  body.game-active .board-row .card-keywords span{font-size:7.2px}
+  body.game-active .board-row .stats{font-size:11px}
+  body.game-active .hand .card-name{font-size:11.6px;max-width:91px}
+  body.game-active .hand .card-keywords span{font-size:7.8px}
+  body.game-active .hand .stats{font-size:12px}
+  body.game-active .action-copy small{max-height:4em}
+}
+/* Alacsony, de széles laptopkijelzőn megőrizzük az egyképernyős módot. */
+@media (min-width:900px) and (min-height:760px) and (max-height:829px){
+  body.game-active .shell{grid-template-rows:48px minmax(0,1fr) 78px 182px;gap:7px;padding-block:7px 9px}
+  body.game-active .arena{grid-template-rows:42px minmax(0,1fr) 18px minmax(0,1fr) 42px}
+  body.game-active .board-row .card{height:clamp(128px,17.5vh,140px)}
+  body.game-active .hand .card{height:150px}
+  body.game-active .action-panel{padding:7px 11px}
+  body.game-active .action-copy small{font-size:9.8px;max-height:2.65em}
+  body.game-active .selected-meta{font-size:8.5px}
+}
+
+/* v7 — sérülő Őrkövek és 10 ÉP-s Mag */
+.fortress-status{display:flex;align-items:center;justify-content:flex-end;gap:9px;min-width:0}
+.shield{display:grid;place-items:center;position:relative;color:#2b1b07;font:900 9px/1 ui-monospace,monospace}
+.shield span{display:block;transform:skewY(8deg);text-shadow:0 1px rgba(255,255,255,.35)}
+.shield.critical{background:linear-gradient(150deg,#ffb05e,#8f3927);border-color:#ffd0a5;box-shadow:0 0 18px rgba(238,119,111,.28)}
+.shield.broken span{color:#78828e;text-shadow:none}
+.core-meter{padding:4px 7px;border:1px solid rgba(255,255,255,.1);border-radius:999px;background:rgba(6,10,15,.7);color:#737e8b;font:900 9px/1 ui-monospace,monospace;white-space:nowrap}
+.core-meter.open{border-color:rgba(238,119,111,.45);background:rgba(238,119,111,.09);color:#ffc1bd;box-shadow:0 0 18px rgba(238,119,111,.12)}
+@media (min-width:900px) and (min-height:760px){
+  body.game-active .fortress-status{gap:7px}
+  body.game-active .shield{width:22px;height:22px;border-radius:5px 5px 7px 7px;font-size:8px}
+  body.game-active .core-meter{padding:3px 6px;font-size:8px}
+}
+@media(max-width:720px){
+  .fortress-status{gap:6px}.shield{width:22px;height:25px;font-size:8px}.core-meter{font-size:8px;padding:4px 6px}
+}
+
+/* v8 – Rúnavisszhang és Vándorlás visszajelzése */
+.action-btn.move-action{border-color:rgba(157,135,255,.48);background:linear-gradient(180deg,rgba(89,68,148,.55),rgba(35,26,62,.82))}
+.fx-move{animation:runaharc-move .5s ease both}
+@keyframes runaharc-move{0%{transform:translateX(-10px) scale(.96);filter:brightness(1.3)}55%{transform:translateX(7px) scale(1.04);filter:brightness(1.5)}100%{transform:none;filter:none}}
+
+/* v8: Kezdeményezés rúnajel */
+.card.rune-token {
+  border-color: rgba(119,234,216,.72);
+  background: linear-gradient(160deg, rgba(17,54,52,.98), rgba(7,18,22,.98));
+  box-shadow: inset 0 0 0 1px rgba(220,255,248,.1), 0 8px 28px rgba(0,0,0,.28);
+}
+.card.rune-token .cost { color: #bdf8ef; }
+.card.rune-token .card-kind { color: #bdf8ef; }
+.card.rune-token .cost{color:transparent;position:relative}
+.card.rune-token .cost::after{content:'ᚱ';position:absolute;inset:0;display:grid;place-items:center;color:#bdf8ef;font-size:14px;font-weight:900}

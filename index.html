@@ -5,7 +5,350 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="theme-color" content="#090c12" />
   <title>Rúnaharc — Őrkövek párbaja</title>
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+:root{--bg:#07090e;--panel:#0e131c;--panel2:#121a25;--ink:#f4efe5;--muted:#8c97a6;--gold:#d3a85c;--cyan:#75e3d4;--danger:#ee776f;--line:rgba(255,255,255,.09);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink);background:var(--bg)}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% 20%,#142131 0,#090d13 42%,#06080c 100%);overflow-x:hidden}.aurora{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 20% 60%,rgba(54,217,194,.08),transparent 30%),radial-gradient(ellipse at 80% 30%,rgba(211,168,92,.09),transparent 28%);mix-blend-mode:screen}.shell{width:min(1380px,100%);margin:auto;padding:18px 24px 80px}.topbar{display:flex;align-items:center;gap:18px;border:1px solid var(--line);border-radius:18px;background:rgba(10,14,20,.78);backdrop-filter:blur(16px);padding:12px 14px;position:sticky;top:10px;z-index:20;box-shadow:0 18px 50px rgba(0,0,0,.28)}.brand{display:flex;align-items:center;gap:10px;margin-right:auto}.brand b{letter-spacing:.22em;font-size:14px}.brand small,.identity small,.hand-head small,.action-copy small{display:block;color:var(--muted);font-size:12px}.sigil,.avatar{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;border:1px solid rgba(211,168,92,.4);background:linear-gradient(145deg,rgba(211,168,92,.18),rgba(211,168,92,.03));color:#f5d39a;font:700 21px Georgia}.avatar.enemy{border-color:rgba(238,119,111,.38);color:#ffaaa4;background:linear-gradient(145deg,rgba(238,119,111,.15),rgba(238,119,111,.02))}.turn-pill{padding:9px 14px;border:1px solid rgba(117,227,212,.25);border-radius:999px;background:rgba(117,227,212,.07);color:#baf5eb;font-weight:700;font-size:12px;letter-spacing:.08em}.ghost,.end-turn,.action-btn{border:0;color:var(--ink);cursor:pointer;font:700 12px inherit;letter-spacing:.08em}.ghost{background:transparent;padding:10px 13px;border:1px solid var(--line);border-radius:10px}.arena{margin-top:16px;border:1px solid var(--line);border-radius:28px;overflow:hidden;background:linear-gradient(180deg,rgba(19,25,35,.83),rgba(8,12,17,.9));box-shadow:inset 0 1px 0 rgba(255,255,255,.03),0 28px 70px rgba(0,0,0,.28);position:relative}.arena:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(to bottom,transparent,#000 25%,#000 75%,transparent);pointer-events:none}.player-zone{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:16px;padding:16px 20px;position:relative;z-index:2}.enemy-zone{border-bottom:1px solid var(--line)}.identity{display:flex;align-items:center;gap:10px}.shields{display:flex;gap:5px}.shield{width:18px;height:26px;border-radius:5px 5px 8px 8px;transform:skewY(-8deg);background:linear-gradient(150deg,#f0c778,#8a5f24);box-shadow:0 0 18px rgba(211,168,92,.18);border:1px solid #f5d89d}.shield.broken{background:#2a313b;border-color:#47515e;box-shadow:none;opacity:.45}.rune-meter{min-width:92px;text-align:right;color:var(--cyan);font:700 12px ui-monospace,monospace}.board-row{min-height:176px;padding:16px 20px;display:flex;align-items:center;justify-content:center;gap:12px;position:relative;z-index:2}.enemy-board{transform:rotate(180deg)}.enemy-board .card{transform:rotate(180deg)}.nexus{display:flex;align-items:center;gap:12px;justify-content:center;color:#687383;font-size:9px;letter-spacing:.25em}.nexus div{text-align:center}.nexus b{display:block;color:#aeb8c5;font-size:10px}.nexus span{width:90px;height:1px;background:linear-gradient(90deg,transparent,#3a4552)}.nexus span:last-child{transform:rotate(180deg)}.card{width:128px;height:166px;border-radius:14px;padding:9px;background:linear-gradient(150deg,#24313c,#0e141c 65%);border:1px solid rgba(117,227,212,.25);box-shadow:0 16px 30px rgba(0,0,0,.28),inset 0 0 0 2px rgba(255,255,255,.018);display:flex;flex-direction:column;position:relative;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;user-select:none}.card.spell{border-color:rgba(211,168,92,.36);background:linear-gradient(150deg,#342a20,#111117 68%)}.card:hover,.card.selected{transform:translateY(-8px);box-shadow:0 22px 42px rgba(0,0,0,.42),0 0 28px rgba(117,227,212,.08);border-color:rgba(117,227,212,.65)}.card.selected{outline:2px solid rgba(117,227,212,.35)}.card.exhausted{filter:saturate(.6);opacity:.72}.card-top{display:flex;gap:7px;align-items:center}.cost{width:25px;height:25px;border-radius:50%;display:grid;place-items:center;background:#0a1118;border:1px solid rgba(117,227,212,.55);color:#b8fff4;font-weight:900}.spell .cost{border-color:rgba(211,168,92,.6);color:#f6d69e}.card-name{font-weight:800;font-size:10px;line-height:1.05;max-width:76px}.art{flex:1;margin:8px 0;border-radius:10px;display:grid;place-items:center;font:700 46px Georgia;color:rgba(236,244,242,.88);background:radial-gradient(circle at 50% 40%,rgba(117,227,212,.24),transparent 38%),linear-gradient(145deg,#182b31,#0b1117);border:1px solid rgba(255,255,255,.06);text-shadow:0 0 24px rgba(117,227,212,.4)}.spell .art{background:radial-gradient(circle at 50% 40%,rgba(211,168,92,.26),transparent 38%),linear-gradient(145deg,#2a2118,#0e0d12);text-shadow:0 0 24px rgba(211,168,92,.45)}.card-text{height:29px;overflow:hidden;color:#aeb8c6;font-size:8px;line-height:1.25}.stats{display:flex;justify-content:space-between;align-items:end;margin-top:5px;font:900 11px ui-monospace,monospace}.stats span{padding:3px 6px;border:1px solid var(--line);border-radius:7px}.stats .hp{color:#ffb0aa}.hand-panel{margin-top:16px;border:1px solid var(--line);border-radius:22px;background:rgba(12,17,24,.84);padding:14px;position:relative}.hand-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.hand-head b{font-size:13px}.end-turn{padding:11px 16px;border-radius:11px;background:linear-gradient(135deg,#84e7d8,#43ac9e);color:#071310;box-shadow:0 8px 24px rgba(67,172,158,.22)}.end-turn:disabled{opacity:.4;cursor:not-allowed}.hand{display:flex;gap:10px;overflow-x:auto;min-height:174px;padding:7px 2px 12px;scrollbar-width:thin}.action-panel{margin-top:12px;display:flex;justify-content:space-between;align-items:center;gap:18px;padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:#0c1118}.action-copy b{display:block;margin:2px 0 4px}.eyebrow{font-size:9px;letter-spacing:.2em;color:var(--gold);font-weight:900}.actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.action-btn{padding:10px 13px;border-radius:10px;background:#202a35;border:1px solid var(--line)}.action-btn.primary{background:rgba(117,227,212,.13);border-color:rgba(117,227,212,.35);color:#bdf6ed}.action-btn.warn{background:rgba(238,119,111,.1);border-color:rgba(238,119,111,.3);color:#ffc1bd}.log{margin:12px 2px;color:#687485;font-size:11px;display:flex;gap:12px;overflow:auto;white-space:nowrap}.log span:first-child{color:#aeb9c6}.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;background:#eef8f6;color:#07100f;padding:11px 16px;border-radius:999px;font-weight:800;font-size:12px;z-index:50;transition:.25s}.toast.show{opacity:1;transform:translate(-50%,0)}dialog{width:min(760px,calc(100% - 24px));border:1px solid var(--line);border-radius:24px;background:#0d131c;color:var(--ink);padding:22px;box-shadow:0 40px 100px #000}dialog::backdrop{background:rgba(0,0,0,.68);backdrop-filter:blur(6px)}.modal-head{display:flex;justify-content:space-between;gap:16px;align-items:start}.modal-head h2{margin:5px 0 0}.rules-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}.rules-grid article{padding:16px;border:1px solid var(--line);border-radius:16px;background:#111923}.rules-grid article span{color:var(--cyan);font:900 11px ui-monospace}.rules-grid h3{margin:8px 0 4px}.rules-grid p{margin:0;color:#9ba7b6;font-size:12px;line-height:1.5}@media(max-width:720px){.shell{padding:10px 10px 90px}.topbar{top:6px}.brand small,.ghost{display:none}.turn-pill{font-size:10px;padding:8px}.player-zone{grid-template-columns:1fr auto;padding:12px}.rune-meter{grid-column:1/-1;text-align:left}.board-row{min-height:150px;padding:10px;justify-content:flex-start;overflow-x:auto}.card{width:112px;height:150px;flex:0 0 auto}.card-name{font-size:9px}.art{font-size:38px}.hand .card{width:122px;height:158px}.action-panel{align-items:flex-start;flex-direction:column}.actions{justify-content:flex-start}.rules-grid{grid-template-columns:1fr}.shields{gap:3px}.shield{width:14px;height:22px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}.card:hover{transform:none}}
+/* Wendy v2 card system */
+.card{width:142px;height:202px;padding:7px;border-radius:16px;background:linear-gradient(160deg,#28343f 0,#10161e 46%,#080c11 100%);border:1px solid rgba(166,235,225,.32);box-shadow:0 18px 38px rgba(0,0,0,.38),inset 0 0 0 1px rgba(255,255,255,.035);overflow:hidden}
+.card.spell{background:linear-gradient(160deg,#433521 0,#17130e 48%,#0c0b0e 100%);border-color:rgba(229,187,102,.4)}
+.card:before{content:"";position:absolute;inset:3px;border-radius:13px;border:1px solid rgba(255,255,255,.08);pointer-events:none}
+.card-top{position:relative;z-index:2;min-height:28px;padding:2px 3px 0}.card-name{color:#fff!important;font-size:10.5px;letter-spacing:.02em;text-shadow:0 2px 6px #000;max-width:91px}.cost{box-shadow:0 0 0 2px rgba(0,0,0,.35),0 0 16px rgba(117,227,212,.15)}
+.art{display:block;flex:0 0 96px;margin:5px 0 6px;border-radius:10px;overflow:hidden;background:#0a1015;border:1px solid rgba(255,255,255,.12);box-shadow:inset 0 0 20px rgba(0,0,0,.3);text-shadow:none}
+.art svg{display:block;width:100%;height:100%;object-fit:cover}.card-text{height:38px;padding:2px 3px 0;color:#d5dce4;font-size:8.4px;line-height:1.24}.stats{margin-top:auto;padding:0 2px 1px;font-size:12px}.stats span{background:rgba(0,0,0,.28);border-color:rgba(255,255,255,.13);color:#fff!important;text-shadow:0 1px 3px #000}.stats .atk{color:#fff!important}.stats .hp{color:#ffd0cb!important}.rarity-gem{position:absolute;right:8px;bottom:8px;width:7px;height:7px;border-radius:50%;background:#c7d2db;box-shadow:0 0 8px currentColor}.card[data-rarity="nemes"] .rarity-gem{background:#62e0d1;box-shadow:0 0 10px #62e0d1}.card[data-rarity="epikus"] .rarity-gem{background:#e4ad58;box-shadow:0 0 11px #e4ad58}.enemy-board .card{box-shadow:0 -18px 38px rgba(0,0,0,.38),inset 0 0 0 1px rgba(255,255,255,.035)}
+.online-link{padding:10px 13px;border-radius:10px;border:1px solid rgba(117,227,212,.3);background:rgba(117,227,212,.1);color:#c8fff7;text-decoration:none;font-size:12px;font-weight:800;letter-spacing:.06em}.online-panel{display:grid;gap:12px;margin:18px 0;padding:16px;border:1px solid var(--line);border-radius:18px;background:rgba(10,15,22,.86)}.online-row{display:flex;gap:8px;flex-wrap:wrap}.online-row input{min-width:150px;flex:1;background:#080d13;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:11px 12px}.room-code{font:900 22px ui-monospace,monospace;letter-spacing:.14em;color:#fff}.connection{font-size:12px;color:var(--muted)}
+@media(max-width:720px){.card{width:126px;height:188px}.art{flex-basis:87px}.hand .card{width:132px;height:194px}.online-link{display:none}}
+
+/* Wendy v3 — prémium sötét magyar fantasy kártyarendszer */
+.card{
+  width:154px;height:232px;padding:7px;border-radius:18px;
+  background:linear-gradient(155deg,#3a4651 0,#17202a 16%,#090e14 58%,#05080c 100%);
+  border:1px solid rgba(163,239,228,.45);
+  box-shadow:0 22px 42px rgba(0,0,0,.46),inset 0 0 0 1px rgba(255,255,255,.055),inset 0 -26px 42px rgba(0,0,0,.28);
+  isolation:isolate;overflow:hidden;
+}
+.card.spell{background:linear-gradient(155deg,#5a4527 0,#241b10 18%,#100e10 60%,#070709 100%);border-color:rgba(237,197,112,.52)}
+.card:before{inset:3px;border-radius:14px;border:1px solid rgba(255,255,255,.11);box-shadow:inset 0 0 0 1px rgba(0,0,0,.36)}
+.card:after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:
+  radial-gradient(circle at 10px 10px,rgba(222,184,108,.48) 0 1px,transparent 1.8px),
+  radial-gradient(circle at calc(100% - 10px) 10px,rgba(222,184,108,.48) 0 1px,transparent 1.8px),
+  linear-gradient(115deg,transparent 0 33%,rgba(255,255,255,.055) 42%,transparent 51%);
+  opacity:.82}
+.card-top,.art,.card-text,.stats,.rarity-gem{position:relative;z-index:2}
+.card-top{min-height:31px;gap:7px;padding:2px 2px 0;align-items:center}
+.card-name{color:#fff!important;font-size:11px;line-height:1.05;max-width:82px;text-shadow:0 2px 8px #000,0 0 12px rgba(255,255,255,.08)}
+.card-kind{margin-left:auto;align-self:flex-start;padding:3px 5px;border-radius:999px;border:1px solid rgba(117,227,212,.24);background:rgba(117,227,212,.08);color:#baf5eb;font-size:6.5px;font-weight:900;letter-spacing:.12em}
+.spell .card-kind{border-color:rgba(229,187,102,.3);background:rgba(229,187,102,.08);color:#f4dca8}
+.cost{width:27px;height:27px;flex:0 0 27px;background:radial-gradient(circle at 35% 30%,#1b3b42,#081016 70%);border:1px solid rgba(134,244,227,.7);box-shadow:0 0 0 2px rgba(0,0,0,.42),0 0 18px rgba(117,227,212,.22);font-size:12px}
+.spell .cost{background:radial-gradient(circle at 35% 30%,#4b351b,#100d09 70%);box-shadow:0 0 0 2px rgba(0,0,0,.42),0 0 18px rgba(229,187,102,.18)}
+.art{flex:0 0 112px;margin:5px 0 7px;border-radius:11px;border:1px solid rgba(255,255,255,.17);background:#070b0f;box-shadow:inset 0 0 28px rgba(0,0,0,.42),0 6px 14px rgba(0,0,0,.22);overflow:hidden}
+.art:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.08),transparent 18%,transparent 72%,rgba(0,0,0,.28));mix-blend-mode:screen}
+.art svg{width:100%;height:100%;display:block;transform:scale(1.015)}
+.card-text{height:47px;padding:1px 4px 0;color:#e4e9ee;font-size:8.35px;line-height:1.28;text-shadow:0 1px 2px #000;overflow:hidden}
+.stats{margin-top:auto;padding:1px 3px 2px;font-size:12.5px;gap:6px}
+.stats span{min-width:42px;text-align:center;padding:4px 7px;background:linear-gradient(180deg,rgba(18,23,29,.88),rgba(5,8,11,.92));border-color:rgba(255,255,255,.15);box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.stats .atk{color:#fff!important;border-color:rgba(255,255,255,.24);text-shadow:0 0 9px rgba(255,255,255,.2)}
+.stats .hp{color:#ffd5d0!important;border-color:rgba(238,119,111,.28)}
+.rarity-gem{right:9px;bottom:10px;width:8px;height:8px;border:1px solid rgba(255,255,255,.38)}
+.card:hover,.card.selected{transform:translateY(-9px) scale(1.015);box-shadow:0 28px 54px rgba(0,0,0,.52),0 0 30px rgba(117,227,212,.12);border-color:rgba(153,245,231,.82)}
+.card.spell:hover,.card.spell.selected{box-shadow:0 28px 54px rgba(0,0,0,.52),0 0 30px rgba(225,177,91,.12);border-color:rgba(244,207,132,.82)}
+.card.exhausted{filter:saturate(.52) brightness(.78);opacity:.78}
+.board-row{min-height:244px;gap:13px}
+.hand{min-height:238px;gap:12px;padding-top:9px}
+.action-panel{margin:14px 0;padding:15px 17px;background:linear-gradient(135deg,rgba(17,25,35,.96),rgba(10,14,20,.96));border-color:rgba(117,227,212,.16);box-shadow:0 14px 34px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.025)}
+.hand-panel{margin-top:0}
+.action-copy{min-width:240px}.action-copy b{font-size:13px;color:#fff}.action-copy small{max-width:650px;line-height:1.45;color:#aeb8c6}
+.sound-toggle{white-space:nowrap;color:#c8fff7;border-color:rgba(117,227,212,.22);background:rgba(117,227,212,.055)}
+.sound-toggle[aria-pressed="false"]{color:#8c97a6;border-color:var(--line);background:transparent}
+
+@keyframes fxAttack{0%{translate:0 0;filter:brightness(1)}38%{translate:0 -11px;scale:1.055;filter:brightness(1.45)}70%{translate:0 4px;scale:.985}100%{translate:0 0;scale:1;filter:brightness(1)}}
+@keyframes fxHit{0%,100%{translate:0 0;filter:brightness(1)}20%{translate:-5px 0;filter:brightness(1.8)}40%{translate:6px 0}60%{translate:-3px 0}80%{translate:2px 0}}
+@keyframes fxSummon{0%{opacity:.1;scale:.72;filter:brightness(2.4) blur(2px)}55%{opacity:1;scale:1.06;filter:brightness(1.55) blur(0)}100%{scale:1;filter:brightness(1)}}
+@keyframes fxArenaHit{0%,100%{box-shadow:inset 0 1px 0 rgba(255,255,255,.03),0 28px 70px rgba(0,0,0,.28)}35%{box-shadow:inset 0 0 80px rgba(238,119,111,.16),0 28px 70px rgba(0,0,0,.28)}}
+@keyframes fxShield{0%,100%{filter:none}35%{filter:brightness(1.32) saturate(1.35)}55%{filter:brightness(.88)}}
+@keyframes fxCore{0%,100%{filter:none}25%{filter:brightness(1.55) contrast(1.1)}48%{filter:brightness(.72)}70%{filter:brightness(1.15)}}
+@keyframes fxRune{0%,100%{text-shadow:none}45%{text-shadow:0 0 16px #75e3d4,0 0 30px #75e3d4;color:#dffff9}}
+@keyframes fxVictory{0%{box-shadow:inset 0 0 0 rgba(211,168,92,0)}45%{box-shadow:inset 0 0 120px rgba(211,168,92,.23)}100%{box-shadow:inset 0 0 0 rgba(211,168,92,0)}}
+.card.fx-attack{animation:fxAttack .52s cubic-bezier(.2,.8,.2,1)}
+.card.fx-hit{animation:fxHit .48s ease-out}
+.card.fx-summon{animation:fxSummon .64s cubic-bezier(.15,.85,.25,1)}
+.arena.fx-combat,.arena.fx-spell{animation:fxArenaHit .58s ease-out}
+.arena.fx-shield{animation:fxShield .58s ease-out}
+.arena.fx-core{animation:fxCore .68s ease-out}
+.arena.fx-victory{animation:fxVictory 1s ease-out}
+.rune-meter.fx-rune{animation:fxRune .5s ease-out}
+
+@media(max-width:720px){
+  .topbar{gap:8px}.sound-toggle{padding:8px 9px;font-size:9px}.turn-pill{letter-spacing:.04em}
+  .board-row{min-height:210px}.card{width:136px;height:208px}.hand .card{width:142px;height:214px}.art{flex-basis:98px}.card-text{height:41px;font-size:7.9px}.card-name{font-size:10px;max-width:72px}.card-kind{display:none}.hand{min-height:220px}.action-panel{margin:10px 0;gap:10px}.action-copy{min-width:0}.actions{width:100%}.action-btn{flex:1 1 auto}.online-link{display:none}
+}
+@media(prefers-reduced-motion:reduce){.card.fx-attack,.card.fx-hit,.card.fx-summon,.arena.fx-combat,.arena.fx-spell,.arena.fx-shield,.arena.fx-core,.arena.fx-victory,.rune-meter.fx-rune{animation:none!important}}
+/* Mable release fixes */
+.enemy-board .card:hover,.enemy-board .card.selected{transform:rotate(180deg) translateY(9px) scale(1.015)}
+@media(max-width:720px){.topbar .sound-toggle{display:inline-flex!important;align-items:center;justify-content:center}}
+
+/* Wendy v4 - desktop single-screen battle layout */
+@media (min-width:900px) and (min-height:760px){
+  body.game-active{height:100dvh;min-height:0;overflow:hidden}
+  body.game-active .shell{width:min(1500px,100%);height:100dvh;min-height:0;padding:10px 18px 12px;display:grid;grid-template-rows:54px minmax(0,1fr) 66px clamp(184px,24vh,210px);gap:8px;overflow:hidden}
+  body.game-active .topbar{position:relative;top:0;min-height:54px;padding:7px 10px;border-radius:15px;box-shadow:0 10px 28px rgba(0,0,0,.24)}
+  body.game-active .brand{gap:8px}
+  body.game-active .sigil{width:36px;height:36px;border-radius:11px;font-size:18px}
+  body.game-active .brand b{font-size:13px}
+  body.game-active .brand small{font-size:10px}
+  body.game-active .turn-pill{padding:7px 11px;font-size:10px}
+  body.game-active .ghost,body.game-active .online-link{padding:8px 10px;font-size:10px}
+  body.game-active .online-panel{display:none}
+  body.game-active .arena{margin:0;min-width:0;min-height:0;height:auto;border-radius:20px;display:grid;grid-template-rows:46px minmax(0,1fr) 22px minmax(0,1fr) 46px}
+  body.game-active .player-zone{padding:5px 13px;gap:11px;min-height:0}
+  body.game-active .avatar{width:32px;height:32px;border-radius:10px;font-size:16px}
+  body.game-active .identity{gap:8px}
+  body.game-active .identity b{font-size:11px}
+  body.game-active .identity small{font-size:9px}
+  body.game-active .shield{width:13px;height:19px;border-radius:4px 4px 6px 6px}
+  body.game-active .rune-meter{font-size:10px;min-width:76px}
+  body.game-active .board-row{min-height:0;padding:4px 12px;gap:9px;overflow:hidden}
+  body.game-active .nexus{min-height:0;gap:8px;font-size:7px;line-height:1}
+  body.game-active .nexus b{font-size:8px}
+  body.game-active .nexus small{font-size:6.5px}
+  body.game-active .nexus span{width:70px}
+  body.game-active .board-row .card{height:clamp(132px,17.8vh,166px);width:auto;aspect-ratio:154/232;padding:5px;border-radius:13px;flex:0 0 auto}
+  body.game-active .board-row .card:before{inset:2px;border-radius:11px}
+  body.game-active .board-row .card-top{min-height:22px;gap:4px;padding:1px 1px 0}
+  body.game-active .board-row .cost{width:20px;height:20px;flex-basis:20px;font-size:9px}
+  body.game-active .board-row .card-name{font-size:8px;max-width:66px}
+  body.game-active .board-row .card-kind{font-size:5px;padding:2px 3px}
+  body.game-active .board-row .art{flex-basis:47%;margin:3px 0 4px;border-radius:8px}
+  body.game-active .board-row .card-text{height:29px;padding:0 2px;font-size:6.5px;line-height:1.2}
+  body.game-active .board-row .stats{padding:0 1px 1px;font-size:9px;gap:3px}
+  body.game-active .board-row .stats span{min-width:31px;padding:2px 4px;border-radius:5px}
+  body.game-active .board-row .rarity-gem{right:6px;bottom:6px;width:5px;height:5px}
+  body.game-active .action-panel{margin:0;min-width:0;min-height:0;padding:8px 12px;border-radius:14px;gap:12px;overflow:hidden}
+  body.game-active .action-copy{min-width:220px;min-height:0}
+  body.game-active .action-copy .eyebrow{font-size:7px}
+  body.game-active .action-copy b{font-size:11px;margin:1px 0 2px}
+  body.game-active .action-copy small{font-size:9px;line-height:1.25;max-height:2.5em;overflow:hidden}
+  body.game-active .actions{gap:6px;max-height:48px;overflow:auto}
+  body.game-active .action-btn{padding:7px 9px;font-size:9px;border-radius:8px}
+  body.game-active .hand-panel{margin:0;min-width:0;min-height:0;padding:7px 10px 8px;border-radius:16px;overflow:hidden}
+  body.game-active .hand-head{height:29px;margin:0 0 3px;min-height:0}
+  body.game-active .hand-head b{font-size:11px}
+  body.game-active .hand-head small{font-size:9px}
+  body.game-active .end-turn{padding:7px 11px;font-size:9px;border-radius:8px}
+  body.game-active .hand{height:calc(100% - 32px);min-height:0;gap:8px;padding:1px 2px 3px;overflow-x:auto;overflow-y:hidden;align-items:flex-start}
+  body.game-active .hand .card{height:clamp(126px,17vh,148px);width:auto;aspect-ratio:154/232;padding:5px;border-radius:12px;flex:0 0 auto}
+  body.game-active .hand .card:before{inset:2px;border-radius:10px}
+  body.game-active .hand .card-top{min-height:20px;gap:4px;padding:1px 1px 0}
+  body.game-active .hand .cost{width:19px;height:19px;flex-basis:19px;font-size:8px}
+  body.game-active .hand .card-name{font-size:7.4px;max-width:58px}
+  body.game-active .hand .card-kind{display:none}
+  body.game-active .hand .art{flex-basis:45%;margin:3px 0;border-radius:7px}
+  body.game-active .hand .card-text{height:25px;padding:0 2px;font-size:5.9px;line-height:1.16}
+  body.game-active .hand .stats{padding:0 1px 1px;font-size:8.5px;gap:3px}
+  body.game-active .hand .stats span{min-width:29px;padding:2px 4px;border-radius:5px}
+  body.game-active .hand .rarity-gem{right:5px;bottom:5px;width:5px;height:5px}
+  body.game-active .log{display:none}
+}
+
+@media (min-width:900px) and (min-height:900px){
+  body.game-active .shell{grid-template-rows:58px minmax(0,1fr) 72px 220px;gap:10px}
+  body.game-active .arena{grid-template-rows:50px minmax(0,1fr) 24px minmax(0,1fr) 50px}
+  body.game-active .board-row .card{height:clamp(166px,19.5vh,188px)}
+  body.game-active .hand .card{height:168px}
+}
+
+/* Wendy v5 - five-lane battlefield, structures and elemental readability */
+.board-row{display:grid;grid-template-columns:repeat(5,minmax(116px,1fr));gap:8px;align-items:stretch;justify-content:stretch}
+.enemy-board{transform:none}
+.enemy-board .card{transform:none}
+.enemy-board .card:hover,.enemy-board .card.selected{transform:translateY(-8px)}
+.lane-slot{position:relative;min-width:0;min-height:156px;border:1px dashed rgba(255,255,255,.075);border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(255,255,255,.018),rgba(255,255,255,.006));overflow:visible}
+.lane-slot:after{content:"";position:absolute;left:50%;top:9px;bottom:9px;width:1px;background:linear-gradient(transparent,rgba(117,227,212,.12),transparent);pointer-events:none}
+.lane-number{position:absolute;top:7px;left:8px;z-index:1;width:20px;height:20px;border-radius:999px;display:grid;place-items:center;color:#83909e;border:1px solid rgba(255,255,255,.08);font:800 8px ui-monospace,monospace;background:rgba(6,10,15,.65)}
+.lane-empty{position:relative;z-index:1;color:#566270;font-size:7px;font-weight:900;letter-spacing:.18em;writing-mode:vertical-rl;transform:rotate(180deg)}
+.lane-slot .card{z-index:2;max-width:100%}
+.lane-slot.summon-target{cursor:pointer;border-color:rgba(117,227,212,.52);background:radial-gradient(circle at 50% 50%,rgba(117,227,212,.13),rgba(117,227,212,.025) 62%);box-shadow:inset 0 0 28px rgba(117,227,212,.055),0 0 20px rgba(117,227,212,.04);animation:lane-pulse 1.45s ease-in-out infinite}
+.lane-slot.summon-target .lane-empty{color:#a9eee5}.lane-slot.summon-target .lane-number{color:#d6fff9;border-color:rgba(117,227,212,.42)}
+@keyframes lane-pulse{50%{border-color:rgba(117,227,212,.85);box-shadow:inset 0 0 34px rgba(117,227,212,.09),0 0 24px rgba(117,227,212,.09)}}
+.card.structure{background:linear-gradient(160deg,#29352c 0,#111a16 47%,#080d0b 100%);border-color:rgba(157,202,142,.42)}
+.card.structure .cost{border-color:rgba(157,202,142,.62);color:#d8f1cf}.card.structure .art{box-shadow:inset 0 0 38px rgba(116,163,103,.12)}
+.structure-stats .guard{color:#e6f3df!important;border-color:rgba(157,202,142,.27)}.passive-word{color:#b8c9b2!important;font-size:.78em;letter-spacing:.08em}
+.element-badge,.burn-badge{position:absolute;z-index:4;display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:rgba(6,9,13,.86);border:1px solid rgba(255,255,255,.2);box-shadow:0 4px 14px rgba(0,0,0,.42);font-size:10px;text-shadow:none}
+.element-badge{right:5px;top:5px}.burn-badge{left:5px;bottom:5px;border-color:rgba(255,112,64,.5)}
+.element-tuz .element-badge{border-color:rgba(255,119,74,.58)}.element-vihar .element-badge{border-color:rgba(119,226,255,.6)}.element-fold .element-badge{border-color:rgba(174,195,128,.55)}.element-viz .element-badge{border-color:rgba(103,183,255,.58)}.element-szellem .element-badge{border-color:rgba(199,161,255,.55)}
+.spell-reveal[hidden]{display:none}.spell-reveal{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at center,rgba(30,38,52,.3),rgba(0,0,0,.72));backdrop-filter:blur(7px);animation:spell-backdrop .24s ease-out}
+.spell-reveal-card{width:min(330px,86vw);padding:14px 14px 16px;border-radius:22px;background:linear-gradient(160deg,#332817,#121015 55%,#090b0f);border:1px solid rgba(232,194,113,.55);box-shadow:0 30px 90px #000,0 0 70px rgba(211,168,92,.16);text-align:center;animation:spell-card-in .42s cubic-bezier(.2,.9,.2,1)}
+.spell-reveal-art{height:188px;margin:10px 0;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.12);box-shadow:0 16px 40px rgba(0,0,0,.38)}.spell-reveal-art svg{width:100%;height:100%;display:block}.spell-reveal-card h2{margin:7px 0 6px;font:800 20px Georgia,serif}.spell-reveal-card p{margin:0 auto 8px;max-width:29em;color:#d5d8dc;font-size:12px;line-height:1.5}.spell-reveal-card small{color:#8c97a6;font-size:10px}
+@keyframes spell-backdrop{from{opacity:0}to{opacity:1}}@keyframes spell-card-in{0%{opacity:0;transform:scale(.72) rotate(-2deg);filter:brightness(2)}60%{filter:brightness(1.25)}100%{opacity:1;transform:scale(1);filter:brightness(1)}}
+.action-btn.lane-action{min-width:72px}
+@media (min-width:900px) and (min-height:760px){
+  body.game-active .board-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;padding:3px 8px;overflow:visible}
+  body.game-active .lane-slot{min-height:0;height:100%;border-radius:10px}
+  body.game-active .lane-number{top:4px;left:5px;width:16px;height:16px;font-size:6.5px}
+  body.game-active .lane-empty{font-size:5.7px}
+  body.game-active .board-row .card{height:clamp(124px,16.4vh,154px);max-width:112px}
+  body.game-active .element-badge,body.game-active .burn-badge{width:15px;height:15px;font-size:7px}
+  body.game-active .spell-reveal-art{height:180px}
+}
+@media(max-width:720px){
+  .board-row{display:grid;grid-template-columns:repeat(5,112px);justify-content:start;overflow-x:auto;gap:7px}
+  .lane-slot{min-height:154px}.enemy-board{transform:none}.enemy-board .card{transform:none}
+  .enemy-board .card:hover,.enemy-board .card.selected{transform:translateY(-8px)}
+}
+@media(prefers-reduced-motion:reduce){.lane-slot.summon-target{animation:none}.spell-reveal,.spell-reveal-card{animation:none}}
+
+
+/* Wendy v6 — olvasható, középre rendezett digitális kártyák */
+.card-text{display:none!important}
+.card-keywords{position:relative;z-index:2;display:flex;align-items:center;gap:4px;min-height:22px;padding:2px 2px 1px;overflow:hidden}
+.card-keywords span{display:inline-flex;align-items:center;min-width:0;padding:3px 5px;border-radius:999px;border:1px solid rgba(255,255,255,.13);background:rgba(5,9,13,.72);color:#e8edf2;font-size:7.5px;font-weight:900;line-height:1;letter-spacing:.055em;white-space:nowrap}
+.card-keywords .element-word{color:#bdf6ed;border-color:rgba(117,227,212,.28)}
+.card.element-tuz .element-word{color:#ffc0a8;border-color:rgba(255,119,74,.35)}
+.card.element-vihar .element-word{color:#c6f4ff;border-color:rgba(119,226,255,.35)}
+.card.element-fold .element-word{color:#dce9bd;border-color:rgba(174,195,128,.32)}
+.card.element-viz .element-word{color:#c7e4ff;border-color:rgba(103,183,255,.35)}
+.card.element-szellem .element-word{color:#e1ccff;border-color:rgba(199,161,255,.34)}
+.selected-meta{display:block;margin:1px 0 4px;color:#82dacc;font-size:10px;font-weight:800;letter-spacing:.035em}
+.action-copy small{font-size:12px;line-height:1.45;color:#c0c8d1}
+
+/* A folyosó egy taktikai útvonal, nem egy óriási kártyadoboz. */
+.board-row{width:min(1080px,calc(100% - 28px));margin-inline:auto;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;padding-inline:0}
+.lane-slot{border:0;background:radial-gradient(ellipse at center,rgba(117,227,212,.028),transparent 64%);min-height:174px}
+.lane-slot:before{content:"";position:absolute;z-index:0;left:50%;top:5px;bottom:5px;width:min(158px,82%);transform:translateX(-50%);border:1px dashed rgba(255,255,255,.10);border-radius:15px;background:linear-gradient(180deg,rgba(255,255,255,.018),rgba(255,255,255,.004));box-shadow:inset 0 0 28px rgba(0,0,0,.16);pointer-events:none}
+.lane-slot:after{left:50%;top:12px;bottom:12px;background:linear-gradient(transparent,rgba(117,227,212,.16),transparent)}
+.lane-number{left:50%;top:8px;transform:translateX(-72px);width:19px;height:19px;font-size:7.5px;background:#080d13}
+.lane-empty{writing-mode:horizontal-tb;transform:none;font-size:7px;letter-spacing:.14em;color:#667382;background:rgba(7,11,16,.8);padding:4px 7px;border-radius:999px;border:1px solid rgba(255,255,255,.06)}
+.lane-slot.summon-target{border:0;background:radial-gradient(circle at 50% 50%,rgba(117,227,212,.10),transparent 66%);box-shadow:none}
+.lane-slot.summon-target:before{border-color:rgba(117,227,212,.62);background:radial-gradient(circle at 50% 50%,rgba(117,227,212,.10),rgba(117,227,212,.018) 70%);box-shadow:inset 0 0 30px rgba(117,227,212,.05),0 0 24px rgba(117,227,212,.07);animation:lane-pulse 1.45s ease-in-out infinite}
+.lane-slot.summon-target .lane-empty{color:#c5fff6;border-color:rgba(117,227,212,.28)}
+
+@media (min-width:900px) and (min-height:760px){
+  body.game-active .shell{grid-template-rows:52px minmax(0,1fr) 94px clamp(210px,25vh,230px);gap:8px;padding:8px 16px 10px}
+  body.game-active .topbar{min-height:52px}
+  body.game-active .arena{grid-template-rows:44px minmax(0,1fr) 20px minmax(0,1fr) 44px}
+  body.game-active .board-row{width:min(1080px,calc(100% - 28px));gap:12px;padding:2px 0;overflow:visible}
+  body.game-active .lane-slot{height:100%;min-height:0;border-radius:14px}
+  body.game-active .lane-slot:before{width:min(158px,82%);top:3px;bottom:3px}
+  body.game-active .lane-number{top:6px;left:50%;transform:translateX(-72px);width:18px;height:18px;font-size:7px}
+  body.game-active .lane-empty{font-size:6.6px}
+  body.game-active .board-row .card{height:clamp(158px,19.5vh,188px);width:auto;max-width:148px;aspect-ratio:.76;padding:6px;border-radius:14px}
+  body.game-active .board-row .card-top{min-height:25px;gap:5px}
+  body.game-active .board-row .cost{width:22px;height:22px;flex-basis:22px;font-size:10px}
+  body.game-active .board-row .card-name{font-size:10px;line-height:1.03;max-width:76px}
+  body.game-active .board-row .card-kind{font-size:5.5px;padding:2px 4px}
+  body.game-active .board-row .art{flex:1 1 auto;min-height:0;margin:3px 0 4px;border-radius:9px}
+  body.game-active .board-row .card-keywords{min-height:19px;gap:3px;padding:1px}
+  body.game-active .board-row .card-keywords span{padding:3px 4px;font-size:6.4px}
+  body.game-active .board-row .stats{font-size:10.5px;gap:4px;padding:0 1px 1px}
+  body.game-active .board-row .stats span{min-width:34px;padding:3px 5px}
+  body.game-active .element-badge,body.game-active .burn-badge{width:18px;height:18px;font-size:8px}
+  body.game-active .action-panel{padding:9px 13px;gap:14px;overflow:visible}
+  body.game-active .action-copy{min-width:0;flex:1}
+  body.game-active .action-copy .eyebrow{font-size:7px}
+  body.game-active .action-copy b{font-size:12px;margin:1px 0}
+  body.game-active .selected-meta{font-size:9px;margin:1px 0 3px}
+  body.game-active .action-copy small{display:block;font-size:10.5px;line-height:1.3;max-width:820px;max-height:2.7em;overflow:hidden;color:#c5cdd6}
+  body.game-active .actions{max-height:62px}
+  body.game-active .action-btn{padding:8px 10px;font-size:9px}
+  body.game-active .hand-panel{padding:7px 10px 8px;overflow:hidden}
+  body.game-active .hand{gap:10px;padding:2px 3px 4px;align-items:flex-start}
+  body.game-active .hand .card{height:clamp(174px,20.5vh,198px);width:auto;max-width:158px;aspect-ratio:.76;padding:6px;border-radius:14px}
+  body.game-active .hand .card-top{min-height:26px;gap:5px}
+  body.game-active .hand .cost{width:23px;height:23px;flex-basis:23px;font-size:10px}
+  body.game-active .hand .card-name{font-size:10.5px;line-height:1.03;max-width:84px}
+  body.game-active .hand .card-kind{display:inline-flex;font-size:5.5px;padding:2px 4px}
+  body.game-active .hand .art{flex:1 1 auto;min-height:0;margin:3px 0 4px;border-radius:9px}
+  body.game-active .hand .card-keywords{min-height:21px;gap:4px;padding:1px}
+  body.game-active .hand .card-keywords span{padding:3px 5px;font-size:6.8px}
+  body.game-active .hand .stats{font-size:11px;gap:4px;padding:0 1px 1px}
+  body.game-active .hand .stats span{min-width:36px;padding:3px 5px}
+}
+
+@media (min-width:900px) and (min-height:900px){
+  body.game-active .shell{grid-template-rows:54px minmax(0,1fr) 96px 232px;gap:8px}
+  body.game-active .arena{grid-template-rows:46px minmax(0,1fr) 22px minmax(0,1fr) 46px}
+  body.game-active .board-row .card{height:clamp(174px,20.5vh,196px)}
+  body.game-active .hand .card{height:200px}
+}
+
+@media(max-width:899px){
+  .board-row{width:100%;grid-template-columns:repeat(5,150px);justify-content:start;gap:8px;padding:8px 10px;overflow-x:auto}
+  .lane-slot{min-height:202px}
+  .lane-slot:before{width:138px}
+  .lane-number{transform:translateX(-63px)}
+  .card{width:146px;height:208px}
+  .hand .card{width:154px;height:218px}
+  .card-name{font-size:10.5px;max-width:82px}
+  .card-keywords span{font-size:7px}
+  .action-copy small{font-size:11px}
+}
+
+@media(max-width:520px){
+  .board-row{grid-template-columns:repeat(5,142px)}
+  .lane-slot{min-height:194px}
+  .lane-slot:before{width:132px}
+  .lane-number{transform:translateX(-60px)}
+  .hand .card{width:150px;height:214px}
+  .action-panel{padding:12px}
+  .selected-meta{font-size:9px}
+}
+
+/* v6 accessibility polish */
+.card:focus-visible,.lane-slot.summon-target:focus-visible{outline:2px solid #bdf6ed;outline-offset:3px}
+@media (min-width:900px) and (min-height:760px){body.game-active .action-copy small{font-size:11.5px;line-height:1.32}}
+/* v6.1 finomhangolás: nagyobb tipográfia és teljes leírás a részletpanelen */
+@media (min-width:900px) and (min-height:760px){
+  body.game-active .board-row .card-name{font-size:10.8px;max-width:82px}
+  body.game-active .board-row .card-keywords span{font-size:7.2px}
+  body.game-active .board-row .stats{font-size:11px}
+  body.game-active .hand .card-name{font-size:11.6px;max-width:91px}
+  body.game-active .hand .card-keywords span{font-size:7.8px}
+  body.game-active .hand .stats{font-size:12px}
+  body.game-active .action-copy small{max-height:4em}
+}
+/* Alacsony, de széles laptopkijelzőn megőrizzük az egyképernyős módot. */
+@media (min-width:900px) and (min-height:760px) and (max-height:829px){
+  body.game-active .shell{grid-template-rows:48px minmax(0,1fr) 78px 182px;gap:7px;padding-block:7px 9px}
+  body.game-active .arena{grid-template-rows:42px minmax(0,1fr) 18px minmax(0,1fr) 42px}
+  body.game-active .board-row .card{height:clamp(128px,17.5vh,140px)}
+  body.game-active .hand .card{height:150px}
+  body.game-active .action-panel{padding:7px 11px}
+  body.game-active .action-copy small{font-size:9.8px;max-height:2.65em}
+  body.game-active .selected-meta{font-size:8.5px}
+}
+
+/* v7 — sérülő Őrkövek és 10 ÉP-s Mag */
+.fortress-status{display:flex;align-items:center;justify-content:flex-end;gap:9px;min-width:0}
+.shield{display:grid;place-items:center;position:relative;color:#2b1b07;font:900 9px/1 ui-monospace,monospace}
+.shield span{display:block;transform:skewY(8deg);text-shadow:0 1px rgba(255,255,255,.35)}
+.shield.critical{background:linear-gradient(150deg,#ffb05e,#8f3927);border-color:#ffd0a5;box-shadow:0 0 18px rgba(238,119,111,.28)}
+.shield.broken span{color:#78828e;text-shadow:none}
+.core-meter{padding:4px 7px;border:1px solid rgba(255,255,255,.1);border-radius:999px;background:rgba(6,10,15,.7);color:#737e8b;font:900 9px/1 ui-monospace,monospace;white-space:nowrap}
+.core-meter.open{border-color:rgba(238,119,111,.45);background:rgba(238,119,111,.09);color:#ffc1bd;box-shadow:0 0 18px rgba(238,119,111,.12)}
+@media (min-width:900px) and (min-height:760px){
+  body.game-active .fortress-status{gap:7px}
+  body.game-active .shield{width:22px;height:22px;border-radius:5px 5px 7px 7px;font-size:8px}
+  body.game-active .core-meter{padding:3px 6px;font-size:8px}
+}
+@media(max-width:720px){
+  .fortress-status{gap:6px}.shield{width:22px;height:25px;font-size:8px}.core-meter{font-size:8px;padding:4px 6px}
+}
+
+/* v8 – Rúnavisszhang és Vándorlás visszajelzése */
+.action-btn.move-action{border-color:rgba(157,135,255,.48);background:linear-gradient(180deg,rgba(89,68,148,.55),rgba(35,26,62,.82))}
+.fx-move{animation:runaharc-move .5s ease both}
+@keyframes runaharc-move{0%{transform:translateX(-10px) scale(.96);filter:brightness(1.3)}55%{transform:translateX(7px) scale(1.04);filter:brightness(1.5)}100%{transform:none;filter:none}}
+
+/* v8: Kezdeményezés rúnajel */
+.card.rune-token {
+  border-color: rgba(119,234,216,.72);
+  background: linear-gradient(160deg, rgba(17,54,52,.98), rgba(7,18,22,.98));
+  box-shadow: inset 0 0 0 1px rgba(220,255,248,.1), 0 8px 28px rgba(0,0,0,.28);
+}
+.card.rune-token .cost { color: #bdf8ef; }
+.card.rune-token .card-kind { color: #bdf8ef; }
+.card.rune-token .cost{color:transparent;position:relative}
+.card.rune-token .cost::after{content:'ᚱ';position:absolute;inset:0;display:grid;place-items:center;color:#bdf8ef;font-size:14px;font-weight:900}
+
+</style>
 </head>
 <body class="game-active">
   <div class="aurora" aria-hidden="true"></div>
@@ -20,23 +363,23 @@
     <section class="arena" id="arena" aria-label="Játéktér">
       <div class="player-zone enemy-zone">
         <div class="identity"><span class="avatar enemy">Á</span><div><b>Árnyékidéző</b><small id="enemyMeta"></small></div></div>
-        <div class="shields" id="enemyShields" aria-label="Az ellenfél őrkövei"></div>
+        <div class="fortress-status"><div class="shields" id="enemyShields" aria-label="Az ellenfél őrkövei"></div><div class="core-meter" id="enemyCore" aria-label="Az ellenfél Magjának életereje"></div></div>
         <div class="rune-meter" id="enemyRunes"></div>
       </div>
       <div class="board-row enemy-board" id="enemyBoard"></div>
 
-      <div class="nexus"><span></span><div><b>MAGKAPU</b><small>Az utolsó őrkő után válik sebezhetővé</small></div><span></span></div>
+      <div class="nexus"><span></span><div><b>MAGKAPU</b><small>Mind az öt Őrkő elpusztítása után válik sebezhetővé</small></div><span></span></div>
 
       <div class="board-row player-board" id="playerBoard"></div>
       <div class="player-zone">
         <div class="identity"><span class="avatar">R</span><div><b>Rúnaidéző</b><small id="playerMeta"></small></div></div>
-        <div class="shields" id="playerShields" aria-label="Saját őrköveid"></div>
+        <div class="fortress-status"><div class="shields" id="playerShields" aria-label="Saját őrköveid"></div><div class="core-meter" id="playerCore" aria-label="A Magod életereje"></div></div>
         <div class="rune-meter" id="playerRunes"></div>
       </div>
     </section>
 
     <aside class="action-panel" id="actionPanel" aria-live="polite">
-      <div class="action-copy"><span class="eyebrow">KIVÁLASZTOTT LAP</span><b id="selectedName">Nincs kiválasztott lap</b><small id="selectedText">Válassz egy lapot a kezedből, vagy egy támadásra kész lényt a játéktérről.</small></div>
+      <div class="action-copy"><span class="eyebrow">KIVÁLASZTOTT LAP</span><b id="selectedName">Nincs kiválasztott lap</b><span class="selected-meta" id="selectedMeta">Kattints egy lapra a részletekhez</span><small id="selectedText">Válassz egy lapot a kezedből, vagy egy támadásra kész lényt a játéktérről.</small></div>
       <div class="actions" id="actions"></div>
     </aside>
 
@@ -51,14 +394,904 @@
   <dialog id="rulesDialog">
     <div class="modal-head"><div><span class="eyebrow">GYORSSZABÁLY</span><h2>Három lépés, egy párbaj.</h2></div><button class="ghost" id="closeRules" type="button">Bezárás</button></div>
     <div class="rules-grid">
-      <article><span>01</span><h3>Öt folyosó</h3><p>Minden lényt vagy Bástyát az öt hely egyikére idézel. A lény alapból csak a vele szemben álló lapot támadhatja. Őrkövet csak üres folyosón keresztül érhet el.</p></article>
-      <article><span>02</span><h3>Rúna és idézés</h3><p>Körönként egyszer alakíts egy kézlapot rúnává. A kezdőjátékos az első körében nem húz, a második játékos igen. A frissen idézett lény a következő saját körödben támadhat; a Bástyák passzívan védenek.</p></article>
-      <article><span>03</span><h3>Őrkő és Mag</h3><p>Törd fel az ellenfél öt Őrkövét, majd egy nyitott folyosón támadd meg a Magot. Az Átrepülés képes Őrkövet támadni blokkoló mellett is, de a Magot nem kerüli meg.</p></article>
-      <article><span>04</span><h3>Elemek</h3><p>Az elemek saját hatást adnak: a Vihar a szomszédos helyekre is átcsaphat, a Tűz pedig parázssebzést hagyhat maga után.</p></article>
+      <article><span>01</span><h3>Rúna</h3><p>Körönként egyszer alakíts egy kézlapot rúnává. Minden rúna 1 erőforrást ad, és a saját köröd elején újratöltődik. Legfeljebb 7 rúnád lehet. Rúnavisszhang: a 3. vagy későbbi rúnád lerakásakor, ha ezután legfeljebb 4 lap marad a kezedben, húzz 1 lapot. A 7. rúna után már nem kell további lapokat feláldoznod erőforrásért.</p></article>
+      <article><span>02</span><h3>Idézés</h3><p>Fizess rúnákkal a lények és igék kijátszásáért. A frissen idézett lény a következő saját körödben támadhat.</p></article>
+      <article><span>03</span><h3>Áttörés</h3><p>Mind az öt Őrkő 5 életerővel indul. A lény az Őrkőnek a támadásával megegyező sebzést okoz. Ha mind az öt Őrkő elpusztult, a 10 életerős Mag válik támadhatóvá. Ha a Mag 0 életerőre kerül, elveszíted a párbajt. Ha elfogy a paklid, minden sikertelen kötelező húzás 1 Kimerülés-sebzést okoz közvetlenül a Magodnak.</p></article>
     </div>
   </dialog>
-  <div class="spell-reveal" id="spellReveal" hidden aria-live="assertive"></div>
+  <div class="spell-reveal" id="spellReveal" hidden aria-live="polite"></div>
   <div class="toast" id="toast" role="status"></div>
-  <script type="module" src="game.js"></script>
+  <script>
+
+(() => {
+function frame(id, uid, label, inner, accent='#75e3d4', warm='#d3a85c') {
+  const s=String(uid||id).replace(/[^a-zA-Z0-9_-]/g,'');
+  return `<svg viewBox="0 0 180 112" role="img" aria-label="${label}" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg-${s}" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1c2833"/><stop offset=".52" stop-color="#0c1219"/><stop offset="1" stop-color="#05080c"/></linearGradient>
+    <radialGradient id="glow-${s}" cx="50%" cy="42%" r="65%"><stop stop-color="${accent}" stop-opacity=".34"/><stop offset=".55" stop-color="${accent}" stop-opacity=".06"/><stop offset="1" stop-color="${accent}" stop-opacity="0"/></radialGradient>
+    <linearGradient id="metal-${s}" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff2c4"/><stop offset=".26" stop-color="${warm}"/><stop offset=".58" stop-color="#70502b"/><stop offset="1" stop-color="#f1d492"/></linearGradient>
+    <filter id="soft-${s}" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="shadow-${s}" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="3" stdDeviation="2.4" flood-color="#000" flood-opacity=".75"/></filter>
+    <pattern id="grain-${s}" width="8" height="8" patternUnits="userSpaceOnUse"><circle cx="1" cy="2" r=".45" fill="#fff" opacity=".05"/><circle cx="6" cy="5" r=".35" fill="#fff" opacity=".035"/><path d="M0 7 8 1" stroke="#fff" stroke-width=".25" opacity=".018"/></pattern>
+    <linearGradient id="fade-${s}" x1="0" y1="0" x2="0" y2="1"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".62"/></linearGradient>
+  </defs>
+  <rect width="180" height="112" fill="url(#bg-${s})"/>
+  <rect width="180" height="112" fill="url(#glow-${s})"/>
+  ${inner.replaceAll('$S',s).replaceAll('$A',accent).replaceAll('$W',warm)}
+  <path d="M7 21V8h13M160 8h13v13M7 91v13h13M160 104h13V91" fill="none" stroke="url(#metal-${s})" stroke-width="1.2" opacity=".72"/>
+  <path d="M15 12h27M138 12h27M15 100h27M138 100h27" stroke="${accent}" stroke-width=".8" opacity=".34"/>
+  <rect width="180" height="112" fill="url(#fade-${s})"/>
+  <rect width="180" height="112" fill="url(#grain-${s})"/>
+  <rect x=".7" y=".7" width="178.6" height="110.6" rx="8" fill="none" stroke="rgba(255,255,255,.18)"/>
+  </svg>`;
+}
+
+const scenes = {
+  turul: (s)=>frame('turul',s,'Turul őrszem viharfelhők és hegygerincek fölött',`
+    <circle cx="135" cy="25" r="22" fill="#dffff9" opacity=".16" filter="url(#soft-$S)"/><circle cx="135" cy="25" r="10" fill="#dffff9" opacity=".85"/>
+    <path d="M0 89 28 60 49 75 75 39 101 72 126 47 180 86v26H0Z" fill="#071119"/><path d="M0 96 40 70 66 87 101 62 135 88 180 69v43H0Z" fill="#0a1820" opacity=".9"/>
+    <g><path d="M37 48c16-24 38-27 54-12 16-15 40-12 56 12-21-8-37-4-52 8l-5 20-6-20C69 44 56 41 37 48Z" fill="#eefcf8"/><path d="M61 47c13 1 22 6 29 15 8-9 18-14 31-15-12 7-20 14-25 24l-6 13-7-13c-4-10-12-17-22-24Z" fill="#c7d7d3"/><path d="m86 48 5-16 7 16-7 8Z" fill="url(#metal-$S)"/><circle cx="92" cy="43" r="1.7" fill="#101820"/></g>
+    <path d="M17 34c19-10 31-8 42-1M121 39c18-9 31-7 42 2" stroke="$A" opacity=".22" stroke-width="1.4" fill="none"/>`,'#75e3d4','#d3a85c'),
+  liderc: (s)=>frame('liderc',s,'Mocsári lidérc a ködös nádasban',`
+    <rect width="180" height="112" fill="#0a231d" opacity=".66"/><path d="M0 78c24-9 36 1 56-5 25-8 40 6 62-2 20-7 41-2 62 3v38H0Z" fill="#07140f"/>
+    <g opacity=".65" stroke="#608778" stroke-width="1.2"><path d="M19 77 14 42M26 79l3-46M146 78l5-40M155 80l-2-47M39 80l-6-33"/><path d="M13 51l-8-9M28 49l9-10M150 51l-10-11M154 47l8-11"/></g>
+    <ellipse cx="91" cy="49" rx="39" ry="31" fill="$A" opacity=".16" filter="url(#soft-$S)"/>
+    <g><path d="M70 83c5-14 1-30 7-44 3-8 9-14 14-18 9 8 15 18 17 31 2 11 0 21 5 31l-13-10-9 13-8-13Z" fill="#caffeb" opacity=".76"/><path d="M78 46c6-8 20-9 28 0-1 14-7 21-14 22-8-1-13-9-14-22Z" fill="#e6fff3" opacity=".82"/><circle cx="86" cy="48" r="2.2" fill="#0d3a2c"/><circle cx="98" cy="48" r="2.2" fill="#0d3a2c"/><path d="M87 58c3 2 7 2 10 0" stroke="#24624c" fill="none"/></g>
+    <path d="M8 91c39-7 68 8 108-3 22-6 45-1 64 6" stroke="#7ce8bd" opacity=".18" fill="none"/>`,'#57e4ad','#b9dfbf'),
+  betyar: (s)=>frame('betyar',s,'Rúnabetyár vörös alkonyatban',`
+    <rect width="180" height="112" fill="#2c1712" opacity=".55"/><circle cx="140" cy="26" r="20" fill="#ffba65" opacity=".25" filter="url(#soft-$S)"/><circle cx="140" cy="26" r="11" fill="#efb46d" opacity=".65"/>
+    <path d="M0 91 35 67 67 80 96 50 124 78 180 55v57H0Z" fill="#0c1015"/><g><path d="m66 88 4-39 13-18 17 9 4 48Z" fill="#111217"/><path d="m69 48 20-24 28 10-37 9Z" fill="#7c2022"/><path d="M80 42c8-8 20-6 27 2l-4 17-15 4-12-10Z" fill="#c99d72"/><path d="M95 43l8 3-2 4-8-2Z" fill="#221816"/><path d="m103 56 35 33-6 6-36-35Z" fill="#dfe2df"/><path d="m128 83 19 18-8 7-18-20Z" fill="url(#metal-$S)"/><path d="M67 61c-9 8-14 15-18 27" stroke="#9b1f24" stroke-width="7"/></g>
+    <path d="M20 37c14 2 25 8 33 17M125 47c15-5 28-4 39 2" stroke="$W" opacity=".24" fill="none"/>`,'#e7744f','#d7a05c'),
+  sarkany: (s)=>frame('sarkany',s,'Bakonyi sárkány lángoló hegygerinc fölött',`
+    <rect width="180" height="112" fill="#32120e" opacity=".64"/><ellipse cx="47" cy="72" rx="39" ry="26" fill="#ff6a2d" opacity=".18" filter="url(#soft-$S)"/><path d="M0 93 31 64 57 80 88 39 118 77 145 56 180 77v35H0Z" fill="#120b0a"/>
+    <g><path d="M39 58c21-31 43-37 65-27l28-12-12 24c17 10 27 25 28 42l-31-20-25 9-18 25-1-31Z" fill="#a33e31"/><path d="M54 57c15-18 32-22 49-15l15 10-24 2-18 17Z" fill="#d17655"/><path d="M101 35c9-5 21-4 30 3l-13 17-21-3Z" fill="#c45d42"/><path d="m128 38 16-5-9 12Z" fill="#f5d07a"/><circle cx="119" cy="42" r="2" fill="#ffe46e"/><path d="M132 49c13 1 22 6 30 15-12-4-22-3-31 2" stroke="#ff9a55" stroke-width="3" fill="none"/></g>
+    <path d="M18 76c8-10 17-12 28-6-7 3-12 8-16 15" fill="#ffbf55" opacity=".8"/>`,'#ff784d','#e7b465'),
+  taltos: (s)=>frame('taltos',s,'Révülő táltos csillagok és rovásjelek között',`
+    <rect width="180" height="112" fill="#11163a" opacity=".65"/><circle cx="139" cy="24" r="18" fill="#e9efff" opacity=".9"/><circle cx="146" cy="18" r="18" fill="#1c2450"/>
+    <g fill="#fff" opacity=".74"><circle cx="20" cy="18" r="1.2"/><circle cx="43" cy="29" r="1"/><circle cx="69" cy="14" r="1.4"/><circle cx="110" cy="23" r="1"/><circle cx="158" cy="48" r="1.2"/></g>
+    <ellipse cx="87" cy="67" rx="42" ry="28" fill="$A" opacity=".12" filter="url(#soft-$S)"/><g><path d="m68 101 6-50 12-20 14 18 8 52Z" fill="#171320"/><path d="m74 51 12-23 15 21-13 11Z" fill="#d3bfa5"/><path d="M59 86c7-17 17-27 29-31 15 5 26 15 34 31" fill="none" stroke="$A" stroke-width="2.6"/><circle cx="89" cy="66" r="6" fill="#90f3e5"/><path d="m88 54 7 12-7 12-7-12Z" fill="none" stroke="#dffef9"/></g>
+    <g stroke="$W" opacity=".35" fill="none"><path d="M33 56h20l-10-13v27M131 63h19l-9-12v25"/></g>`,'#79e7da','#d8b67b'),
+  vasorr: (s)=>frame('vasorr',s,'Vasorrú bába izzó üst és erdei kunyhó előtt',`
+    <rect width="180" height="112" fill="#291524" opacity=".66"/><path d="M0 89c29-22 52-15 76-7 29 10 64-6 104-17v47H0Z" fill="#0e0b10"/><ellipse cx="45" cy="83" rx="30" ry="22" fill="#f29347" opacity=".2" filter="url(#soft-$S)"/>
+    <g><path d="m100 99-8-49 13-24 18 15 7 58Z" fill="#171019"/><path d="m90 49 18-31 31 16-41 10Z" fill="#29202c"/><path d="M102 47c8-7 18-5 27 4l-5 16-17 2-11-10Z" fill="#c79c78"/><path d="m117 52 25 5-24 5Z" fill="#d9dfe1"/><circle cx="111" cy="51" r="2" fill="#28161c"/><path d="M28 73h39l-6 27H34Z" fill="#6b3a24" stroke="#d29255" stroke-width="2"/><path d="M36 69c6-13 18-13 25 0" fill="none" stroke="#e4a55e" stroke-width="4"/><path d="M38 80c6-11 15-12 22 0" fill="$A" opacity=".42"/></g>
+    <path d="M44 66c-8-11-3-18 4-24M54 63c6-10 2-18-3-23" stroke="#cae8c7" opacity=".35" fill="none"/>`,'#d87cc1','#d59b56'),
+  zivatar: (s)=>frame('zivatar',s,'Zivatarige villámokkal a puszta fölött',`
+    <rect width="180" height="112" fill="#111a3a" opacity=".78"/><path d="M0 82c30-12 54 4 82-4 34-10 59 4 98-4v38H0Z" fill="#080d14"/><g opacity=".44" fill="#4f5e80"><ellipse cx="43" cy="30" rx="35" ry="13"/><ellipse cx="85" cy="22" rx="42" ry="16"/><ellipse cx="130" cy="32" rx="38" ry="14"/></g>
+    <path d="m100 5-35 49h25L71 106l55-68H99Z" fill="#fff3ae"/><path d="m101 7-28 43h21L80 88l38-51H96Z" fill="#dffff9" opacity=".85"/>
+    <g stroke="$A" opacity=".55" fill="none" stroke-width="2"><path d="M47 6 30 29l12 2-18 27M146 9l-17 25 12 1-15 25"/></g><path d="M0 93c39-7 77 4 111-3 25-5 47-4 69 2" stroke="#9bc9ff" opacity=".3"/>`,'#8cecff','#cbd2ff'),
+  forras: (s)=>frame('forras',s,'Ősforrás fénylő vízzel és mohos sziklákkal',`
+    <rect width="180" height="112" fill="#0b2930" opacity=".72"/><path d="M0 99 28 63 52 77 77 34 102 76 127 57 180 92v20H0Z" fill="#0a1718"/><ellipse cx="91" cy="88" rx="64" ry="19" fill="$A" opacity=".25" filter="url(#soft-$S)"/><ellipse cx="91" cy="87" rx="53" ry="13" fill="#83e9dd" opacity=".45"/><ellipse cx="91" cy="87" rx="35" ry="7" fill="#d9fffb" opacity=".5"/>
+    <g><path d="M91 28c-15 20-19 34-5 45 19-5 23-19 5-45Z" fill="#c5fff8"/><path d="M89 36c-8 14-9 23-2 29" stroke="#fff" opacity=".65" fill="none" stroke-width="2"/></g>
+    <g fill="#314b40"><circle cx="36" cy="79" r="12"/><circle cx="52" cy="88" r="10"/><circle cx="135" cy="83" r="13"/><circle cx="151" cy="91" r="9"/></g><path d="M31 73c6-7 10-8 17-2M130 77c8-7 14-7 21-1" stroke="#76b77f" stroke-width="3"/>`,'#72e6d7','#b8d39a'),
+  vereshold: (s)=>frame('vereshold',s,'Vérhold vörös hegyek és harci rúnák fölött',`
+    <rect width="180" height="112" fill="#300b13" opacity=".82"/><circle cx="92" cy="37" r="31" fill="#ff6a62" opacity=".17" filter="url(#soft-$S)"/><circle cx="92" cy="37" r="24" fill="#c52d3c"/><circle cx="86" cy="31" r="20" fill="#e6564e" opacity=".45"/>
+    <path d="M0 96 31 68 55 82 82 49 104 84 128 64 180 91v21H0Z" fill="#11080b"/><path d="M23 88 42 67l10 12 18-22 14 25 20-23 17 20 16-15 19 24" fill="none" stroke="#ff7277" stroke-width="2" opacity=".48"/>
+    <g stroke="#ffd6bf" opacity=".5"><path d="M20 35h18l-9-12v25M144 39h18l-9-12v25"/></g>`,'#ff5d66','#e1a06d'),
+  bastya: (s)=>frame('bastya',s,'Rovásbástya ősi kőkapuval és fénylő védőrúnákkal',`
+    <rect width="180" height="112" fill="#172019" opacity=".82"/><path d="M0 94 28 72 49 80 72 55 101 77 128 52 180 82v30H0Z" fill="#0b100d"/><ellipse cx="90" cy="63" rx="55" ry="34" fill="$A" opacity=".12" filter="url(#soft-$S)"/>
+    <g filter="url(#shadow-$S)"><path d="M44 100V48l17-23h58l17 23v52H44Z" fill="#29352b" stroke="#9bbb83" stroke-width="2"/><path d="M60 100V55l12-14h36l12 14v45" fill="#111814" stroke="#d7c38d" stroke-width="1.5"/><path d="M79 100V65c0-9 5-15 11-15s11 6 11 15v35" fill="#070b09"/><path d="M50 53h18v16H50ZM112 53h18v16h-18Z" fill="#5f7358"/><path d="M57 29v-13M123 29v-13M46 47l-13-9M134 47l13-9" stroke="#b8d6a5" stroke-width="4"/></g>
+    <g fill="none" stroke="$W" opacity=".72"><circle cx="90" cy="69" r="17"/><path d="M90 52v34M73 69h34m-29-12 24 24m0-24-24 24"/></g>`,'#9bc78a','#d4b36f'),
+  szellovas: (s)=>frame('szellovas',s,'Széljáró portyázó vágtat a viharfelhők között',`
+    <rect width="180" height="112" fill="#102132" opacity=".82"/><path d="M0 86c32-16 55-8 82-17 31-10 62-2 98-17v60H0Z" fill="#081018"/><g stroke="#bff6ff" opacity=".28" fill="none"><path d="M8 25c35 8 61 4 86-8M93 35c28 7 52 4 79-7M16 54c30 5 54 1 75-6"/></g>
+    <g filter="url(#shadow-$S)"><path d="M47 82c14-17 29-24 47-19l28-18 19 5-25 24c10 8 16 17 18 27l-29-15-21 8-18 10-8-19Z" fill="#d9e9e8"/><path d="M72 62c8-15 18-25 31-29l15 9-12 17-16 10Z" fill="#697a83"/><path d="m100 35 8-15 10 18-9 8Z" fill="url(#metal-$S)"/><path d="M64 82 35 99M91 86l-12 20M112 78l25 18" stroke="$A" stroke-width="3"/></g><path d="m137 34 19-12-8 20 16 2-25 15 7-17Z" fill="#dffcff" opacity=".8"/>`,'#7fe9ff','#d9b66f'),
+  parazs: (s)=>frame('parazs',s,'Parázsige izzó tűzrúnával és szikrázó hamuval',`
+    <rect width="180" height="112" fill="#34120d" opacity=".86"/><ellipse cx="90" cy="60" rx="52" ry="39" fill="#ff6b32" opacity=".18" filter="url(#soft-$S)"/><g fill="#ffb65c" opacity=".72"><circle cx="35" cy="30" r="2"/><circle cx="52" cy="77" r="1.6"/><circle cx="137" cy="26" r="1.8"/><circle cx="151" cy="73" r="2.2"/><circle cx="119" cy="91" r="1.4"/></g>
+    <g transform="translate(90 59)" filter="url(#shadow-$S)"><path d="M0-43c12 18 31 27 28 49-2 19-15 34-30 40 5-13 0-22-9-31-13-13-8-35 11-58Z" fill="#ff6a2f"/><path d="M-2-23c8 15 18 22 14 37-3 10-9 18-18 23 3-10-2-15-6-21-8-11-2-25 10-39Z" fill="#ffd36e"/><path d="m0-12 10 18-10 18L-10 6Z" fill="none" stroke="#fff4ca" stroke-width="2"/></g>`,'#ff7447','#f1b75e'),
+  rovaskor: (s)=>frame('rovaskor',s,'Ősi rováskör arany és türkiz fénnyel',`
+    <rect width="180" height="112" fill="#201a10" opacity=".78"/><ellipse cx="90" cy="79" rx="64" ry="23" fill="#030506"/><ellipse cx="90" cy="70" rx="48" ry="32" fill="$W" opacity=".12" filter="url(#soft-$S)"/>
+    <g transform="translate(90 67)" fill="none"><ellipse rx="49" ry="31" stroke="$W" stroke-width="2.4"/><ellipse rx="34" ry="21" stroke="$A" stroke-width="1.8"/><circle r="10" stroke="#effffb" stroke-width="1.3"/><path d="M0-30V30M-47 0h94M-32-22l64 44M32-22l-64 44" stroke="#e7d7a5" opacity=".7"/><path d="m0-18 9 18-9 18-9-18Z" stroke="$A" stroke-width="2"/></g>
+    <g stroke="$W" opacity=".5"><path d="M35 28h15l-8-10v21M130 31h15l-7-10v20"/></g>`,'#76e8d9','#e1b968'),
+  deak: (s)=>frame('deak',s,'Rovásíró deák fénylő kézirattal egy kolostori műhelyben',`
+    <rect width="180" height="112" fill="#17152a" opacity=".78"/><path d="M0 94h180v18H0Z" fill="#090a10"/><ellipse cx="92" cy="56" rx="48" ry="34" fill="$A" opacity=".12" filter="url(#soft-$S)"/>
+    <g filter="url(#shadow-$S)"><path d="M61 94 69 43l18-18 20 12 10 57Z" fill="#252131"/><circle cx="89" cy="39" r="12" fill="#d6b38e"/><path d="m74 61 43 4-7 28-45-5Z" fill="#efe2bd"/><path d="M80 69h25M78 77h29M77 85h20" stroke="#5b4635" stroke-width="2"/><path d="m113 49 22-19 4 4-21 21Z" fill="url(#metal-$S)"/></g><path d="M31 30h17l-8-11v23M136 31h16l-8-11v22" stroke="$A" opacity=".45"/>`,'#9b8cff','#d7b46a'),
+  javas: (s)=>frame('javas',s,'Forrásjáró javas gyógyító vízrúnával',`
+    <rect width="180" height="112" fill="#092633" opacity=".8"/><ellipse cx="91" cy="83" rx="62" ry="18" fill="#73e7e0" opacity=".2"/><path d="M0 100 33 72 59 82 88 52 118 80 151 63 180 81v31H0Z" fill="#071317"/>
+    <g filter="url(#shadow-$S)"><path d="M76 99 72 55l17-25 18 25 4 44Z" fill="#153540"/><circle cx="90" cy="45" r="11" fill="#caa887"/><path d="M90 63c-13 13-18 21-2 33 17-8 18-19 2-33Z" fill="#bffff7"/><path d="M90 69v20M80 79h20" stroke="#fff" stroke-width="2"/></g><circle cx="90" cy="78" r="30" fill="$A" opacity=".09" filter="url(#soft-$S)"/>`,'#73e7e0','#c9d8aa'),
+  kobzos: (s)=>frame('kobzos',s,'Kobzos hírnök esti tábortűznél',`
+    <rect width="180" height="112" fill="#2a1b14" opacity=".8"/><circle cx="144" cy="25" r="16" fill="#ffe6b2" opacity=".55"/><path d="M0 92 38 68 71 82 103 57 137 78 180 65v47H0Z" fill="#0d0d10"/>
+    <g filter="url(#shadow-$S)"><path d="M65 99 72 51l16-17 18 17 7 48Z" fill="#2b2420"/><circle cx="89" cy="42" r="11" fill="#c49b76"/><ellipse cx="105" cy="69" rx="12" ry="18" fill="#9b5a2c" stroke="#e0b56d" stroke-width="2"/><path d="m97 58-19-23M107 52l13-26" stroke="#e0b56d" stroke-width="3"/><path d="M105 58v23" stroke="#f5d69a"/></g><g fill="$A" opacity=".65"><circle cx="131" cy="51" r="2"/><circle cx="143" cy="43" r="1.7"/><circle cx="153" cy="56" r="1.4"/></g>`,'#e6c07a','#d59855'),
+  rovasvalto: (s)=>frame('rovasvalto',s,'Rovásváltó forgó rúnakövek között',`
+    <rect width="180" height="112" fill="#1d1530" opacity=".82"/><ellipse cx="90" cy="58" rx="55" ry="38" fill="$A" opacity=".12" filter="url(#soft-$S)"/><g transform="translate(90 58)" fill="none" stroke-linecap="round"><path d="M-38-8c8-22 33-31 54-20l10 6" stroke="$A" stroke-width="4"/><path d="m23-30 8 9-12 3" stroke="$A" stroke-width="4"/><path d="M38 8c-8 22-33 31-54 20l-10-6" stroke="$W" stroke-width="4"/><path d="m-23 30-8-9 12-3" stroke="$W" stroke-width="4"/><circle r="18" stroke="#e9ddff" stroke-width="2"/><path d="M0-13v26M-11 0h22" stroke="#e9ddff"/></g>`,'#b496ff','#d6aa68'),
+  csodaszarvas: (s)=>frame('csodaszarvas',s,'Csodaszarvas fényösvényen az éjszakai erdőben',`
+    <rect width="180" height="112" fill="#111b2c" opacity=".86"/><circle cx="136" cy="24" r="17" fill="#e9f6ff" opacity=".72"/><path d="M0 92c28-18 50-10 76-19 36-13 66 4 104-14v53H0Z" fill="#08100f"/>
+    <g filter="url(#shadow-$S)"><path d="M55 84c14-21 32-29 52-20l18-13 14 5-18 16c7 8 10 17 10 27l-23-15-18 4-14 14-6-17Z" fill="#d8e9df"/><path d="M97 62c6-18 12-30 23-39M104 63c16-16 25-24 37-27M106 58c2-16 0-26-6-36" stroke="url(#metal-$S)" stroke-width="3" fill="none"/><path d="M66 87 48 104M92 88l-7 19M112 82l20 17" stroke="$A" stroke-width="3"/></g><path d="M18 71c38 9 67 5 93-7" stroke="$A" opacity=".25" fill="none"/>`,'#8ff1d0','#e0bd72'),
+  ostromlo: (s)=>frame('ostromlo',s,'Kárpáti ostromló faltörő kalapáccsal',`
+    <rect width="180" height="112" fill="#252318" opacity=".86"/><path d="M0 93 31 68 54 79 81 54 111 78 142 57 180 73v39H0Z" fill="#10110d"/><g filter="url(#shadow-$S)"><path d="M64 100 68 52l17-22 22 18 8 52Z" fill="#30352b"/><circle cx="90" cy="42" r="11" fill="#bf9972"/><path d="m103 58 39-24 7 10-41 28Z" fill="#8a6a3d"/><path d="m137 27 25 18-11 17-25-18Z" fill="#72766c" stroke="#d5c07e" stroke-width="2"/><path d="M54 72h22M51 83h25" stroke="$A" stroke-width="4"/></g>`,'#c9c46f','#d1a65c'),
+  orkokovac: (s)=>frame('orkokovac',s,'Őrkőkovács izzó rúnakövön dolgozik',`
+    <rect width="180" height="112" fill="#231b14" opacity=".86"/><ellipse cx="101" cy="72" rx="48" ry="27" fill="#ffba62" opacity=".15" filter="url(#soft-$S)"/><g filter="url(#shadow-$S)"><path d="M53 98 60 53l18-18 18 12 7 51Z" fill="#30312a"/><circle cx="80" cy="44" r="10" fill="#c09a77"/><path d="M103 81h44l-8 18h-36Z" fill="#4c5146" stroke="#cbbd7c"/><path d="m101 57 30-25 6 7-29 28Z" fill="#a98b56"/><path d="m126 27 21 19-9 12-21-19Z" fill="#73766b"/></g><g fill="$A"><circle cx="119" cy="70" r="2"/><circle cx="131" cy="62" r="1.6"/><circle cx="140" cy="74" r="1.8"/></g>`,'#d8d27c','#d4a55d'),
+  betoro: (s)=>frame('betoro',s,'Parázsló betörő égő kapu előtt',`
+    <rect width="180" height="112" fill="#35120e" opacity=".86"/><path d="M0 96 36 69 63 82 90 55 119 78 151 58 180 76v36H0Z" fill="#100b0a"/><ellipse cx="122" cy="61" rx="39" ry="31" fill="#ff6c38" opacity=".16" filter="url(#soft-$S)"/>
+    <g filter="url(#shadow-$S)"><path d="M54 100 62 54l17-17 20 13 8 50Z" fill="#2e1d19"/><circle cx="81" cy="45" r="10" fill="#c59770"/><path d="m96 61 32-18 6 9-32 22Z" fill="#6f5534"/><path d="M123 34c10 11 16 20 10 31-5-6-10-8-14-16-4-8 0-12 4-15Z" fill="#ff9c45"/><path d="M133 54c9 9 12 17 6 27-5-5-10-8-12-14-3-6 1-10 6-13Z" fill="#ffd070"/></g>`,'#ff7c4d','#dfa05c'),
+  korepesztes: (s)=>frame('korepesztes',s,'Kőrepesztő ostromrúna széthasadó őskövön',`
+    <rect width="180" height="112" fill="#232015" opacity=".86"/><ellipse cx="90" cy="58" rx="55" ry="38" fill="$A" opacity=".12" filter="url(#soft-$S)"/><g transform="translate(90 58)" filter="url(#shadow-$S)"><path d="m-24-39 21 15 18-15 9 23 25 2-13 21 10 23-25 1-17 19-15-20-25-3 13-20-10-23 24-1Z" fill="#686b5d" stroke="url(#metal-$S)" stroke-width="2"/><path d="M-4-28 3-8-7 5 8 16 1 37M20-22 9-4l12 9-8 17M-24-9l17 14-15 15" fill="none" stroke="#fff2b6" stroke-width="2.5"/><circle r="7" fill="$A" opacity=".8"/></g>`,'#d6cf79','#d0a25c')
+};
+
+function cardArtwork(id, uid) {
+  return (scenes[id] || scenes.rovaskor)(uid || `${id}-preview`);
+}
+
+window.__runaharcArt = { cardArtwork };
+})();
+(() => {
+let audioContext = null;
+let soundOn = true;
+try { soundOn = localStorage.getItem('runaharc-sound') !== 'off'; } catch {}
+
+function getAudioContext() {
+  if (!audioContext) {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return null;
+    audioContext = new Ctx();
+  }
+  return audioContext;
+}
+
+function primeAudio() {
+  const ctx = getAudioContext();
+  if (ctx?.state === 'suspended') ctx.resume().catch(() => {});
+}
+
+function setSoundEnabled(value) {
+  soundOn = Boolean(value);
+  try { localStorage.setItem('runaharc-sound', soundOn ? 'on' : 'off'); } catch {}
+  if (soundOn) primeAudio();
+  return soundOn;
+}
+
+function isSoundEnabled() { return soundOn; }
+
+function tone({freq=220, endFreq=freq, duration=.12, type='sine', gain=.055, delay=0}) {
+  if (!soundOn) return;
+  const ctx = getAudioContext();
+  if (!ctx || ctx.state !== 'running') return;
+  const start = ctx.currentTime + delay;
+  const osc = ctx.createOscillator();
+  const amp = ctx.createGain();
+  osc.type = type;
+  osc.frequency.setValueAtTime(freq, start);
+  osc.frequency.exponentialRampToValueAtTime(Math.max(30, endFreq), start + duration);
+  amp.gain.setValueAtTime(.0001, start);
+  amp.gain.exponentialRampToValueAtTime(gain, start + .012);
+  amp.gain.exponentialRampToValueAtTime(.0001, start + duration);
+  osc.connect(amp).connect(ctx.destination);
+  osc.start(start); osc.stop(start + duration + .02);
+}
+
+function noise(duration=.08, gain=.035, delay=0) {
+  if (!soundOn) return;
+  const ctx = getAudioContext();
+  if (!ctx || ctx.state !== 'running') return;
+  const length = Math.max(1, Math.floor(ctx.sampleRate * duration));
+  const buffer = ctx.createBuffer(1, length, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i=0;i<length;i++) data[i]=(Math.random()*2-1)*(1-i/length);
+  const source=ctx.createBufferSource(), amp=ctx.createGain(), filter=ctx.createBiquadFilter();
+  filter.type='bandpass';filter.frequency.value=680;filter.Q.value=.8; amp.gain.value=gain;
+  source.buffer=buffer;source.connect(filter).connect(amp).connect(ctx.destination);
+  const start=ctx.currentTime+delay;source.start(start);source.stop(start+duration+.01);
+}
+
+function playSound(kind) {
+  if (!soundOn) return;
+  primeAudio();
+  if (kind === 'rune') {
+    tone({freq:720,endFreq:980,duration:.12,type:'sine',gain:.035});
+    tone({freq:1080,endFreq:1320,duration:.11,type:'triangle',gain:.018,delay:.045});
+  } else if (kind === 'move') {
+    tone({freq:260,endFreq:520,duration:.16,type:'sine',gain:.03});
+    tone({freq:520,endFreq:780,duration:.12,type:'triangle',gain:.018,delay:.05});
+  } else if (kind === 'summon') {
+    tone({freq:135,endFreq:260,duration:.22,type:'triangle',gain:.045});
+    tone({freq:390,endFreq:610,duration:.16,type:'sine',gain:.025,delay:.08});
+  } else if (kind === 'spell') {
+    tone({freq:520,endFreq:190,duration:.24,type:'sawtooth',gain:.035});
+    noise(.16,.018,.03);
+  } else if (kind === 'attack') {
+    tone({freq:170,endFreq:62,duration:.16,type:'sawtooth',gain:.05});
+    noise(.11,.045,.025);
+  } else if (kind === 'shield') {
+    tone({freq:180,endFreq:70,duration:.16,type:'square',gain:.04});
+    tone({freq:940,endFreq:430,duration:.2,type:'triangle',gain:.026,delay:.035});
+    noise(.15,.035,.02);
+  } else if (kind === 'core') {
+    tone({freq:95,endFreq:42,duration:.4,type:'sawtooth',gain:.055});
+    tone({freq:330,endFreq:110,duration:.34,type:'triangle',gain:.03,delay:.04});
+    noise(.24,.045,.02);
+  } else if (kind === 'victory') {
+    [392,523.25,659.25].forEach((freq,i)=>tone({freq,endFreq:freq*1.02,duration:.34,type:'triangle',gain:.028,delay:i*.08}));
+  }
+}
+
+function pulse(el, cls, duration=560) {
+  if (!el) return;
+  el.classList.remove(cls);
+  void el.offsetWidth;
+  el.classList.add(cls);
+  window.setTimeout(()=>el.classList.remove(cls), duration);
+}
+
+function playGameEvent(event, viewerSeat=0) {
+  if (!event) return;
+  const arena=document.getElementById('arena') || document.querySelector('.arena');
+  const actorIsViewer=event.playerIndex===viewerSeat;
+  const actorCard=event.attackerUid ? document.querySelector(`[data-uid="${event.attackerUid}"]`) : null;
+  const targetCard=event.targetUid ? document.querySelector(`[data-uid="${event.targetUid}"]`) : null;
+  if (event.type === 'rune') {
+    playSound('rune'); pulse(actorIsViewer?document.getElementById('playerRunes'):document.getElementById('enemyRunes'),'fx-rune',500);
+  } else if (event.type === 'move') {
+    playSound('move');
+    const moved=event.cardUid ? document.querySelector(`[data-uid="${event.cardUid}"]`) : null;
+    pulse(moved,'fx-move',520);
+  } else if (event.type === 'summon') {
+    playSound('summon');
+    const summoned=event.cardUid ? document.querySelector(`[data-uid="${event.cardUid}"]`) : null;
+    pulse(summoned,'fx-summon',650);
+  } else if (event.type === 'spell') {
+    playSound('spell'); pulse(arena,'fx-spell',620);
+  } else if (event.type === 'fatigue') {
+    playSound('core');
+    pulse(actorIsViewer?document.getElementById('playerCore'):document.getElementById('enemyCore'),'fx-core',620);
+  } else if (event.type === 'attack') {
+    playSound(event.targetKind==='shield'?'shield':event.targetKind==='core'?'core':'attack');
+    pulse(actorCard,'fx-attack',520); pulse(targetCard,'fx-hit',520);
+    pulse(arena,event.targetKind==='shield'?'fx-shield':event.targetKind==='core'?'fx-core':'fx-combat',620);
+  } else if (event.type === 'victory') {
+    playSound('victory'); pulse(arena,'fx-victory',1000);
+  }
+}
+
+window.__runaharcEffects = { isSoundEnabled, playGameEvent, primeAudio, setSoundEnabled };
+})();
+(() => {
+const CARD_LIBRARY = {
+  turul: { id: 'turul', name: 'Turul Őrszem', type: 'creature', cost: 2, atk: 2, hp: 2, glyph: '✦', element: 'vihar', text: 'Kijátszáskor: ha kevesebb Őrköved van, mint az ellenfelednek, +1 támadást és +1 életerőt kap.', rarity: 'nemes' },
+  liderc: { id: 'liderc', name: 'Mocsári Lidérc', type: 'creature', cost: 1, atk: 1, hp: 3, glyph: '◈', element: 'szellem', text: 'Olcsó, szívós lény, amely gyorsan lezárhat egy támadási folyosót.', rarity: 'közönséges' },
+  betyar: { id: 'betyar', name: 'Rúnabetyár', type: 'creature', cost: 3, atk: 3, hp: 2, glyph: '⚔', element: 'semleges', text: 'Ha ebben a körben már rúnává alakítottál egy lapot, +1 támadást kap.', rarity: 'nemes' },
+  sarkany: { id: 'sarkany', name: 'Bakonyi Sárkány', type: 'creature', cost: 6, atk: 3, hp: 2, glyph: '◆', element: 'tuz', text: 'Áttörés: ha harcban legyőzi a vele szemben álló lényt, 1 sebzést okoz ugyanazon folyosó Őrkövének is.', rarity: 'epikus' },
+  taltos: { id: 'taltos', name: 'Révülő Táltos', type: 'creature', cost: 4, atk: 2, hp: 3, glyph: '☾', element: 'szellem', text: 'Kijátszáskor húzz 1 lapot.', rarity: 'epikus' },
+  vasorr: { id: 'vasorr', name: 'Vasorrú Bába', type: 'creature', cost: 4, atk: 2, hp: 2, glyph: '△', element: 'tuz', text: 'Kijátszáskor okozz 1 sebzést egy véletlenszerű ellenséges lénynek.', rarity: 'nemes' },
+  bastya: { id: 'bastya', name: 'Rovásbástya', type: 'structure', cost: 1, atk: 0, hp: 4, glyph: '▣', element: 'fold', passive: true, text: 'Bástya: nem támadhat. Védőmező: a mellette álló saját lapok 1-gyel kevesebb harci sebzést kapnak. Ha elpusztul, húzz 1 lapot.', rarity: 'nemes' },
+  szellovas: { id: 'szellovas', name: 'Széljáró Portyázó', type: 'creature', cost: 3, atk: 2, hp: 2, glyph: '➶', element: 'vihar', bypassShield: true, text: 'Átrepülés: akkor is támadhat Őrkövet, ha ugyanabban a folyosóban ellenséges lap áll. A Magot nem kerülheti meg.', rarity: 'epikus' },
+  zivatar: { id: 'zivatar', name: 'Zivatarige', type: 'spell', cost: 3, glyph: 'ϟ', element: 'vihar', text: 'Vihar: okozz 2 sebzést egy véletlenszerű ellenséges lénynek, majd 1-1 sebzést a közvetlenül mellette állóknak. Ha nincs célpont, okozz 1 sebzést egy véletlenszerű ép Őrkőnek.', rarity: 'nemes' },
+  parazs: { id: 'parazs', name: 'Parázsige', type: 'spell', cost: 2, glyph: '✹', element: 'tuz', text: 'Tűz: okozz 2 sebzést egy véletlenszerű ellenséges lénynek. Ha túléli, a következő saját köre elején 1 további sebzést szenved. Ha nincs célpont, okozz 1 sebzést egy véletlenszerű ép Őrkőnek.', rarity: 'nemes' },
+  forras: { id: 'forras', name: 'Ősforrás', type: 'spell', cost: 2, glyph: '◎', element: 'viz', text: 'Húzz 1 lapot. Ha a kijátszása után legfeljebb 3 lap maradt a kezedben, húzz még 1-et. Ezután egy sérült saját lapod vagy Őrköved visszanyer 1 életerőt.', rarity: 'közönséges' },
+  vereshold: { id: 'vereshold', name: 'Vérhold', type: 'spell', cost: 1, glyph: '●', element: 'szellem', text: 'Minden saját lényed +1 támadást kap erre a körre. Ha legalább 2 lényed van, húzz 1 lapot.', rarity: 'epikus' },
+  rovaskor: { id: 'rovaskor', name: 'Rováskör', type: 'spell', cost: 1, glyph: '◇', element: 'fold', text: 'A következő kijátszott lényed 3 rúnával kevesebbe kerül ebben a körben.', rarity: 'közönséges' },
+  deak: { id: 'deak', name: 'Rovásíró Deák', type: 'creature', cost: 2, atk: 2, hp: 3, glyph: '✎', element: 'szellem', text: 'Kijátszáskor: ha ezután legfeljebb 4 lap van a kezedben, húzz 1 lapot.', rarity: 'közönséges' },
+  javas: { id: 'javas', name: 'Forrásjáró Javas', type: 'creature', cost: 3, atk: 2, hp: 3, glyph: '◉', element: 'viz', text: 'Kijátszáskor: ha a saját folyosód Őrköve sérült, visszanyer 2 életerőt. Ha ép vagy már elpusztult, húzz 1 lapot.', rarity: 'nemes' },
+  kobzos: { id: 'kobzos', name: 'Kobzos Hírnök', type: 'creature', cost: 2, atk: 2, hp: 3, glyph: '♫', element: 'semleges', text: 'Utolsó dal: amikor elpusztul, húzz 1 lapot.', rarity: 'közönséges' },
+  rovasvalto: { id: 'rovasvalto', name: 'Rovásváltó', type: 'creature', cost: 2, atk: 2, hp: 2, glyph: '↺', element: 'szellem', text: 'Kijátszáskor: ha legalább 3 rúnád van, a legrégebbi rúnád visszakerül a kezedbe.', rarity: 'nemes' },
+  csodaszarvas: { id: 'csodaszarvas', name: 'Csodaszarvas', type: 'creature', cost: 5, atk: 2, hp: 3, glyph: '✧', element: 'szellem', text: 'Vándorlás: támadás előtt körönként egyszer átmehet egy szomszédos üres saját folyosóra.', rarity: 'epikus' },
+  ostromlo: { id: 'ostromlo', name: 'Kárpáti Ostromló', type: 'creature', cost: 5, atk: 2, hp: 3, glyph: '⬢', element: 'fold', siege: 1, text: 'Ostrom 1: Őrkő megtámadásakor 1 további sebzést okoz. Lény és Mag ellen nem kap bónuszt.', rarity: 'nemes' },
+  orkokovac: { id: 'orkokovac', name: 'Őrkőkovács', type: 'creature', cost: 3, atk: 1, hp: 4, glyph: '⚒', element: 'fold', text: 'Kijátszáskor: a saját folyosód még álló Őrköve legfeljebb 2 életerőt visszanyer.', rarity: 'nemes' },
+  betoro: { id: 'betoro', name: 'Parázsló Betörő', type: 'creature', cost: 3, atk: 3, hp: 2, glyph: '✹', element: 'tuz', text: 'Sebzett fal: sérült Őrkő megtámadásakor +1 sebzést okoz.', rarity: 'nemes' },
+  korepesztes: { id: 'korepesztes', name: 'Kőrepesztés', type: 'spell', cost: 2, glyph: '✦', element: 'fold', text: 'Ostromige: okozz 3 sebzést a legkevesebb életerővel rendelkező, még álló ellenséges Őrkőnek. A védő lényeket megkerüli.', rarity: 'nemes' }
+};
+
+const DEFAULT_DECK_LIST = [
+  'liderc','liderc','turul','turul','betyar','betyar','sarkany','taltos','vasorr','korepesztes',
+  'korepesztes','szellovas','zivatar','zivatar','parazs','ostromlo','vereshold','rovaskor','betoro','javas',
+  'szellovas','rovasvalto','csodaszarvas','ostromlo','orkokovac','betoro','deak','kobzos','forras','bastya'
+];
+const DECK_SIZE = DEFAULT_DECK_LIST.length;
+const RUNE_ECHO_MIN_RUNES = 3;
+const RUNE_ECHO_HAND_THRESHOLD = 4;
+const MAX_RUNES = 7;
+
+let uid = 1;
+const isBoardCard = card => card.type === 'creature' || card.type === 'structure';
+const enemyIndex = i => i === 0 ? 1 : 0;
+const laneCard = (player, lane) => player.board.find(card => card.lane === lane) || null;
+const validLane = lane => Number.isInteger(lane) && lane >= 0 && lane < 5;
+const GUARDIAN_MAX_HP = 5;
+const CORE_MAX_HP = 10;
+const intactGuardians = player => player.guardians.filter(hp => hp > 0).length;
+
+function makeCard(id) {
+  const base = CARD_LIBRARY[id];
+  if (!base) throw new Error(`Ismeretlen lap: ${id}`);
+  return { ...base, uid: `c${uid++}`, damage: 0, exhausted: true, bonusAtk: 0, lane: null, burn: 0, moved: false };
+}
+
+function makeDeck(deckList = DEFAULT_DECK_LIST) { return deckList.map(makeCard); }
+
+function shuffle(deck, rng = Math.random) {
+  const out = [...deck];
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}
+
+function createPlayer(name, rng = Math.random, deckList = DEFAULT_DECK_LIST) {
+  const deck = shuffle(makeDeck(deckList), rng);
+  return { name, deck, hand: deck.splice(0, 5), board: [], runes: [], guardians: Array(5).fill(GUARDIAN_MAX_HP), shields: 5, coreHp: CORE_MAX_HP, coreOpen: false, runePlayed: false, discount: 0, fatigue: 0 };
+}
+
+function createGame(rng = Math.random, names = ['Te', 'Árnyékidéző'], deckLists = null) {
+  const players = [createPlayer(names[0], rng, deckLists?.[0] || DEFAULT_DECK_LIST), createPlayer(names[1], rng, deckLists?.[1] || DEFAULT_DECK_LIST)];
+  return {
+    players,
+    active: 0, turn: 1, phase: 'main', winner: null, log: ['A párbaj elkezdődött.'], eventSeq: 0, lastEvent: null,
+    telemetry: { plays: [[], []], runes: [[], []], lanes: [[], []], runeEchoes: [0, 0] }, rng
+  };
+}
+
+function recordEvent(game, event) { game.lastEvent = { seq: ++game.eventSeq, ...event }; }
+function availableRunes(player) { return player.runes.filter(rune => !rune.used).length; }
+function cardCost(player, card) { return Math.max(0, card.cost - (card.type === 'creature' ? player.discount : 0)); }
+function canAfford(player, card) { return availableRunes(player) >= cardCost(player, card); }
+function draw(player, n = 1) {
+  const drawn = [];
+  while (n-- > 0 && player.deck.length) { const card = player.deck.shift(); player.hand.push(card); drawn.push(card); }
+  return drawn;
+}
+function spendRunes(player, amount) {
+  for (const rune of player.runes) if (!rune.used && amount > 0) { rune.used = true; amount--; }
+  return amount === 0;
+}
+function openLanes(player) { return [0,1,2,3,4].filter(lane => !laneCard(player, lane)); }
+
+function placeRune(game, playerIndex, uidToUse) {
+  if (game.winner !== null || game.active !== playerIndex) return false;
+  const player = game.players[playerIndex];
+  if (player.runePlayed || player.runes.length >= MAX_RUNES) return false;
+  const index = player.hand.findIndex(card => card.uid === uidToUse);
+  if (index < 0) return false;
+  const [card] = player.hand.splice(index, 1);
+  player.runes.push({ uid: card.uid, id: card.id, name: card.name, used: false });
+  game.telemetry?.runes[playerIndex].push(card.id);
+  player.runePlayed = true;
+  const echoActive = player.runes.length >= RUNE_ECHO_MIN_RUNES && player.hand.length <= RUNE_ECHO_HAND_THRESHOLD;
+  const echoDrawn = echoActive ? draw(player, 1) : [];
+  if (echoDrawn.length) {
+    if (game.telemetry?.runeEchoes) game.telemetry.runeEchoes[playerIndex]++;
+    game.log.unshift(`Rúnavisszhang: ${player.name} húzott 1 lapot.`);
+  }
+  game.log.unshift(`${player.name} rúnává alakította ezt a lapot: ${card.name}.`);
+  recordEvent(game, { type: 'rune', playerIndex, cardId: card.id, runeEcho: echoDrawn.length > 0 });
+  return true;
+}
+
+function cleanupDead(game) {
+  for (let playerIndex = 0; playerIndex < 2; playerIndex++) {
+    const player = game.players[playerIndex];
+    const dead = player.board.filter(card => card.hp - card.damage <= 0);
+    if (!dead.length) continue;
+    player.board = player.board.filter(card => card.hp - card.damage > 0);
+    for (const card of dead) {
+      if (card.id === 'bastya') {
+        const drawn = draw(player, 1);
+        game.log.unshift(`${player.name} Rovásbástyája leomlott${drawn.length ? ', ezért húzott 1 lapot' : ''}.`);
+      }
+      if (card.id === 'kobzos') {
+        const drawn = draw(player, 1);
+        game.log.unshift(`${player.name} Kobzos Hírnökének utolsó dala${drawn.length ? ' 1 lapot húzott' : ' elnémult, mert elfogyott a pakli'}.`);
+      }
+    }
+  }
+}
+
+function damageGuardian(game, targetIndex, lane, amount) {
+  const target = game.players[targetIndex];
+  if (!validLane(lane) || target.guardians[lane] <= 0 || amount <= 0) return { dealt: 0, destroyed: false, remaining: target.guardians[lane] ?? 0 };
+  const before = target.guardians[lane];
+  target.guardians[lane] = Math.max(0, before - amount);
+  target.shields = intactGuardians(target);
+  target.coreOpen = target.shields === 0;
+  return { dealt: before - target.guardians[lane], destroyed: before > 0 && target.guardians[lane] === 0, remaining: target.guardians[lane] };
+}
+
+function damageRandomGuardian(game, targetIndex, amount) {
+  const target = game.players[targetIndex];
+  const lanes = target.guardians.map((hp, lane) => hp > 0 ? lane : -1).filter(lane => lane >= 0);
+  if (!lanes.length) return null;
+  const lane = lanes[Math.floor(game.rng() * lanes.length)];
+  return { lane, ...damageGuardian(game, targetIndex, lane, amount) };
+}
+
+function healGuardian(player, lane, amount) {
+  if (!validLane(lane) || player.guardians[lane] <= 0 || player.guardians[lane] >= GUARDIAN_MAX_HP || amount <= 0) return 0;
+  const before = player.guardians[lane];
+  player.guardians[lane] = Math.min(GUARDIAN_MAX_HP, before + amount);
+  return player.guardians[lane] - before;
+}
+
+function returnOldestRune(player) {
+  const index = player.runes.length ? 0 : -1;
+  if (index < 0) return null;
+  const [rune] = player.runes.splice(index, 1);
+  if (!rune?.id || !CARD_LIBRARY[rune.id]) return null;
+  const card = makeCard(rune.id);
+  player.hand.push(card);
+  return card;
+}
+
+function resolveSpell(game, playerIndex, card) {
+  const player = game.players[playerIndex], enemy = game.players[enemyIndex(playerIndex)];
+  const meta = { targets: [] };
+  if (card.id === 'zivatar') {
+    if (enemy.board.length) {
+      const target = enemy.board[Math.floor(game.rng() * enemy.board.length)];
+      target.damage += 2; meta.targets.push(target.uid);
+      for (const neighbor of enemy.board.filter(other => Math.abs(other.lane - target.lane) === 1)) {
+        neighbor.damage += 1; meta.targets.push(neighbor.uid);
+      }
+      cleanupDead(game);
+    } else { const hit = damageRandomGuardian(game, enemyIndex(playerIndex), 1); if (hit) meta.guardianLane = hit.lane; }
+  }
+  if (card.id === 'parazs') {
+    if (enemy.board.length) {
+      const target = enemy.board[Math.floor(game.rng() * enemy.board.length)];
+      target.damage += 2; meta.targets.push(target.uid);
+      if (target.hp - target.damage > 0) target.burn = Math.max(target.burn || 0, 1);
+      cleanupDead(game);
+    } else { const hit = damageRandomGuardian(game, enemyIndex(playerIndex), 1); if (hit) meta.guardianLane = hit.lane; }
+  }
+  if (card.id === 'forras') {
+    const lowHand = player.hand.length <= 3;
+    draw(player, lowHand ? 2 : 1);
+    const hurt = player.board.filter(unit => unit.damage > 0).sort((a,b) => b.damage - a.damage)[0];
+    if (hurt) hurt.damage = Math.max(0, hurt.damage - 1);
+    else {
+      const lane = player.guardians.map((hp,lane)=>({hp,lane})).filter(x=>x.hp>0&&x.hp<GUARDIAN_MAX_HP).sort((a,b)=>a.hp-b.hp)[0]?.lane;
+      if (lane !== undefined) healGuardian(player, lane, 1);
+    }
+  }
+  if (card.id === 'vereshold') { const creatures=player.board.filter(unit => unit.type === 'creature'); creatures.forEach(unit => { unit.bonusAtk += 1; }); if (creatures.length >= 2) draw(player, 1); }
+  if (card.id === 'rovaskor') player.discount = 3;
+  if (card.id === 'korepesztes') {
+    const target = enemy.guardians.map((hp,lane)=>({hp,lane})).filter(x=>x.hp>0).sort((a,b)=>a.hp-b.hp||a.lane-b.lane)[0];
+    if (target) { const hit=damageGuardian(game, enemyIndex(playerIndex), target.lane, 3); meta.guardianLane=target.lane; meta.guardianDamage=hit.dealt; }
+  }
+  return meta;
+}
+
+function playCard(game, playerIndex, uidToPlay, lane = null) {
+  if (game.winner !== null || game.active !== playerIndex) return false;
+  const player = game.players[playerIndex], enemy = game.players[enemyIndex(playerIndex)];
+  const index = player.hand.findIndex(card => card.uid === uidToPlay);
+  if (index < 0) return false;
+  const card = player.hand[index];
+  if (!canAfford(player, card)) return false;
+  if (isBoardCard(card) && (!validLane(lane) || laneCard(player, lane))) return false;
+  spendRunes(player, cardCost(player, card));
+  player.hand.splice(index, 1);
+  game.telemetry?.plays[playerIndex].push(card.id);
+  if (isBoardCard(card)) {
+    card.lane = lane;
+    card.exhausted = true;
+    if (card.type === 'creature' && player.discount) player.discount = 0;
+    if (card.id === 'turul' && player.shields < enemy.shields) { card.atk++; card.hp++; }
+    if (card.id === 'betyar' && player.runePlayed) card.bonusAtk = 1;
+    if (card.id === 'taltos') draw(player, 1);
+    if (card.id === 'deak' && player.hand.length <= 4) draw(player, 1);
+    if (card.id === 'javas') {
+      const healed = healGuardian(player, lane, 2);
+      if (!healed) draw(player, 1);
+    }
+    if (card.id === 'rovasvalto' && player.runes.length >= 3) {
+      const restored = returnOldestRune(player);
+      if (restored) game.log.unshift(`${player.name} visszafejtette egy korábbi rúnáját: ${restored.name}.`);
+    }
+    if (card.id === 'orkokovac') healGuardian(player, lane, 2);
+    if (card.id === 'vasorr' && enemy.board.length) {
+      enemy.board[Math.floor(game.rng() * enemy.board.length)].damage += 1;
+      cleanupDead(game);
+    }
+    player.board.push(card);
+    game.telemetry?.lanes[playerIndex].push(lane);
+    game.log.unshift(`${player.name} kijátszotta a ${lane + 1}. helyre: ${card.name}.`);
+    recordEvent(game, { type: 'summon', playerIndex, cardUid: card.uid, cardId: card.id, lane });
+  } else {
+    const spellMeta = resolveSpell(game, playerIndex, card);
+    game.log.unshift(`${player.name} kijátszotta ezt az igét: ${card.name}.`);
+    recordEvent(game, { type: 'spell', playerIndex, cardId: card.id, cardName: card.name, cardText: card.text, element: card.element, ...spellMeta });
+  }
+  checkWinner(game);
+  return true;
+}
+
+function moveCard(game, playerIndex, uidToMove, lane) {
+  if (game.winner !== null || game.active !== playerIndex || !validLane(lane)) return false;
+  const player = game.players[playerIndex];
+  const card = player.board.find(unit => unit.uid === uidToMove);
+  if (!card || card.id !== 'csodaszarvas' || card.exhausted || card.moved || Math.abs(card.lane - lane) !== 1 || laneCard(player, lane)) return false;
+  const fromLane = card.lane;
+  card.lane = lane;
+  card.moved = true;
+  game.log.unshift(`${card.name} átvándorolt a ${fromLane + 1}. folyosóból a ${lane + 1}. folyosóba.`);
+  recordEvent(game, { type: 'move', playerIndex, cardUid: card.uid, cardId: card.id, fromLane, lane });
+  return true;
+}
+
+function combatReduction(player, card) {
+  return player.board.some(unit => unit.id === 'bastya' && unit.uid !== card.uid && Math.abs(unit.lane - card.lane) === 1) ? 1 : 0;
+}
+
+function attack(game, playerIndex, attackerUid, targetUid = null) {
+  if (game.winner !== null || game.active !== playerIndex) return false;
+  const player = game.players[playerIndex], enemy = game.players[enemyIndex(playerIndex)];
+  const attacker = player.board.find(card => card.uid === attackerUid);
+  if (!attacker || attacker.exhausted || attacker.type !== 'creature' || attacker.passive || attacker.atk + attacker.bonusAtk <= 0) return false;
+  const opposite = laneCard(enemy, attacker.lane);
+  const target = targetUid ? enemy.board.find(card => card.uid === targetUid) : null;
+  if (targetUid && (!target || target.lane !== attacker.lane || target.uid !== opposite?.uid)) return false;
+  const guardianAlive = enemy.guardians[attacker.lane] > 0;
+  if (!targetUid && opposite && !(attacker.bypassShield && guardianAlive)) return false;
+  if (!targetUid && !guardianAlive && enemy.shields > 0) return false;
+  if (!targetUid && enemy.coreOpen && opposite) return false;
+  attacker.exhausted = true;
+  const attackPower = attacker.atk + attacker.bonusAtk;
+  if (target) {
+    const counterPower = target.atk + target.bonusAtk;
+    target.damage += Math.max(0, attackPower - combatReduction(enemy, target));
+    attacker.damage += Math.max(0, counterPower - combatReduction(player, attacker));
+    const targetDied = target.hp - target.damage <= 0;
+    const attackerDied = attacker.hp - attacker.damage <= 0;
+    cleanupDead(game);
+    let trampleShield = false;
+    if (attacker.id === 'sarkany' && targetDied && !attackerDied && enemy.guardians[attacker.lane] > 0) { damageGuardian(game, enemyIndex(playerIndex), attacker.lane, 1); trampleShield = true; }
+    game.log.unshift(`${attacker.name} és ${target.name} összecsaptak a ${attacker.lane + 1}. folyosóban.`);
+    recordEvent(game, { type: 'attack', playerIndex, attackerUid, targetUid, targetKind: 'creature', lane: attacker.lane, targetDied, attackerDied, trampleShield });
+  } else if (guardianAlive) {
+    const guardianBonus = (attacker.siege || 0) + (attacker.id === 'betoro' && enemy.guardians[attacker.lane] < GUARDIAN_MAX_HP ? 1 : 0);
+    const guardianPower = attackPower + guardianBonus;
+    const hit = damageGuardian(game, enemyIndex(playerIndex), attacker.lane, guardianPower);
+    game.log.unshift(`${attacker.name} ${guardianPower} sebzést mért a ${attacker.lane + 1}. Őrkőre${guardianBonus ? ` (${guardianBonus} bónusz)` : ''}${hit.destroyed ? ', amely összetört' : ''}.`);
+    recordEvent(game, { type: 'attack', playerIndex, attackerUid, targetUid: null, targetKind: 'shield', lane: attacker.lane, bypassed: Boolean(opposite), amount: guardianPower, guardianBonus, guardianRemaining: hit.remaining, guardianDestroyed: hit.destroyed });
+  } else if (enemy.coreOpen) {
+    enemy.coreHp = Math.max(0, enemy.coreHp - attackPower);
+    const destroyed = enemy.coreHp === 0;
+    if (destroyed) {
+      game.winner = playerIndex;
+      game.log.unshift(`${attacker.name} ${attackPower} sebzést mért a Magra. ${player.name} megnyerte a párbajt!`);
+    } else game.log.unshift(`${attacker.name} ${attackPower} sebzést mért a Magra. A Mag életereje: ${enemy.coreHp}/${CORE_MAX_HP}.`);
+    recordEvent(game, { type: 'attack', playerIndex, attackerUid, targetUid: null, targetKind: 'core', lane: attacker.lane, amount: attackPower, coreRemaining: enemy.coreHp, coreDestroyed: destroyed });
+  } else {
+    attacker.exhausted = false;
+    return false;
+  }
+  checkWinner(game);
+  return true;
+}
+
+function checkWinner(game) {
+  if (game.winner !== null) return;
+  for (let i = 0; i < 2; i++) {
+    if (game.players[i].coreHp <= 0) {
+      game.winner = enemyIndex(i);
+      recordEvent(game, { type: 'victory', playerIndex: game.winner, reason: 'core' });
+      return;
+    }
+  }
+}
+
+function resolveStartOfTurnEffects(game, playerIndex) {
+  const player = game.players[playerIndex];
+  let burned = false;
+  for (const card of player.board) {
+    if ((card.burn || 0) > 0) {
+      card.damage += card.burn;
+      card.burn = 0;
+      burned = true;
+    }
+  }
+  if (burned) {
+    game.log.unshift(`${player.name} parázssebzést szenvedett a köre elején.`);
+    cleanupDead(game);
+  }
+}
+
+function endTurn(game) {
+  if (game.winner !== null) return false;
+  const current = game.players[game.active];
+  current.board.forEach(card => { card.bonusAtk = 0; });
+  game.active = enemyIndex(game.active);
+  game.turn++;
+  const next = game.players[game.active];
+  next.runePlayed = false;
+  next.discount = 0;
+  next.runes.forEach(rune => { rune.used = false; });
+  next.board.forEach(card => { card.exhausted = card.passive === true; card.moved = false; });
+  resolveStartOfTurnEffects(game, game.active);
+  if (!next.deck.length) {
+    next.fatigue = (next.fatigue || 0) + 1;
+    next.coreHp = Math.max(0, next.coreHp - 1);
+    if (next.coreHp === 0) {
+      game.winner = enemyIndex(game.active);
+      game.log.unshift(`${next.name} kimerült. ${game.players[game.winner].name} megnyerte a párbajt!`);
+      recordEvent(game, { type: 'victory', playerIndex: game.winner, reason: 'fatigue', fatigue: next.fatigue });
+      return true;
+    }
+    game.log.unshift(`${next.name} nem tudott lapot húzni: 1 kimerüléssebzést szenvedett a Magja.`);
+    recordEvent(game, { type: 'fatigue', playerIndex: game.active, amount: 1, coreRemaining: next.coreHp });
+  } else draw(next, 1);
+  game.log.unshift(`${next.name} köre következik.`);
+  return true;
+}
+
+function cardValue(card, game, playerIndex, style) {
+  const player = game.players[playerIndex], enemy = game.players[enemyIndex(playerIndex)];
+  let value = 1 + card.cost * .4;
+  if (card.type === 'creature') value += card.atk * .8 + card.hp * .42;
+  if (card.type === 'structure') value += card.hp * .46 + (style === 'control' ? 1.4 : .35);
+  if (card.id === 'taltos') value += 1.1;
+  if (card.id === 'vasorr') value += enemy.board.length ? 1.1 : .1;
+  if (card.id === 'szellovas') value += enemy.shields > 0 ? (style === 'aggro' ? 1.8 : 1.15) : .2;
+  if (card.id === 'zivatar') value += enemy.board.length ? 2 + Math.min(2, enemy.board.length) * .3 : .8;
+  if (card.id === 'parazs') value += enemy.board.length ? 1.8 : .65;
+  if (card.id === 'forras') value += 2.0;
+  if (card.id === 'vereshold') { const count=player.board.filter(unit => unit.type === 'creature').length; value += count * .7 + (count >= 2 ? .8 : 0); }
+  if (card.id === 'rovaskor') value += player.hand.some(other => other.type === 'creature' && other.uid !== card.uid) ? 1.5 : -.6;
+  if (card.id === 'deak') value += player.hand.length <= 4 ? 1.2 : .2;
+  if (card.id === 'javas') value += player.guardians.some(hp => hp > 0 && hp < GUARDIAN_MAX_HP) ? 1.25 : .85;
+  if (card.id === 'kobzos') value += .75;
+  if (card.id === 'rovasvalto') value += player.runes.length >= 3 && player.hand.length <= 4 ? 1.0 : -.2;
+  if (card.id === 'csodaszarvas') value += style === 'aggro' ? 1.05 : .7;
+  if (card.id === 'ostromlo') value += enemy.shields > 0 ? (style === 'aggro' ? 1.45 : .85) : .15;
+  if (card.id === 'orkokovac') value += player.guardians.some(hp => hp > 0 && hp < GUARDIAN_MAX_HP) ? 1.1 : .25;
+  if (card.id === 'betoro') value += enemy.guardians.some(hp => hp > 0 && hp < GUARDIAN_MAX_HP) ? .9 : .35;
+  if (card.id === 'korepesztes') value += enemy.shields > 0 ? (style === 'aggro' ? 2.0 : 1.35) : -.5;
+  return value;
+}
+
+function chooseLane(game, playerIndex, card, style) {
+  const player = game.players[playerIndex], enemy = game.players[enemyIndex(playerIndex)];
+  const choices = openLanes(player).map(lane => {
+    const opposing = laneCard(enemy, lane);
+    let score = game.rng() * .08;
+    if (!opposing) {
+      if (enemy.coreOpen) score += style === 'aggro' ? 4.2 : 2.3;
+      else if (enemy.guardians[lane] > 0) {
+        score += style === 'aggro' ? 3.4 : 1.6;
+        score += (GUARDIAN_MAX_HP - enemy.guardians[lane]) * (style === 'aggro' ? .8 : .45);
+        if (card.id === 'ostromlo' || card.id === 'betoro') score += 1.0;
+      } else score -= 2.4;
+    }
+    if ((card.id === 'javas' || card.id === 'orkokovac') && player.guardians[lane] > 0 && player.guardians[lane] < GUARDIAN_MAX_HP) score += 2.2;
+    if (opposing) {
+      const remaining = opposing.hp - opposing.damage;
+      if (card.type === 'structure') score += 2.2 + opposing.atk * .25;
+      else {
+        if (card.atk >= remaining) score += 2.8;
+        if (card.hp > opposing.atk) score += .7;
+      }
+      if (card.bypassShield && game.players[enemyIndex(playerIndex)].guardians[lane] > 0) score += 1.8;
+      if (style === 'control') score += opposing.atk * .18;
+    }
+    return { lane, score };
+  });
+  choices.sort((a,b) => b.score - a.score);
+  return choices[0]?.lane ?? null;
+}
+
+function shouldBotPlay(card, game, playerIndex) {
+  const player = game.players[playerIndex], enemy = game.players[enemyIndex(playerIndex)];
+  if (card.id === 'forras') {
+    const lowHand = player.hand.length <= 4;
+    const hurtUnit = player.board.some(unit => unit.damage > 0);
+    const hurtGuardian = player.guardians.some(hp => hp > 0 && hp < GUARDIAN_MAX_HP);
+    return lowHand || hurtUnit || hurtGuardian;
+  }
+  if (card.id === 'vereshold') return player.board.some(unit => unit.type === 'creature' && !unit.exhausted);
+  if (card.id === 'rovaskor') return player.hand.some(other => other.uid !== card.uid && other.type === 'creature');
+  if (card.id === 'korepesztes') return enemy.guardians.some(hp => hp > 0);
+  return true;
+}
+
+function botTakeTurn(game, playerIndex, style = 'value') {
+  if (game.active !== playerIndex || game.winner !== null) return;
+  const ai = game.players[playerIndex];
+  const enemy = game.players[enemyIndex(playerIndex)];
+  if (!ai.runePlayed && ai.hand.length > 2 && ai.runes.length < MAX_RUNES) {
+    const counts = ai.hand.reduce((map, card) => (map[card.id] = (map[card.id] || 0) + 1, map), {});
+    const runeChoice = [...ai.hand].sort((a,b) => {
+      const av = cardValue(a, game, playerIndex, style) + (counts[a.id] > 1 ? -.7 : .25);
+      const bv = cardValue(b, game, playerIndex, style) + (counts[b.id] > 1 ? -.7 : .25);
+      return av - bv;
+    })[0];
+    if (runeChoice) placeRune(game, playerIndex, runeChoice.uid);
+  }
+  let guard = 0;
+  while (guard++ < 12) {
+    const playable = ai.hand.filter(card => canAfford(ai, card) && (!isBoardCard(card) || openLanes(ai).length) && shouldBotPlay(card, game, playerIndex));
+    if (!playable.length) break;
+    playable.sort((a,b) => cardValue(b, game, playerIndex, style) - cardValue(a, game, playerIndex, style));
+    const card = playable[0];
+    const lane = isBoardCard(card) ? chooseLane(game, playerIndex, card, style) : null;
+    if (!playCard(game, playerIndex, card.uid, lane)) break;
+  }
+  for (const card of ai.board.filter(unit => unit.id === 'csodaszarvas' && !unit.exhausted && !unit.moved)) {
+    const currentOpposite = laneCard(enemy, card.lane);
+    const adjacent = [card.lane - 1, card.lane + 1].filter(lane => validLane(lane) && !laneCard(ai, lane));
+    const candidates = adjacent.filter(lane => !laneCard(enemy, lane) && enemy.guardians[lane] > 0);
+    if (currentOpposite && candidates.length && (style !== 'control' || currentOpposite.atk >= card.hp - card.damage)) moveCard(game, playerIndex, card.uid, candidates[0]);
+  }
+  const attackers = [...ai.board].filter(card => card.type === 'creature' && !card.passive);
+  for (const card of attackers) {
+    if (card.exhausted || game.winner !== null) continue;
+    const opposite = laneCard(enemy, card.lane);
+    if (opposite) {
+      const shouldBypass = card.bypassShield && enemy.guardians[card.lane] > 0 && (style === 'aggro' || (style === 'value' && opposite.hp - opposite.damage > card.atk + card.bonusAtk));
+      attack(game, playerIndex, card.uid, shouldBypass ? null : opposite.uid);
+    } else attack(game, playerIndex, card.uid, null);
+  }
+  if (game.winner === null) endTurn(game);
+}
+
+function aiTakeTurn(game) { return botTakeTurn(game, 1, 'value'); }
+
+window.__runaharcEngine = { CARD_LIBRARY, createGame, availableRunes, cardCost, placeRune, playCard, attack, moveCard, endTurn, aiTakeTurn, openLanes, MAX_RUNES };
+})();
+(() => {
+const { cardArtwork } = window.__runaharcArt;
+const { CARD_LIBRARY, createGame, availableRunes, cardCost, placeRune, playCard, attack, moveCard, endTurn, aiTakeTurn, openLanes, MAX_RUNES } = window.__runaharcEngine;
+const { isSoundEnabled, playGameEvent, primeAudio, setSoundEnabled } = window.__runaharcEffects;
+let game = createGame();
+let selected = null;
+let lastEventSeq = 0;
+const $ = id => document.getElementById(id);
+const ids = ['hand','playerBoard','enemyBoard','playerShields','enemyShields','playerCore','enemyCore','playerRunes','enemyRunes','playerMeta','enemyMeta','turnPill','selectedName','selectedMeta','selectedText','actions','log','endTurnBtn','toast','rulesDialog','rulesBtn','closeRules','soundBtn','spellReveal'];
+const els = Object.fromEntries(ids.map(id => [id, $(id)]));
+const elementMeta = { tuz:['TŰZ','🔥'], vihar:['VIHAR','⚡'], fold:['FÖLD','◆'], viz:['VÍZ','◉'], szellem:['SZELLEM','☾'], semleges:['SEMLEGES','•'] };
+const isBoardCard = card => card.type === 'creature' || card.type === 'structure';
+const cardKeyword = card => ({
+  turul:'KIJÁTSZÁS', liderc:'ALAPLÉNY', betyar:'+1 TÁMADÁS', sarkany:'ÁTTÖRÉS', taltos:'HÚZÁS', vasorr:'KIJÁTSZÁS',
+  bastya:'VÉDŐMEZŐ', szellovas:'ÁTREPÜLÉS', zivatar:'LÁNCSEBZÉS', parazs:'PARÁZS', forras:'GYÓGYÍTÁS',
+  vereshold:'+1 TÁMADÁS', rovaskor:'-3 KÖLTSÉG', deak:'RÚNAVISSZHANG', javas:'FORRÁSGYÓGYÍTÁS', kobzos:'UTOLSÓ DAL',
+  rovasvalto:'RÚNAVISSZAFEJTÉS', csodaszarvas:'VÁNDORLÁS', ostromlo:'OSTROM 1', orkokovac:'ŐRKŐJAVÍTÁS', betoro:'SEBZETT FAL', korepesztes:'ŐRKŐSEBZÉS'
+}[card.id] || 'KÉPESSÉG');
+function cardMetaText(card) {
+  const typeLabel = card.type === 'creature' ? 'Lény' : card.type === 'structure' ? 'Bástya' : 'Ige';
+  const [elementName] = elementMeta[card.element || 'semleges'];
+  const remaining = Math.max(0, (card.hp || 0) - (card.damage || 0));
+  const stats = card.type === 'creature' ? ` · ⚔ ${card.atk + card.bonusAtk} · ♥ ${remaining}` : card.type === 'structure' ? ` · 🛡 ${remaining}` : '';
+  const lane = Number.isInteger(card.lane) ? ` · ${card.lane + 1}. folyosó` : '';
+  return `${typeLabel} · ${elementName} · ${card.cost} rúna${stats}${lane}`;
+}
+
+function updateSoundButton() {
+  els.soundBtn.textContent = isSoundEnabled() ? 'HANG: BE' : 'HANG: KI';
+  els.soundBtn.setAttribute('aria-pressed', String(isSoundEnabled()));
+}
+
+function cardEl(card, zone, owner) {
+  const el = document.createElement('button');
+  el.type = 'button';
+  el.className = `card ${card.type} element-${card.element || 'semleges'} ${card.exhausted && zone === 'board' ? 'exhausted' : ''} ${selected?.uid === card.uid ? 'selected' : ''}`;
+  el.dataset.rarity = card.rarity; el.dataset.uid = card.uid;
+  const remaining = Math.max(0, (card.hp || 0) - (card.damage || 0));
+  const typeLabel = card.type === 'creature' ? 'LÉNY' : card.type === 'structure' ? 'BÁSTYA' : 'IGE';
+  const [elementName, elementIcon] = elementMeta[card.element || 'semleges'];
+  el.setAttribute('aria-label', `${card.name}. ${cardMetaText(card)}. ${card.text}`);
+  const stats = card.type === 'creature'
+    ? `<div class="stats"><span class="atk">⚔ ${card.atk + card.bonusAtk}</span><span class="hp">♥ ${remaining}</span></div>`
+    : card.type === 'structure' ? `<div class="stats structure-stats"><span class="guard">🛡 ${remaining}</span><span class="passive-word">PASSZÍV</span></div>` : '';
+  const keyword = cardKeyword(card);
+  el.title = card.text;
+  el.innerHTML = `<div class="card-top"><span class="cost">${card.cost}</span><span class="card-name">${card.name}</span><span class="card-kind">${typeLabel}</span></div><div class="art">${cardArtwork(card.id, card.uid)}<span class="element-badge" title="${elementName}">${elementIcon}</span>${card.burn ? '<span class="burn-badge" title="Parázs">🔥</span>' : ''}</div><div class="card-keywords"><span class="element-word">${elementName}</span><span>${keyword}</span></div>${stats}<i class="rarity-gem" aria-hidden="true"></i>`;
+  el.onclick = () => { primeAudio(); selected = { ...card, zone, owner }; render(); };
+  return el;
+}
+
+function canPlaceSelectedInLane(lane) {
+  if (!selected || selected.zone !== 'hand' || selected.owner !== 0 || game.active !== 0 || game.winner !== null) return false;
+  const live = game.players[0].hand.find(card => card.uid === selected.uid);
+  return Boolean(live && isBoardCard(live) && availableRunes(game.players[0]) >= cardCost(game.players[0], live) && openLanes(game.players[0]).includes(lane));
+}
+
+function renderBoard(el, player, owner) {
+  const slots = [];
+  for (let lane = 0; lane < 5; lane++) {
+    const slot = document.createElement('div');
+    slot.className = 'lane-slot'; slot.dataset.lane = lane;
+    const card = player.board.find(unit => unit.lane === lane);
+    if (card) slot.appendChild(cardEl(card, 'board', owner));
+    else {
+      slot.innerHTML = `<span class="lane-number">${lane + 1}</span><span class="lane-empty">ÜRES HELY</span>`;
+      if (owner === 0 && canPlaceSelectedInLane(lane)) {
+        slot.classList.add('summon-target'); slot.tabIndex = 0; slot.setAttribute('role','button');
+        const place = () => { const uid = selected?.uid; if (uid && playCard(game, 0, uid, lane)) { selected = null; render(); } };
+        slot.onclick = place; slot.onkeydown = event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); place(); } };
+      }
+    }
+    slots.push(slot);
+  }
+  el.replaceChildren(...slots);
+}
+
+function renderShields(el, guardians) {
+  el.innerHTML = '';
+  guardians.forEach((hp, lane) => {
+    const shield = document.createElement('i');
+    shield.className = `shield ${hp <= 0 ? 'broken' : hp <= 2 ? 'critical' : ''}`;
+    shield.dataset.lane = lane;
+    shield.setAttribute('aria-label', `${lane + 1}. Őrkő: ${hp}/5 életerő`);
+    shield.innerHTML = `<span>${hp}</span>`;
+    el.appendChild(shield);
+  });
+}
+function renderCore(el, player) { el.textContent = `MAG ${player.coreHp}/10`; el.classList.toggle('open', player.coreOpen); }
+function renderRunes(el, player) { el.textContent = `RÚNÁK: ${availableRunes(player)} / ${player.runes.length}${player.runes.length >= 3 ? ' · VISSZHANG' : ''}`; }
+function button(label, cls, fn) { const b = document.createElement('button'); b.type = 'button'; b.className = `action-btn ${cls || ''}`; b.textContent = label; b.onclick = () => { primeAudio(); fn(); }; return b; }
+
+function showSpellReveal(event) {
+  const card = CARD_LIBRARY[event.cardId]; if (!card || !els.spellReveal) return;
+  const [elementName, elementIcon] = elementMeta[card.element || 'semleges'];
+  els.spellReveal.innerHTML = `<div class="spell-reveal-card"><span class="eyebrow">IGE FELMUTATÁSA · ${elementName}</span><div class="spell-reveal-art">${cardArtwork(card.id, `reveal-${event.seq}`)}</div><h2>${elementIcon} ${card.name}</h2><p>${card.text}</p><small>Kattints bárhová a bezáráshoz</small></div>`;
+  els.spellReveal.hidden = false; clearTimeout(showSpellReveal.t);
+  showSpellReveal.t = setTimeout(() => { els.spellReveal.hidden = true; }, 4200);
+}
+
+function render() {
+  const player = game.players[0], enemy = game.players[1];
+  els.hand.replaceChildren(...player.hand.map(card => cardEl(card, 'hand', 0)));
+  renderBoard(els.playerBoard, player, 0); renderBoard(els.enemyBoard, enemy, 1);
+  renderShields(els.playerShields, player.guardians); renderShields(els.enemyShields, enemy.guardians); renderCore(els.playerCore, player); renderCore(els.enemyCore, enemy);
+  renderRunes(els.playerRunes, player); renderRunes(els.enemyRunes, enemy);
+  els.playerMeta.textContent = `Kéz: ${player.hand.length} lap · Pakli: ${player.deck.length} lap${player.fatigue ? ` · Kimerülés: ${player.fatigue}` : ''}`;
+  els.enemyMeta.textContent = `Kéz: ${enemy.hand.length} lap · Pakli: ${enemy.deck.length} lap${enemy.fatigue ? ` · Kimerülés: ${enemy.fatigue}` : ''}`;
+  els.turnPill.textContent = game.winner !== null ? `${game.players[game.winner].name} győzött` : `${game.turn}. kör · ${game.active === 0 ? 'TE KÖVETKEZEL' : 'AZ ELLENFÉL KÖVETKEZIK'}`;
+  els.endTurnBtn.disabled = game.active !== 0 || game.winner !== null;
+  els.log.innerHTML = game.log.slice(0, 5).map(entry => `<span>${entry}</span>`).join('');
+  renderActions();
+  if (game.lastEvent?.seq > lastEventSeq) {
+    lastEventSeq = game.lastEvent.seq;
+    if (game.lastEvent.type === 'spell') showSpellReveal(game.lastEvent);
+    requestAnimationFrame(() => playGameEvent(game.lastEvent, 0));
+  }
+  if (game.winner !== null) toast(`${game.players[game.winner].name} megnyerte a párbajt.`);
+}
+
+function renderActions() {
+  els.actions.innerHTML = '';
+  if (!selected) { els.selectedName.textContent = 'Nincs kiválasztott lap'; els.selectedMeta.textContent = 'Kattints egy lapra a részletekhez'; els.selectedText.textContent = 'Válassz egy kézlapot vagy egy támadásra kész lényt. A pálya öt támadási folyosóból áll.'; return; }
+  els.selectedName.textContent = selected.name; els.selectedMeta.textContent = cardMetaText(selected); els.selectedText.textContent = selected.text;
+  const player = game.players[0], enemy = game.players[1];
+  if (game.active !== 0 || game.winner !== null) return;
+  if (selected.zone === 'hand' && selected.owner === 0) {
+    const live = player.hand.find(card => card.uid === selected.uid); if (!live) return;
+    if (!player.runePlayed && player.runes.length < MAX_RUNES) els.actions.append(button('RÚNÁVÁ ALAKÍTOM', '', () => { placeRune(game, 0, live.uid); selected = null; render(); }));
+    const cost = cardCost(player, live);
+    if (availableRunes(player) >= cost) {
+      if (isBoardCard(live)) {
+        for (const lane of openLanes(player)) els.actions.append(button(`${lane + 1}. HELY · ${cost} RÚNA`, 'primary lane-action', () => { if (playCard(game, 0, live.uid, lane)) { selected = null; render(); } }));
+        els.selectedText.textContent = `${live.text} Válaszd ki a pályán vagy itt azt az üres helyet, ahová kijátszod.`;
+      } else els.actions.append(button(`IGE KIJÁTSZÁSA · ${cost} RÚNA`, 'primary', () => { if (playCard(game, 0, live.uid)) { selected = null; render(); } }));
+    }
+  }
+  if (selected.zone === 'board' && selected.owner === 0) {
+    const live = player.board.find(card => card.uid === selected.uid); if (!live) return;
+    if (live.type === 'structure' || live.passive) { els.selectedText.textContent = `${live.text} Ez a lap passzív, ezért nem indíthat támadást.`; return; }
+    if (live.exhausted) return;
+    if (live.id === 'csodaszarvas' && !live.moved) {
+      for (const lane of [live.lane - 1, live.lane + 1].filter(lane => lane >= 0 && lane < 5 && !player.board.some(card => card.lane === lane))) {
+        els.actions.append(button(`VÁNDORLÁS → ${lane + 1}. HELY`, 'move-action', () => { if (moveCard(game, 0, live.uid, lane)) { selected = null; render(); } }));
+      }
+    }
+    const opposite = enemy.board.find(card => card.lane === live.lane);
+    if (opposite) {
+      els.actions.append(button(`TÁMADÁS: ${opposite.name}`, '', () => { attack(game, 0, live.uid, opposite.uid); selected = null; render(); }));
+      if (live.bypassShield && enemy.guardians[live.lane] > 0) els.actions.append(button(`ŐRKŐ MEGKERÜLÉSE · ${enemy.guardians[live.lane]}/5 ÉP`, 'warn', () => { attack(game, 0, live.uid); selected = null; render(); }));
+    } else if (enemy.guardians[live.lane] > 0) els.actions.append(button(`ŐRKŐ MEGTÁMADÁSA · ${enemy.guardians[live.lane]}/5 ÉP`, 'warn', () => { attack(game, 0, live.uid); selected = null; render(); }));
+    else if (enemy.coreOpen) els.actions.append(button(`MAG MEGTÁMADÁSA · ${enemy.coreHp}/10 ÉP`, 'warn', () => { attack(game, 0, live.uid); selected = null; render(); }));
+    else els.selectedText.textContent = `${live.text} Ezen a folyosón az Őrkő már elpusztult. A Mag csak akkor támadható, ha mind az öt Őrkő megsemmisült.`;
+  }
+}
+
+function toast(message) { els.toast.textContent = message; els.toast.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => els.toast.classList.remove('show'), 1800); }
+
+els.endTurnBtn.onclick = () => { primeAudio(); if (endTurn(game)) { selected = null; render(); setTimeout(() => { aiTakeTurn(game); render(); }, 550); } };
+els.soundBtn.onclick = () => { setSoundEnabled(!isSoundEnabled()); updateSoundButton(); };
+els.rulesBtn.onclick = () => els.rulesDialog.showModal(); els.closeRules.onclick = () => els.rulesDialog.close();
+els.rulesDialog.addEventListener('click', event => { if (event.target === els.rulesDialog) els.rulesDialog.close(); });
+els.spellReveal?.addEventListener('click', () => { els.spellReveal.hidden = true; clearTimeout(showSpellReveal.t); });
+window.addEventListener('keydown', event => { if (event.key === 'Escape') { selected = null; if (els.spellReveal) els.spellReveal.hidden = true; render(); } if (event.key === 'Enter' && game.active === 0 && game.winner === null && !selected) els.endTurnBtn.click(); });
+updateSoundButton(); render();
+})();
+</script>
 </body>
 </html>

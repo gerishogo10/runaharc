@@ -12,7 +12,7 @@ try{
   a.send(JSON.stringify({type:'create',name:'A'}));const room=await next(a,'room');assert.equal(room.seat,0);
   const stateA=next(a,'state'),stateB=next(b,'state');b.send(JSON.stringify({type:'join',code:room.code,name:'B'}));
   let [sa,sb]=await Promise.all([stateA,stateB]);
-  assert.equal(sa.state.players[0].name,'A');assert.equal(sb.state.players[1].name,'B');assert.equal(sa.state.players[1].hand.length,0);assert.equal(sb.state.players[0].hand.length,0);
+  assert.equal(sa.state.players[0].name,'A');assert.equal(sb.state.players[1].name,'B');assert.equal(sa.state.players[1].hand.length,0);assert.equal(sb.state.players[0].hand.length,0);assert.equal(sa.state.players[0].handCount,5);assert.equal(sb.state.players[1].handCount,5);assert.deepEqual(sa.state.players[0].guardians,[5,5,5,5,5]);assert.equal(sa.state.players[0].coreHp,10);
   const firstRune=sa.state.players[0].hand[0].uid;[sa,sb]=await action(a,{kind:'rune',uid:firstRune},a,b);assert.equal(sa.state.players[0].runes.length,1);assert.equal(sa.state.lastEvent.type,'rune');
   let summoned=false;
   for(let step=0;step<12&&!summoned;step++){
