@@ -1,12 +1,12 @@
 export const CARD_LIBRARY = {
-  turul: { id: 'turul', name: 'Turul Őrszem', type: 'creature', cost: 2, atk: 2, hp: 2, glyph: '✦', text: 'Kijátszáskor: ha kevesebb Őrköved van, mint az ellenfélnek, +1/+1-et kap.', rarity: 'nemes' },
+  turul: { id: 'turul', name: 'Turul Őrszem', type: 'creature', cost: 2, atk: 2, hp: 2, glyph: '✦', text: 'Kijátszáskor: ha kevesebb őrköved van, mint az ellenfelednek, +1 támadást és +1 életerőt kap.', rarity: 'nemes' },
   lidérc: { id: 'lidérc', name: 'Mocsári Lidérc', type: 'creature', cost: 1, atk: 1, hp: 2, glyph: '◈', text: 'Olcsó, szívós nyitólény.', rarity: 'közönséges' },
-  betyar: { id: 'betyar', name: 'Rúnabetyár', type: 'creature', cost: 3, atk: 3, hp: 2, glyph: '⚔', text: 'Ha ebben a körben rúnát helyeztél le, +1 támadást kap.', rarity: 'nemes' },
-  sarkany: { id: 'sarkany', name: 'Bakonyi Sárkány', type: 'creature', cost: 5, atk: 5, hp: 4, glyph: '◆', text: 'Áttörés: ha lényt győz le, egy Őrkövet is megrepeszt.', rarity: 'epikus' },
+  betyar: { id: 'betyar', name: 'Rúnabetyár', type: 'creature', cost: 3, atk: 3, hp: 2, glyph: '⚔', text: 'Ha ebben a körben már rúnává alakítottál egy lapot, +1 támadást kap.', rarity: 'nemes' },
+  sarkany: { id: 'sarkany', name: 'Bakonyi Sárkány', type: 'creature', cost: 5, atk: 5, hp: 4, glyph: '◆', text: 'Áttörés: ha legyőz egy lényt, egy őrkövet is megrepeszt.', rarity: 'epikus' },
   taltos: { id: 'taltos', name: 'Révülő Táltos', type: 'creature', cost: 4, atk: 2, hp: 4, glyph: '☾', text: 'Kijátszáskor húzz 1 lapot.', rarity: 'epikus' },
-  vasorr: { id: 'vasorr', name: 'Vasorrú Bába', type: 'creature', cost: 4, atk: 3, hp: 3, glyph: '△', text: 'Kijátszáskor 1 sebzés egy ellenséges lényre.', rarity: 'nemes' },
-  zivatar: { id: 'zivatar', name: 'Zivatarige', type: 'spell', cost: 2, glyph: 'ϟ', text: 'Ossz ki 2 sebzést egy véletlen ellenséges lénynek. Ha nincs, repessz 1 Őrkövet.', rarity: 'nemes' },
-  forras: { id: 'forras', name: 'Ősforrás', type: 'spell', cost: 1, glyph: '◎', text: 'Húzz 1 lapot, majd gyógyíts 1-et egy sérült saját lényen.', rarity: 'közönséges' },
+  vasorr: { id: 'vasorr', name: 'Vasorrú Bába', type: 'creature', cost: 4, atk: 3, hp: 3, glyph: '△', text: 'Kijátszáskor: okozz 1 sebzést egy véletlenszerű ellenséges lénynek.', rarity: 'nemes' },
+  zivatar: { id: 'zivatar', name: 'Zivatarige', type: 'spell', cost: 2, glyph: 'ϟ', text: 'Okozz 2 sebzést egy véletlenszerű ellenséges lénynek. Ha nincs ilyen lény, repessz meg 1 őrkövet.', rarity: 'nemes' },
+  forras: { id: 'forras', name: 'Ősforrás', type: 'spell', cost: 1, glyph: '◎', text: 'Húzz 1 lapot, majd egy sérült saját lényed visszanyer 1 életerőt.', rarity: 'közönséges' },
   vereshold: { id: 'vereshold', name: 'Vérhold', type: 'spell', cost: 2, glyph: '●', text: 'Minden saját lény +1 támadást kap erre a körre.', rarity: 'epikus' },
   rovaskor: { id: 'rovaskor', name: 'Rováskör', type: 'spell', cost: 1, glyph: '◇', text: 'A következő kijátszott lényed 2 rúnával kevesebbe kerül ebben a körben.', rarity: 'közönséges' }
 };
@@ -36,9 +36,11 @@ export function createPlayer(name, rng = Math.random) {
 }
 
 export function createGame(rng = Math.random, names = ['Te', 'Árnyékidéző']) {
-  const game = { players: [createPlayer(names[0], rng), createPlayer(names[1], rng)], active: 0, turn: 1, phase: 'main', winner: null, log: ['A párbaj elkezdődött.'], telemetry: { plays: [[], []], runes: [[], []] }, rng };
+  const game = { players: [createPlayer(names[0], rng), createPlayer(names[1], rng)], active: 0, turn: 1, phase: 'main', winner: null, log: ['A párbaj elkezdődött.'], eventSeq: 0, lastEvent: null, telemetry: { plays: [[], []], runes: [[], []] }, rng };
   return game;
 }
+
+function recordEvent(game, event) { game.lastEvent = { seq: ++game.eventSeq, ...event }; }
 
 export function availableRunes(player) { return player.runes.filter(r => !r.used).length; }
 export function cardCost(player, card) { return Math.max(0, card.cost - (card.type === 'creature' ? player.discount : 0)); }
@@ -62,7 +64,8 @@ export function placeRune(game, playerIndex, uidToUse) {
   p.runes.push({ uid: card.uid, id: card.id, name: card.name, used: false });
   game.telemetry?.runes[playerIndex].push(card.id);
   p.runePlayed = true;
-  game.log.unshift(`${p.name} rúnává alakította: ${card.name}.`);
+  game.log.unshift(`${p.name} rúnává alakította ezt a lapot: ${card.name}.`);
+  recordEvent(game, { type: 'rune', playerIndex, cardId: card.id });
   return true;
 }
 
@@ -86,10 +89,12 @@ export function playCard(game, playerIndex, uidToPlay) {
     if (card.id === 'taltos') draw(p, 1);
     if (card.id === 'vasorr' && e.board.length) e.board[Math.floor(game.rng() * e.board.length)].damage += 1;
     p.board.push(card); e.board = removeDead(e.board);
-    game.log.unshift(`${p.name} kijátszotta: ${card.name}.`);
+    game.log.unshift(`${p.name} kijátszotta ezt a lényt: ${card.name}.`);
+    recordEvent(game, { type: 'summon', playerIndex, cardUid: card.uid, cardId: card.id });
   } else {
     resolveSpell(game, playerIndex, card);
-    game.log.unshift(`${p.name} elsütötte: ${card.name}.`);
+    game.log.unshift(`${p.name} megidézte ezt az igét: ${card.name}.`);
+    recordEvent(game, { type: 'spell', playerIndex, cardId: card.id });
   }
   checkWinner(game);
   return true;
@@ -124,10 +129,18 @@ export function attack(game, playerIndex, attackerUid, targetUid = null) {
     const targetDied = target.hp - target.damage <= 0;
     p.board = removeDead(p.board); e.board = removeDead(e.board);
     if (attacker.id === 'sarkany' && targetDied) breakShield(game, enemyIndex(playerIndex), 1);
-    game.log.unshift(`${attacker.name} összecsapott: ${target.name}.`);
+    game.log.unshift(`${attacker.name} és ${target.name} összecsaptak.`);
+    recordEvent(game, { type: 'attack', playerIndex, attackerUid, targetUid, targetKind: 'creature', targetDied, attackerDied: !p.board.some(c => c.uid === attackerUid) });
   } else {
-    if (e.shields > 0) { breakShield(game, enemyIndex(playerIndex), 1); game.log.unshift(`${attacker.name} megrepesztett egy Őrkövet.`); }
-    else { game.winner = playerIndex; game.log.unshift(`${attacker.name} elérte a Magot. ${p.name} győzött!`); }
+    if (e.shields > 0) {
+      breakShield(game, enemyIndex(playerIndex), 1);
+      game.log.unshift(`${attacker.name} megrepesztett egy őrkövet.`);
+      recordEvent(game, { type: 'attack', playerIndex, attackerUid, targetUid: null, targetKind: 'shield' });
+    } else {
+      game.winner = playerIndex;
+      game.log.unshift(`${attacker.name} elérte a Magot. ${p.name} megnyerte a párbajt!`);
+      recordEvent(game, { type: 'attack', playerIndex, attackerUid, targetUid: null, targetKind: 'core' });
+    }
   }
   checkWinner(game); return true;
 }
@@ -138,9 +151,14 @@ function breakShield(game, targetIndex, amount) {
   if (e.shields === 0) e.coreOpen = true;
 }
 function checkWinner(game) {
+  if (game.winner !== null) return;
   for (let i = 0; i < 2; i++) {
     const p = game.players[i];
-    if (!p.deck.length && !p.hand.length && !p.board.length) game.winner = enemyIndex(i);
+    if (!p.deck.length && !p.hand.length && !p.board.length) {
+      game.winner = enemyIndex(i);
+      recordEvent(game, { type: 'victory', playerIndex: game.winner });
+      return;
+    }
   }
 }
 
@@ -153,7 +171,8 @@ export function endTurn(game) {
   next.runePlayed = false; next.discount = 0; next.runes.forEach(r => r.used = false); next.board.forEach(c => c.exhausted = false);
   if (!next.deck.length) {
     game.winner = enemyIndex(game.active);
-    game.log.unshift(`${next.name} nem tudott lapot húzni. ${game.players[game.winner].name} győzött!`);
+    game.log.unshift(`${next.name} nem tudott lapot húzni. ${game.players[game.winner].name} megnyerte a párbajt!`);
+    recordEvent(game, { type: 'victory', playerIndex: game.winner });
     return true;
   }
   // Az első saját körében egyik játékos sem húz; ez megszünteti a mérhető kezdőjátékos-előnyt.

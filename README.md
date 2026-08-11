@@ -1,23 +1,38 @@
 # Rúnaharc
 
-Magyar nyelvű, kétjátékos online kártyajáték-prototípus.
+Magyar nyelvű, böngészőben játszható kártyajáték-prototípus AI- és kétjátékos online móddal.
 
-## Helyi indítás
-Node.js 20+ szükséges.
+## Online játék
+
+A szerver Node.js 20+ környezetben fut, külső npm-függőség nélkül.
 
 ```bash
 npm start
 ```
 
-Ezután nyisd meg: `http://localhost:8080`
+Alapértelmezett helyi cím: `http://localhost:8080`.
 
-## Render telepítés
-A projekt gyökerében lévő `render.yaml` egy ingyenes Node web service-t definiál.
-Részletes lépések: `RENDER-START-HERE.md`.
+A szerver a `PORT` környezeti változót használja, ezért Render Web Service-ként közvetlenül telepíthető. A `/health` útvonal health checkként használható.
 
-## Tesztek
+## Offline játék AI ellen
+
+A `index.html` és a `runaharc-standalone.html` önálló fájlok; közvetlenül megnyithatók böngészőben.
+
+## Vizuális és hangrendszer
+
+- részletes, egyedi SVG-illusztráció mind a 10 laptípushoz;
+- fehér kártyanév és támadási érték;
+- támadás-, őrkő-, Mag-, idézés-, ige- és rúnaeffektek;
+- külön hangkapcsoló;
+- `prefers-reduced-motion` támogatás;
+- az akciósáv a játéktér és a kéz között helyezkedik el.
+
+## Ellenőrzések
+
 ```bash
 npm test
 npm run lint
 node tests/online-e2e.mjs
+node tests/http-smoke.mjs
+GAMES=100000 node scripts/balance.js > balance-report.json
 ```

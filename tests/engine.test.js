@@ -9,5 +9,17 @@ test('cannot play unaffordable card',()=>{const g=createGame(rng),p=g.players[0]
 
 test('invalid attack target does not consume attacker action',()=>{const g=createGame(rng);const a=makeCard('turul');a.exhausted=false;g.players[0].board=[a];assert.equal(attack(g,0,a.uid,'missing'),false);assert.equal(a.exhausted,false)});
 
-test('player loses when starting a turn with an empty deck',()=>{const g=createGame(rng);g.players[1].deck=[];assert.equal(endTurn(g),true);assert.equal(g.winner,0)});
+test('player loses when starting a turn with an empty deck',()=>{const g=createGame(rng);g.players[1].deck=[];assert.equal(endTurn(g),true);assert.equal(g.winner,0);assert.equal(g.lastEvent.type,'victory');assert.equal(g.lastEvent.playerIndex,0)});
 test('neither player draws on their first own turn',()=>{const g=createGame(rng);assert.equal(g.players[0].hand.length,5);assert.equal(g.players[1].hand.length,5);endTurn(g);assert.equal(g.players[1].hand.length,5);endTurn(g);assert.equal(g.players[0].hand.length,6)});
+
+test('game events describe rune placement and attacks for audiovisual feedback',()=>{
+  const g=createGame(rng),p=g.players[0];
+  const runeUid=p.hand[0].uid;
+  assert.equal(placeRune(g,0,runeUid),true);
+  assert.equal(g.lastEvent.type,'rune');
+  assert.equal(g.lastEvent.playerIndex,0);
+  const attacker=makeCard('turul');attacker.exhausted=false;p.board=[attacker];g.players[1].shields=1;
+  assert.equal(attack(g,0,attacker.uid),true);
+  assert.equal(g.lastEvent.type,'attack');
+  assert.equal(g.lastEvent.targetKind,'shield');
+});
