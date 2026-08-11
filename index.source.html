@@ -7,7 +7,7 @@
   <title>Rúnaharc — Őrkövek párbaja</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body class="game-active">
   <div class="aurora" aria-hidden="true"></div>
   <main class="shell">
     <header class="topbar">
@@ -51,11 +51,13 @@
   <dialog id="rulesDialog">
     <div class="modal-head"><div><span class="eyebrow">GYORSSZABÁLY</span><h2>Három lépés, egy párbaj.</h2></div><button class="ghost" id="closeRules" type="button">Bezárás</button></div>
     <div class="rules-grid">
-      <article><span>01</span><h3>Rúna</h3><p>Körönként egyszer alakíts egy kézlapot rúnává. Minden rúna 1 erőforrást ad, és a saját köröd elején újratöltődik.</p></article>
-      <article><span>02</span><h3>Idézés</h3><p>Fizess rúnákkal a lények és igék kijátszásáért. A frissen idézett lény a következő saját körödben támadhat.</p></article>
-      <article><span>03</span><h3>Áttörés</h3><p>Törd fel az ellenfél öt őrkövét. Ha mind az öt elfogyott, a következő közvetlen támadás a Mag ellen megnyeri a párbajt. Ha a köröd elején nem tudsz lapot húzni, szintén veszítesz.</p></article>
+      <article><span>01</span><h3>Öt folyosó</h3><p>Minden lényt vagy Bástyát az öt hely egyikére idézel. A lény alapból csak a vele szemben álló lapot támadhatja. Őrkövet csak üres folyosón keresztül érhet el.</p></article>
+      <article><span>02</span><h3>Rúna és idézés</h3><p>Körönként egyszer alakíts egy kézlapot rúnává. A kezdőjátékos az első körében nem húz, a második játékos igen. A frissen idézett lény a következő saját körödben támadhat; a Bástyák passzívan védenek.</p></article>
+      <article><span>03</span><h3>Őrkő és Mag</h3><p>Törd fel az ellenfél öt Őrkövét, majd egy nyitott folyosón támadd meg a Magot. Az Átrepülés képes Őrkövet támadni blokkoló mellett is, de a Magot nem kerüli meg.</p></article>
+      <article><span>04</span><h3>Elemek</h3><p>Az elemek saját hatást adnak: a Vihar a szomszédos helyekre is átcsaphat, a Tűz pedig parázssebzést hagyhat maga után.</p></article>
     </div>
   </dialog>
+  <div class="spell-reveal" id="spellReveal" hidden aria-live="assertive"></div>
   <div class="toast" id="toast" role="status"></div>
   <script type="module" src="game.js"></script>
 </body>

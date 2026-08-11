@@ -1,25 +1,27 @@
-import test from 'node:test'; import assert from 'node:assert/strict';
-import {createGame,placeRune,playCard,attack,endTurn,availableRunes,makeCard} from '../engine.js';
-const rng=()=>0.42;
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { createGame, placeRune, playCard, attack, endTurn, availableRunes, makeCard, openLanes } from '../engine.js';
+const rng = () => 0.42;
+
+function ready(card, lane = 0) { card.exhausted = false; card.lane = lane; return card; }
+
 test('rune placement is once per turn and spends a hand card',()=>{const g=createGame(rng),p=g.players[0],n=p.hand.length,u=p.hand[0].uid;assert.equal(placeRune(g,0,u),true);assert.equal(p.hand.length,n-1);assert.equal(p.runes.length,1);assert.equal(placeRune(g,0,p.hand[0].uid),false)});
 test('runes refresh on next own turn',()=>{const g=createGame(rng),p=g.players[0];placeRune(g,0,p.hand[0].uid);p.runes[0].used=true;endTurn(g);endTurn(g);assert.equal(availableRunes(p),1)});
-test('direct attack breaks shields then core wins',()=>{const g=createGame(rng),p=g.players[0];const c=makeCard('sarkany');c.exhausted=false;p.board=[c];g.players[1].shields=1;assert.equal(attack(g,0,c.uid),true);assert.equal(g.players[1].shields,0);c.exhausted=false;assert.equal(attack(g,0,c.uid),true);assert.equal(g.winner,0)});
-test('combat damage removes defeated creature',()=>{const g=createGame(rng);const a=makeCard('turul'),b=makeCard('lidérc');a.exhausted=false;g.players[0].board=[a];g.players[1].board=[b];attack(g,0,a.uid,b.uid);assert.equal(g.players[1].board.length,0)});
-test('cannot play unaffordable card',()=>{const g=createGame(rng),p=g.players[0];const c=makeCard('sarkany');p.hand=[c];assert.equal(playCard(g,0,c.uid),false);assert.equal(p.hand.length,1)});
+test('summoning requires one of five empty lanes',()=>{const g=createGame(rng),p=g.players[0];p.runes=[{used:false},{used:false}];const c=makeCard('turul');p.hand=[c];assert.equal(playCard(g,0,c.uid),false);assert.equal(playCard(g,0,c.uid,5),false);assert.equal(playCard(g,0,c.uid,2),true);assert.equal(p.board[0].lane,2)});
+test('cannot summon onto an occupied lane',()=>{const g=createGame(rng),p=g.players[0];p.runes=[{used:false},{used:false},{used:false},{used:false}];const a=makeCard('liderc'),b=makeCard('turul');a.lane=1;p.board=[a];p.hand=[b];assert.equal(playCard(g,0,b.uid,1),false);assert.ok(openLanes(p).includes(0));assert.ok(!openLanes(p).includes(1))});
+test('creature can attack only the opposing lane',()=>{const g=createGame(rng),a=ready(makeCard('turul'),2),wrong=ready(makeCard('liderc'),1),right=ready(makeCard('liderc'),2);g.players[0].board=[a];g.players[1].board=[wrong,right];assert.equal(attack(g,0,a.uid,wrong.uid),false);assert.equal(a.exhausted,false);assert.equal(attack(g,0,a.uid,right.uid),true)});
+test('ordinary creature cannot attack an Orokő through a blocker',()=>{const g=createGame(rng),a=ready(makeCard('turul'),2),b=ready(makeCard('bastya'),2);g.players[0].board=[a];g.players[1].board=[b];assert.equal(attack(g,0,a.uid),false);assert.equal(g.players[1].shields,5);assert.equal(a.exhausted,false)});
+test('open lane lets a creature break an Orokő and later attack the core',()=>{const g=createGame(rng),a=ready(makeCard('turul'),2);g.players[0].board=[a];g.players[1].shields=1;assert.equal(attack(g,0,a.uid),true);assert.equal(g.players[1].shields,0);a.exhausted=false;assert.equal(attack(g,0,a.uid),true);assert.equal(g.winner,0)});
+test('Széljáró can bypass a blocker to attack an Orokő but not the core',()=>{const g=createGame(rng),a=ready(makeCard('szellovas'),3),b=ready(makeCard('bastya'),3);g.players[0].board=[a];g.players[1].board=[b];g.players[1].shields=2;assert.equal(attack(g,0,a.uid),true);assert.equal(g.players[1].shields,1);a.exhausted=false;g.players[1].shields=0;assert.equal(attack(g,0,a.uid),false);assert.equal(g.winner,null)});
+test('Rovásbástya is passive and cannot attack',()=>{const g=createGame(rng),b=ready(makeCard('bastya'),0);g.players[0].board=[b];assert.equal(attack(g,0,b.uid),false);assert.equal(b.exhausted,false)});
+test('destroyed Rovásbástya replaces itself with a drawn card',()=>{const g=createGame(rng),a=ready(makeCard('sarkany'),0),b=ready(makeCard('bastya'),0);b.damage=1;g.players[0].board=[a];g.players[1].board=[b];const before=g.players[1].hand.length;assert.equal(attack(g,0,a.uid,b.uid),true);assert.equal(g.players[1].board.length,0);assert.equal(g.players[1].hand.length,before+1)});
+test('Zivatarige damages the chosen random lane and adjacent lanes',()=>{const g=createGame(rng),p=g.players[0];p.runes=[{used:false},{used:false},{used:false}];const z=makeCard('zivatar');p.hand=[z];const e=g.players[1];e.board=[ready(makeCard('bastya'),0),ready(makeCard('bastya'),1),ready(makeCard('bastya'),2)];g.rng=()=>0.4;assert.equal(playCard(g,0,z.uid),true);assert.equal(e.board.find(c=>c.lane===1).damage,2);assert.equal(e.board.find(c=>c.lane===0).damage,1);assert.equal(e.board.find(c=>c.lane===2).damage,1);assert.equal(g.lastEvent.element,'vihar')});
+test('Parázsige leaves delayed fire damage on a survivor',()=>{const g=createGame(rng),p=g.players[0];p.runes=[{used:false},{used:false}];const spell=makeCard('parazs');p.hand=[spell];const target=ready(makeCard('bastya'),0);g.players[1].board=[target];g.rng=()=>0;assert.equal(playCard(g,0,spell.uid),true);assert.equal(target.damage,2);assert.equal(target.burn,1);endTurn(g);assert.equal(target.damage,3);assert.equal(target.burn,0)});
 
-test('invalid attack target does not consume attacker action',()=>{const g=createGame(rng);const a=makeCard('turul');a.exhausted=false;g.players[0].board=[a];assert.equal(attack(g,0,a.uid,'missing'),false);assert.equal(a.exhausted,false)});
+test('Rovásbástya reduces combat damage to an adjacent ally by one',()=>{const g=createGame(rng),a=ready(makeCard('betyar'),1),target=ready(makeCard('turul'),1),wall=ready(makeCard('bastya'),2);a.bonusAtk=0;g.players[0].board=[a];g.players[1].board=[target,wall];assert.equal(attack(g,0,a.uid,target.uid),true);assert.equal(target.damage,2)});
 
-test('player loses when starting a turn with an empty deck',()=>{const g=createGame(rng);g.players[1].deck=[];assert.equal(endTurn(g),true);assert.equal(g.winner,0);assert.equal(g.lastEvent.type,'victory');assert.equal(g.lastEvent.playerIndex,0)});
-test('neither player draws on their first own turn',()=>{const g=createGame(rng);assert.equal(g.players[0].hand.length,5);assert.equal(g.players[1].hand.length,5);endTurn(g);assert.equal(g.players[1].hand.length,5);endTurn(g);assert.equal(g.players[0].hand.length,6)});
-
-test('game events describe rune placement and attacks for audiovisual feedback',()=>{
-  const g=createGame(rng),p=g.players[0];
-  const runeUid=p.hand[0].uid;
-  assert.equal(placeRune(g,0,runeUid),true);
-  assert.equal(g.lastEvent.type,'rune');
-  assert.equal(g.lastEvent.playerIndex,0);
-  const attacker=makeCard('turul');attacker.exhausted=false;p.board=[attacker];g.players[1].shields=1;
-  assert.equal(attack(g,0,attacker.uid),true);
-  assert.equal(g.lastEvent.type,'attack');
-  assert.equal(g.lastEvent.targetKind,'shield');
-});
+test('spell event exposes readable card information for both clients',()=>{const g=createGame(rng),p=g.players[0];p.runes=[{used:false}];const spell=makeCard('forras');p.hand=[spell];assert.equal(playCard(g,0,spell.uid),true);assert.equal(g.lastEvent.type,'spell');assert.equal(g.lastEvent.cardName,'Ősforrás');assert.match(g.lastEvent.cardText,/Húzz 1 lapot/)});
+test('invalid attack target does not consume attacker action',()=>{const g=createGame(rng),a=ready(makeCard('turul'),0);g.players[0].board=[a];assert.equal(attack(g,0,a.uid,'missing'),false);assert.equal(a.exhausted,false)});
+test('player loses when starting a turn with an empty deck',()=>{const g=createGame(rng);g.players[1].deck=[];assert.equal(endTurn(g),true);assert.equal(g.winner,0);assert.equal(g.lastEvent.type,'victory')});
+test('the second player draws on the first turn to compensate for lane initiative',()=>{const g=createGame(rng);assert.equal(g.players[0].hand.length,5);assert.equal(g.players[1].hand.length,5);endTurn(g);assert.equal(g.players[1].hand.length,6);endTurn(g);assert.equal(g.players[0].hand.length,6)});
+test('game events include lane information for summons and attacks',()=>{const g=createGame(rng),p=g.players[0];p.runes=[{used:false},{used:false}];const c=makeCard('turul');p.hand=[c];assert.equal(playCard(g,0,c.uid,4),true);assert.equal(g.lastEvent.lane,4);c.exhausted=false;assert.equal(attack(g,0,c.uid),true);assert.equal(g.lastEvent.lane,4)});

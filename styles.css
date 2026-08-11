@@ -76,3 +76,113 @@
 /* Mable release fixes */
 .enemy-board .card:hover,.enemy-board .card.selected{transform:rotate(180deg) translateY(9px) scale(1.015)}
 @media(max-width:720px){.topbar .sound-toggle{display:inline-flex!important;align-items:center;justify-content:center}}
+
+/* Wendy v4 - desktop single-screen battle layout */
+@media (min-width:900px) and (min-height:760px){
+  body.game-active{height:100dvh;min-height:0;overflow:hidden}
+  body.game-active .shell{width:min(1500px,100%);height:100dvh;min-height:0;padding:10px 18px 12px;display:grid;grid-template-rows:54px minmax(0,1fr) 66px clamp(184px,24vh,210px);gap:8px;overflow:hidden}
+  body.game-active .topbar{position:relative;top:0;min-height:54px;padding:7px 10px;border-radius:15px;box-shadow:0 10px 28px rgba(0,0,0,.24)}
+  body.game-active .brand{gap:8px}
+  body.game-active .sigil{width:36px;height:36px;border-radius:11px;font-size:18px}
+  body.game-active .brand b{font-size:13px}
+  body.game-active .brand small{font-size:10px}
+  body.game-active .turn-pill{padding:7px 11px;font-size:10px}
+  body.game-active .ghost,body.game-active .online-link{padding:8px 10px;font-size:10px}
+  body.game-active .online-panel{display:none}
+  body.game-active .arena{margin:0;min-width:0;min-height:0;height:auto;border-radius:20px;display:grid;grid-template-rows:46px minmax(0,1fr) 22px minmax(0,1fr) 46px}
+  body.game-active .player-zone{padding:5px 13px;gap:11px;min-height:0}
+  body.game-active .avatar{width:32px;height:32px;border-radius:10px;font-size:16px}
+  body.game-active .identity{gap:8px}
+  body.game-active .identity b{font-size:11px}
+  body.game-active .identity small{font-size:9px}
+  body.game-active .shield{width:13px;height:19px;border-radius:4px 4px 6px 6px}
+  body.game-active .rune-meter{font-size:10px;min-width:76px}
+  body.game-active .board-row{min-height:0;padding:4px 12px;gap:9px;overflow:hidden}
+  body.game-active .nexus{min-height:0;gap:8px;font-size:7px;line-height:1}
+  body.game-active .nexus b{font-size:8px}
+  body.game-active .nexus small{font-size:6.5px}
+  body.game-active .nexus span{width:70px}
+  body.game-active .board-row .card{height:clamp(132px,17.8vh,166px);width:auto;aspect-ratio:154/232;padding:5px;border-radius:13px;flex:0 0 auto}
+  body.game-active .board-row .card:before{inset:2px;border-radius:11px}
+  body.game-active .board-row .card-top{min-height:22px;gap:4px;padding:1px 1px 0}
+  body.game-active .board-row .cost{width:20px;height:20px;flex-basis:20px;font-size:9px}
+  body.game-active .board-row .card-name{font-size:8px;max-width:66px}
+  body.game-active .board-row .card-kind{font-size:5px;padding:2px 3px}
+  body.game-active .board-row .art{flex-basis:47%;margin:3px 0 4px;border-radius:8px}
+  body.game-active .board-row .card-text{height:29px;padding:0 2px;font-size:6.5px;line-height:1.2}
+  body.game-active .board-row .stats{padding:0 1px 1px;font-size:9px;gap:3px}
+  body.game-active .board-row .stats span{min-width:31px;padding:2px 4px;border-radius:5px}
+  body.game-active .board-row .rarity-gem{right:6px;bottom:6px;width:5px;height:5px}
+  body.game-active .action-panel{margin:0;min-width:0;min-height:0;padding:8px 12px;border-radius:14px;gap:12px;overflow:hidden}
+  body.game-active .action-copy{min-width:220px;min-height:0}
+  body.game-active .action-copy .eyebrow{font-size:7px}
+  body.game-active .action-copy b{font-size:11px;margin:1px 0 2px}
+  body.game-active .action-copy small{font-size:9px;line-height:1.25;max-height:2.5em;overflow:hidden}
+  body.game-active .actions{gap:6px;max-height:48px;overflow:auto}
+  body.game-active .action-btn{padding:7px 9px;font-size:9px;border-radius:8px}
+  body.game-active .hand-panel{margin:0;min-width:0;min-height:0;padding:7px 10px 8px;border-radius:16px;overflow:hidden}
+  body.game-active .hand-head{height:29px;margin:0 0 3px;min-height:0}
+  body.game-active .hand-head b{font-size:11px}
+  body.game-active .hand-head small{font-size:9px}
+  body.game-active .end-turn{padding:7px 11px;font-size:9px;border-radius:8px}
+  body.game-active .hand{height:calc(100% - 32px);min-height:0;gap:8px;padding:1px 2px 3px;overflow-x:auto;overflow-y:hidden;align-items:flex-start}
+  body.game-active .hand .card{height:clamp(126px,17vh,148px);width:auto;aspect-ratio:154/232;padding:5px;border-radius:12px;flex:0 0 auto}
+  body.game-active .hand .card:before{inset:2px;border-radius:10px}
+  body.game-active .hand .card-top{min-height:20px;gap:4px;padding:1px 1px 0}
+  body.game-active .hand .cost{width:19px;height:19px;flex-basis:19px;font-size:8px}
+  body.game-active .hand .card-name{font-size:7.4px;max-width:58px}
+  body.game-active .hand .card-kind{display:none}
+  body.game-active .hand .art{flex-basis:45%;margin:3px 0;border-radius:7px}
+  body.game-active .hand .card-text{height:25px;padding:0 2px;font-size:5.9px;line-height:1.16}
+  body.game-active .hand .stats{padding:0 1px 1px;font-size:8.5px;gap:3px}
+  body.game-active .hand .stats span{min-width:29px;padding:2px 4px;border-radius:5px}
+  body.game-active .hand .rarity-gem{right:5px;bottom:5px;width:5px;height:5px}
+  body.game-active .log{display:none}
+}
+
+@media (min-width:900px) and (min-height:900px){
+  body.game-active .shell{grid-template-rows:58px minmax(0,1fr) 72px 220px;gap:10px}
+  body.game-active .arena{grid-template-rows:50px minmax(0,1fr) 24px minmax(0,1fr) 50px}
+  body.game-active .board-row .card{height:clamp(166px,19.5vh,188px)}
+  body.game-active .hand .card{height:168px}
+}
+
+/* Wendy v5 - five-lane battlefield, structures and elemental readability */
+.board-row{display:grid;grid-template-columns:repeat(5,minmax(116px,1fr));gap:8px;align-items:stretch;justify-content:stretch}
+.enemy-board{transform:none}
+.enemy-board .card{transform:none}
+.enemy-board .card:hover,.enemy-board .card.selected{transform:translateY(-8px)}
+.lane-slot{position:relative;min-width:0;min-height:156px;border:1px dashed rgba(255,255,255,.075);border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(255,255,255,.018),rgba(255,255,255,.006));overflow:visible}
+.lane-slot:after{content:"";position:absolute;left:50%;top:9px;bottom:9px;width:1px;background:linear-gradient(transparent,rgba(117,227,212,.12),transparent);pointer-events:none}
+.lane-number{position:absolute;top:7px;left:8px;z-index:1;width:20px;height:20px;border-radius:999px;display:grid;place-items:center;color:#83909e;border:1px solid rgba(255,255,255,.08);font:800 8px ui-monospace,monospace;background:rgba(6,10,15,.65)}
+.lane-empty{position:relative;z-index:1;color:#566270;font-size:7px;font-weight:900;letter-spacing:.18em;writing-mode:vertical-rl;transform:rotate(180deg)}
+.lane-slot .card{z-index:2;max-width:100%}
+.lane-slot.summon-target{cursor:pointer;border-color:rgba(117,227,212,.52);background:radial-gradient(circle at 50% 50%,rgba(117,227,212,.13),rgba(117,227,212,.025) 62%);box-shadow:inset 0 0 28px rgba(117,227,212,.055),0 0 20px rgba(117,227,212,.04);animation:lane-pulse 1.45s ease-in-out infinite}
+.lane-slot.summon-target .lane-empty{color:#a9eee5}.lane-slot.summon-target .lane-number{color:#d6fff9;border-color:rgba(117,227,212,.42)}
+@keyframes lane-pulse{50%{border-color:rgba(117,227,212,.85);box-shadow:inset 0 0 34px rgba(117,227,212,.09),0 0 24px rgba(117,227,212,.09)}}
+.card.structure{background:linear-gradient(160deg,#29352c 0,#111a16 47%,#080d0b 100%);border-color:rgba(157,202,142,.42)}
+.card.structure .cost{border-color:rgba(157,202,142,.62);color:#d8f1cf}.card.structure .art{box-shadow:inset 0 0 38px rgba(116,163,103,.12)}
+.structure-stats .guard{color:#e6f3df!important;border-color:rgba(157,202,142,.27)}.passive-word{color:#b8c9b2!important;font-size:.78em;letter-spacing:.08em}
+.element-badge,.burn-badge{position:absolute;z-index:4;display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:rgba(6,9,13,.86);border:1px solid rgba(255,255,255,.2);box-shadow:0 4px 14px rgba(0,0,0,.42);font-size:10px;text-shadow:none}
+.element-badge{right:5px;top:5px}.burn-badge{left:5px;bottom:5px;border-color:rgba(255,112,64,.5)}
+.element-tuz .element-badge{border-color:rgba(255,119,74,.58)}.element-vihar .element-badge{border-color:rgba(119,226,255,.6)}.element-fold .element-badge{border-color:rgba(174,195,128,.55)}.element-viz .element-badge{border-color:rgba(103,183,255,.58)}.element-szellem .element-badge{border-color:rgba(199,161,255,.55)}
+.spell-reveal[hidden]{display:none}.spell-reveal{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at center,rgba(30,38,52,.3),rgba(0,0,0,.72));backdrop-filter:blur(7px);animation:spell-backdrop .24s ease-out}
+.spell-reveal-card{width:min(330px,86vw);padding:14px 14px 16px;border-radius:22px;background:linear-gradient(160deg,#332817,#121015 55%,#090b0f);border:1px solid rgba(232,194,113,.55);box-shadow:0 30px 90px #000,0 0 70px rgba(211,168,92,.16);text-align:center;animation:spell-card-in .42s cubic-bezier(.2,.9,.2,1)}
+.spell-reveal-art{height:188px;margin:10px 0;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.12);box-shadow:0 16px 40px rgba(0,0,0,.38)}.spell-reveal-art svg{width:100%;height:100%;display:block}.spell-reveal-card h2{margin:7px 0 6px;font:800 20px Georgia,serif}.spell-reveal-card p{margin:0 auto 8px;max-width:29em;color:#d5d8dc;font-size:12px;line-height:1.5}.spell-reveal-card small{color:#8c97a6;font-size:10px}
+@keyframes spell-backdrop{from{opacity:0}to{opacity:1}}@keyframes spell-card-in{0%{opacity:0;transform:scale(.72) rotate(-2deg);filter:brightness(2)}60%{filter:brightness(1.25)}100%{opacity:1;transform:scale(1);filter:brightness(1)}}
+.action-btn.lane-action{min-width:72px}
+@media (min-width:900px) and (min-height:760px){
+  body.game-active .board-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;padding:3px 8px;overflow:visible}
+  body.game-active .lane-slot{min-height:0;height:100%;border-radius:10px}
+  body.game-active .lane-number{top:4px;left:5px;width:16px;height:16px;font-size:6.5px}
+  body.game-active .lane-empty{font-size:5.7px}
+  body.game-active .board-row .card{height:clamp(124px,16.4vh,154px);max-width:112px}
+  body.game-active .element-badge,body.game-active .burn-badge{width:15px;height:15px;font-size:7px}
+  body.game-active .spell-reveal-art{height:180px}
+}
+@media(max-width:720px){
+  .board-row{display:grid;grid-template-columns:repeat(5,112px);justify-content:start;overflow-x:auto;gap:7px}
+  .lane-slot{min-height:154px}.enemy-board{transform:none}.enemy-board .card{transform:none}
+  .enemy-board .card:hover,.enemy-board .card.selected{transform:translateY(-8px)}
+}
+@media(prefers-reduced-motion:reduce){.lane-slot.summon-target{animation:none}.spell-reveal,.spell-reveal-card{animation:none}}

@@ -27,7 +27,7 @@ const scenes = {
     <path d="M0 89 28 60 49 75 75 39 101 72 126 47 180 86v26H0Z" fill="#071119"/><path d="M0 96 40 70 66 87 101 62 135 88 180 69v43H0Z" fill="#0a1820" opacity=".9"/>
     <g><path d="M37 48c16-24 38-27 54-12 16-15 40-12 56 12-21-8-37-4-52 8l-5 20-6-20C69 44 56 41 37 48Z" fill="#eefcf8"/><path d="M61 47c13 1 22 6 29 15 8-9 18-14 31-15-12 7-20 14-25 24l-6 13-7-13c-4-10-12-17-22-24Z" fill="#c7d7d3"/><path d="m86 48 5-16 7 16-7 8Z" fill="url(#metal-$S)"/><circle cx="92" cy="43" r="1.7" fill="#101820"/></g>
     <path d="M17 34c19-10 31-8 42-1M121 39c18-9 31-7 42 2" stroke="$A" opacity=".22" stroke-width="1.4" fill="none"/>`,'#75e3d4','#d3a85c'),
-  'lidérc': (s)=>frame('lidérc',s,'Mocsári lidérc a ködös nádasban',`
+  liderc: (s)=>frame('liderc',s,'Mocsári lidérc a ködös nádasban',`
     <rect width="180" height="112" fill="#0a231d" opacity=".66"/><path d="M0 78c24-9 36 1 56-5 25-8 40 6 62-2 20-7 41-2 62 3v38H0Z" fill="#07140f"/>
     <g opacity=".65" stroke="#608778" stroke-width="1.2"><path d="M19 77 14 42M26 79l3-46M146 78l5-40M155 80l-2-47M39 80l-6-33"/><path d="M13 51l-8-9M28 49l9-10M150 51l-10-11M154 47l8-11"/></g>
     <ellipse cx="91" cy="49" rx="39" ry="31" fill="$A" opacity=".16" filter="url(#soft-$S)"/>
@@ -62,6 +62,16 @@ const scenes = {
     <rect width="180" height="112" fill="#300b13" opacity=".82"/><circle cx="92" cy="37" r="31" fill="#ff6a62" opacity=".17" filter="url(#soft-$S)"/><circle cx="92" cy="37" r="24" fill="#c52d3c"/><circle cx="86" cy="31" r="20" fill="#e6564e" opacity=".45"/>
     <path d="M0 96 31 68 55 82 82 49 104 84 128 64 180 91v21H0Z" fill="#11080b"/><path d="M23 88 42 67l10 12 18-22 14 25 20-23 17 20 16-15 19 24" fill="none" stroke="#ff7277" stroke-width="2" opacity=".48"/>
     <g stroke="#ffd6bf" opacity=".5"><path d="M20 35h18l-9-12v25M144 39h18l-9-12v25"/></g>`,'#ff5d66','#e1a06d'),
+  bastya: (s)=>frame('bastya',s,'Rovásbástya ősi kőkapuval és fénylő védőrúnákkal',`
+    <rect width="180" height="112" fill="#172019" opacity=".82"/><path d="M0 94 28 72 49 80 72 55 101 77 128 52 180 82v30H0Z" fill="#0b100d"/><ellipse cx="90" cy="63" rx="55" ry="34" fill="$A" opacity=".12" filter="url(#soft-$S)"/>
+    <g filter="url(#shadow-$S)"><path d="M44 100V48l17-23h58l17 23v52H44Z" fill="#29352b" stroke="#9bbb83" stroke-width="2"/><path d="M60 100V55l12-14h36l12 14v45" fill="#111814" stroke="#d7c38d" stroke-width="1.5"/><path d="M79 100V65c0-9 5-15 11-15s11 6 11 15v35" fill="#070b09"/><path d="M50 53h18v16H50ZM112 53h18v16h-18Z" fill="#5f7358"/><path d="M57 29v-13M123 29v-13M46 47l-13-9M134 47l13-9" stroke="#b8d6a5" stroke-width="4"/></g>
+    <g fill="none" stroke="$W" opacity=".72"><circle cx="90" cy="69" r="17"/><path d="M90 52v34M73 69h34m-29-12 24 24m0-24-24 24"/></g>`,'#9bc78a','#d4b36f'),
+  szellovas: (s)=>frame('szellovas',s,'Széljáró portyázó vágtat a viharfelhők között',`
+    <rect width="180" height="112" fill="#102132" opacity=".82"/><path d="M0 86c32-16 55-8 82-17 31-10 62-2 98-17v60H0Z" fill="#081018"/><g stroke="#bff6ff" opacity=".28" fill="none"><path d="M8 25c35 8 61 4 86-8M93 35c28 7 52 4 79-7M16 54c30 5 54 1 75-6"/></g>
+    <g filter="url(#shadow-$S)"><path d="M47 82c14-17 29-24 47-19l28-18 19 5-25 24c10 8 16 17 18 27l-29-15-21 8-18 10-8-19Z" fill="#d9e9e8"/><path d="M72 62c8-15 18-25 31-29l15 9-12 17-16 10Z" fill="#697a83"/><path d="m100 35 8-15 10 18-9 8Z" fill="url(#metal-$S)"/><path d="M64 82 35 99M91 86l-12 20M112 78l25 18" stroke="$A" stroke-width="3"/></g><path d="m137 34 19-12-8 20 16 2-25 15 7-17Z" fill="#dffcff" opacity=".8"/>`,'#7fe9ff','#d9b66f'),
+  parazs: (s)=>frame('parazs',s,'Parázsige izzó tűzrúnával és szikrázó hamuval',`
+    <rect width="180" height="112" fill="#34120d" opacity=".86"/><ellipse cx="90" cy="60" rx="52" ry="39" fill="#ff6b32" opacity=".18" filter="url(#soft-$S)"/><g fill="#ffb65c" opacity=".72"><circle cx="35" cy="30" r="2"/><circle cx="52" cy="77" r="1.6"/><circle cx="137" cy="26" r="1.8"/><circle cx="151" cy="73" r="2.2"/><circle cx="119" cy="91" r="1.4"/></g>
+    <g transform="translate(90 59)" filter="url(#shadow-$S)"><path d="M0-43c12 18 31 27 28 49-2 19-15 34-30 40 5-13 0-22-9-31-13-13-8-35 11-58Z" fill="#ff6a2f"/><path d="M-2-23c8 15 18 22 14 37-3 10-9 18-18 23 3-10-2-15-6-21-8-11-2-25 10-39Z" fill="#ffd36e"/><path d="m0-12 10 18-10 18L-10 6Z" fill="none" stroke="#fff4ca" stroke-width="2"/></g>`,'#ff7447','#f1b75e'),
   rovaskor: (s)=>frame('rovaskor',s,'Ősi rováskör arany és türkiz fénnyel',`
     <rect width="180" height="112" fill="#201a10" opacity=".78"/><ellipse cx="90" cy="79" rx="64" ry="23" fill="#030506"/><ellipse cx="90" cy="70" rx="48" ry="32" fill="$W" opacity=".12" filter="url(#soft-$S)"/>
     <g transform="translate(90 67)" fill="none"><ellipse rx="49" ry="31" stroke="$W" stroke-width="2.4"/><ellipse rx="34" ry="21" stroke="$A" stroke-width="1.8"/><circle r="10" stroke="#effffb" stroke-width="1.3"/><path d="M0-30V30M-47 0h94M-32-22l64 44M32-22l-64 44" stroke="#e7d7a5" opacity=".7"/><path d="m0-18 9 18-9 18-9-18Z" stroke="$A" stroke-width="2"/></g>
