@@ -1,8 +1,10 @@
 import { cardArtwork } from './art.js';
-import { CARD_LIBRARY, createGame, availableRunes, cardCost, placeRune, playCard, attack, moveCard, endTurn, aiTakeTurn, openLanes, MAX_RUNES } from './engine.js';
+import { CARD_LIBRARY, createGame, availableRunes, cardCost, placeRune, playCard, attack, moveCard, endTurn, aiTakeTurn, openLanes, MAX_RUNES, DEFAULT_DECK_LIST, validateDeckList, GUARDIAN_MAX_HP, CORE_MAX_HP } from './engine.js';
 import { isSoundEnabled, playGameEvent, primeAudio, setSoundEnabled } from './effects.js';
 
-let game = createGame();
+const DECK_STORAGE_KEY = 'runaharc.deck.v11';
+function loadPlayerDeck(){ try{const d=JSON.parse(localStorage.getItem(DECK_STORAGE_KEY)||'null');if(validateDeckList(d).ok)return d;}catch{} return [...DEFAULT_DECK_LIST]; }
+let game = createGame(Math.random, ['Rúnaidéző','Árnyékidéző'], [loadPlayerDeck(), DEFAULT_DECK_LIST]);
 let selected = null;
 let lastEventSeq = 0;
 const $ = id => document.getElementById(id);
@@ -14,7 +16,8 @@ const cardKeyword = card => ({
   turul:'KIJÁTSZÁS', liderc:'ALAPLÉNY', betyar:'+1 TÁMADÁS', sarkany:'ÁTTÖRÉS', taltos:'HÚZÁS', vasorr:'KIJÁTSZÁS',
   bastya:'VÉDŐMEZŐ', szellovas:'ÁTREPÜLÉS', zivatar:'LÁNCSEBZÉS', parazs:'PARÁZS', forras:'GYÓGYÍTÁS',
   vereshold:'+1 TÁMADÁS', rovaskor:'-3 KÖLTSÉG', deak:'RÚNAVISSZHANG', javas:'FORRÁSGYÓGYÍTÁS', kobzos:'UTOLSÓ DAL',
-  rovasvalto:'RÚNAVISSZAFEJTÉS', csodaszarvas:'VÁNDORLÁS', ostromlo:'OSTROM 1', orkokovac:'ŐRKŐJAVÍTÁS', betoro:'SEBZETT FAL', korepesztes:'ŐRKŐSEBZÉS'
+  rovasvalto:'RÚNAVISSZAFEJTÉS', csodaszarvas:'VÁNDORLÁS', ostromlo:'OSTROM 1', orkokovac:'ŐRKŐJAVÍTÁS', betoro:'SEBZETT FAL', korepesztes:'ŐRKŐSEBZÉS',
+  villamvadasz:'LENDÜLET', mennydorges:'TERÜLETI SEBZÉS', hamufonix:'ÚJJÁSZÜLETÉS', langostrom:'OSTROMIGE', kofal:'ERŐDFAL', foldrengeto:'VISSZAVERÉS', forrastunder:'ÁRAMLÁS', aradas:'GYÓGYÍTÁS', osokhangja:'RÚNAVISSZAFEJTÉS', lidercsapat:'KÍSÉRTETJÁRÁS'
 }[card.id] || 'KÉPESSÉG');
 function cardMetaText(card) {
   const typeLabel = card.type === 'creature' ? 'Lény' : card.type === 'structure' ? 'Bástya' : 'Ige';
@@ -75,19 +78,14 @@ function renderBoard(el, player, owner) {
   el.replaceChildren(...slots);
 }
 
-function renderShields(el, guardians) {
-  el.innerHTML = '';
-  guardians.forEach((hp, lane) => {
-    const shield = document.createElement('i');
-    shield.className = `shield ${hp <= 0 ? 'broken' : hp <= 2 ? 'critical' : ''}`;
-    shield.dataset.lane = lane;
-    shield.setAttribute('aria-label', `${lane + 1}. Őrkő: ${hp}/5 életerő`);
-    shield.innerHTML = `<span>${hp}</span>`;
-    el.appendChild(shield);
-  });
+function renderShields(el, player) {
+  const hp = Math.max(0, player.guardianHp || 0), pct = Math.max(0, Math.min(100, hp / GUARDIAN_MAX_HP * 100));
+  el.className = `shields guardian-total ${hp <= 0 ? 'broken' : hp <= 8 ? 'critical' : ''}`;
+  el.setAttribute('aria-label', `Őrkő-élet: ${hp}/${GUARDIAN_MAX_HP}`);
+  el.innerHTML = `<span class="guardian-label">ŐRKŐ-ÉLET <b>${hp}/${GUARDIAN_MAX_HP}</b></span><span class="guardian-track"><i style="width:${pct}%"></i></span>`;
 }
-function renderCore(el, player) { el.textContent = `MAG ${player.coreHp}/10`; el.classList.toggle('open', player.coreOpen); }
-function renderRunes(el, player) { el.textContent = `RÚNÁK: ${availableRunes(player)} / ${player.runes.length}${player.runes.length >= 3 ? ' · VISSZHANG' : ''}`; }
+function renderCore(el, player) { el.textContent = `MAG ${player.coreHp}/${CORE_MAX_HP}`; el.classList.toggle('open', player.coreOpen); }
+function renderRunes(el, player) { el.textContent = `RÚNÁK: ${availableRunes(player)} / ${player.runes.length}${player.spark ? ' · +1 SZIKRA' : ''}${player.runes.length >= 3 ? ' · VISSZHANG' : ''}`; }
 function button(label, cls, fn) { const b = document.createElement('button'); b.type = 'button'; b.className = `action-btn ${cls || ''}`; b.textContent = label; b.onclick = () => { primeAudio(); fn(); }; return b; }
 
 function showSpellReveal(event) {
@@ -102,7 +100,7 @@ function render() {
   const player = game.players[0], enemy = game.players[1];
   els.hand.replaceChildren(...player.hand.map(card => cardEl(card, 'hand', 0)));
   renderBoard(els.playerBoard, player, 0); renderBoard(els.enemyBoard, enemy, 1);
-  renderShields(els.playerShields, player.guardians); renderShields(els.enemyShields, enemy.guardians); renderCore(els.playerCore, player); renderCore(els.enemyCore, enemy);
+  renderShields(els.playerShields, player); renderShields(els.enemyShields, enemy); renderCore(els.playerCore, player); renderCore(els.enemyCore, enemy);
   renderRunes(els.playerRunes, player); renderRunes(els.enemyRunes, enemy);
   els.playerMeta.textContent = `Kéz: ${player.hand.length} lap · Pakli: ${player.deck.length} lap${player.fatigue ? ` · Kimerülés: ${player.fatigue}` : ''}`;
   els.enemyMeta.textContent = `Kéz: ${enemy.hand.length} lap · Pakli: ${enemy.deck.length} lap${enemy.fatigue ? ` · Kimerülés: ${enemy.fatigue}` : ''}`;
@@ -147,10 +145,9 @@ function renderActions() {
     const opposite = enemy.board.find(card => card.lane === live.lane);
     if (opposite) {
       els.actions.append(button(`TÁMADÁS: ${opposite.name}`, '', () => { attack(game, 0, live.uid, opposite.uid); selected = null; render(); }));
-      if (live.bypassShield && enemy.guardians[live.lane] > 0) els.actions.append(button(`ŐRKŐ MEGKERÜLÉSE · ${enemy.guardians[live.lane]}/5 ÉP`, 'warn', () => { attack(game, 0, live.uid); selected = null; render(); }));
-    } else if (enemy.guardians[live.lane] > 0) els.actions.append(button(`ŐRKŐ MEGTÁMADÁSA · ${enemy.guardians[live.lane]}/5 ÉP`, 'warn', () => { attack(game, 0, live.uid); selected = null; render(); }));
-    else if (enemy.coreOpen) els.actions.append(button(`MAG MEGTÁMADÁSA · ${enemy.coreHp}/10 ÉP`, 'warn', () => { attack(game, 0, live.uid); selected = null; render(); }));
-    else els.selectedText.textContent = `${live.text} Ezen a folyosón az Őrkő már elpusztult. A Mag csak akkor támadható, ha mind az öt Őrkő megsemmisült.`;
+      if (live.bypassShield && enemy.guardianHp > 0) els.actions.append(button(`ŐRKŐ-ÉLET MEGKERÜLÉSE · ${enemy.guardianHp}/${GUARDIAN_MAX_HP}`, 'warn', () => { attack(game, 0, live.uid); selected = null; render(); }));
+    } else if (enemy.guardianHp > 0) els.actions.append(button(`ŐRKŐ-ÉLET TÁMADÁSA · ${enemy.guardianHp}/${GUARDIAN_MAX_HP}`, 'warn', () => { attack(game, 0, live.uid); selected = null; render(); }));
+    else if (enemy.coreOpen) els.actions.append(button(`MAG MEGTÁMADÁSA · ${enemy.coreHp}/${CORE_MAX_HP} ÉP`, 'warn', () => { attack(game, 0, live.uid); selected = null; render(); }));
   }
 }
 

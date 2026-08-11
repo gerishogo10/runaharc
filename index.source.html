@@ -14,23 +14,24 @@
       <div class="brand"><span class="sigil">ᚱ</span><div><b>RÚNAHARC</b><small>Őrkövek párbaja</small></div></div>
       <div class="turn-pill" id="turnPill">1. kör · TE KÖVETKEZEL</div>
       <button class="ghost sound-toggle" id="soundBtn" type="button" aria-pressed="true">HANG: BE</button>
+      <a class="online-link" href="/deckbuilder.html">PAKLIÉPÍTŐ</a>
       <button class="ghost" id="rulesBtn" type="button">SZABÁLYOK</button>
     </header>
 
     <section class="arena" id="arena" aria-label="Játéktér">
       <div class="player-zone enemy-zone">
         <div class="identity"><span class="avatar enemy">Á</span><div><b>Árnyékidéző</b><small id="enemyMeta"></small></div></div>
-        <div class="fortress-status"><div class="shields" id="enemyShields" aria-label="Az ellenfél őrkövei"></div><div class="core-meter" id="enemyCore" aria-label="Az ellenfél Magjának életereje"></div></div>
+        <div class="fortress-status"><div class="shields" id="enemyShields" aria-label="Az ellenfél közös Őrkő-élete"></div><div class="core-meter" id="enemyCore" aria-label="Az ellenfél Magjának életereje"></div></div>
         <div class="rune-meter" id="enemyRunes"></div>
       </div>
       <div class="board-row enemy-board" id="enemyBoard"></div>
 
-      <div class="nexus"><span></span><div><b>MAGKAPU</b><small>Mind az öt Őrkő elpusztítása után válik sebezhetővé</small></div><span></span></div>
+      <div class="nexus"><span></span><div><b>MAGKAPU</b><small>A közös Őrkő-élet 0-ra csökkentése után válik sebezhetővé</small></div><span></span></div>
 
       <div class="board-row player-board" id="playerBoard"></div>
       <div class="player-zone">
         <div class="identity"><span class="avatar">R</span><div><b>Rúnaidéző</b><small id="playerMeta"></small></div></div>
-        <div class="fortress-status"><div class="shields" id="playerShields" aria-label="Saját őrköveid"></div><div class="core-meter" id="playerCore" aria-label="A Magod életereje"></div></div>
+        <div class="fortress-status"><div class="shields" id="playerShields" aria-label="Saját közös Őrkő-életed"></div><div class="core-meter" id="playerCore" aria-label="A Magod életereje"></div></div>
         <div class="rune-meter" id="playerRunes"></div>
       </div>
     </section>
@@ -51,9 +52,9 @@
   <dialog id="rulesDialog">
     <div class="modal-head"><div><span class="eyebrow">GYORSSZABÁLY</span><h2>Három lépés, egy párbaj.</h2></div><button class="ghost" id="closeRules" type="button">Bezárás</button></div>
     <div class="rules-grid">
-      <article><span>01</span><h3>Rúna</h3><p>Körönként egyszer alakíts egy kézlapot rúnává. Minden rúna 1 erőforrást ad, és a saját köröd elején újratöltődik. Legfeljebb 7 rúnád lehet. Rúnavisszhang: a 3. vagy későbbi rúnád lerakásakor, ha ezután legfeljebb 4 lap marad a kezedben, húzz 1 lapot. A 7. rúna után már nem kell további lapokat feláldoznod erőforrásért.</p></article>
+      <article><span>01</span><h3>Rúna</h3><p>Körönként egyszer alakíts egy kézlapot rúnává. Minden rúna 1 erőforrást ad, és a saját köröd elején újratöltődik. Legfeljebb 7 rúnád lehet. Rúnavisszhang: a 3. vagy későbbi rúnád lerakásakor, ha ezután legfeljebb 4 lap marad a kezedben, húzz 1 lapot. Az első játékos 5, a második 6 lappal kezd; a második játékos az első saját körére +1 ideiglenes Kezdőszikrát is kap.</p></article>
       <article><span>02</span><h3>Idézés</h3><p>Fizess rúnákkal a lények és igék kijátszásáért. A frissen idézett lény a következő saját körödben támadhat.</p></article>
-      <article><span>03</span><h3>Áttörés</h3><p>Mind az öt Őrkő 5 életerővel indul. A lény az Őrkőnek a támadásával megegyező sebzést okoz. Ha mind az öt Őrkő elpusztult, a 10 életerős Mag válik támadhatóvá. Ha a Mag 0 életerőre kerül, elveszíted a párbajt. Ha elfogy a paklid, minden sikertelen kötelező húzás 1 Kimerülés-sebzést okoz közvetlenül a Magodnak.</p></article>
+      <article><span>03</span><h3>Áttörés</h3><p>Mindkét játékos 20 közös Őrkő-élettel indul. Bármely nyitott támadási folyosóból ugyanazt a közös védelmet sebzed a lény teljes támadásával. A folyosóban álló védőt előbb le kell győzni, hacsak egy képesség nem mond mást. Ha az Őrkő-élet 0-ra csökken, a 10 életerős Mag válik támadhatóvá. Ha elfogy a paklid, minden sikertelen kötelező húzás egyre növekvő Kimerülés-sebzést okoz közvetlenül a Magodnak: először 1-et, majd 2-t, 3-at és így tovább, ezért a párbaj nem végződhet döntetlennel.</p></article>
     </div>
   </dialog>
   <div class="spell-reveal" id="spellReveal" hidden aria-live="polite"></div>

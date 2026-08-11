@@ -13,8 +13,8 @@ game = game.replace(/^import .*?;\s*$/gm, '').trim();
 const bundled = `
 (() => {\n${art}\nwindow.__runaharcArt = { cardArtwork };\n})();
 (() => {\n${effects}\nwindow.__runaharcEffects = { isSoundEnabled, playGameEvent, primeAudio, setSoundEnabled };\n})();
-(() => {\n${engine}\nwindow.__runaharcEngine = { CARD_LIBRARY, createGame, availableRunes, cardCost, placeRune, playCard, attack, moveCard, endTurn, aiTakeTurn, openLanes, MAX_RUNES };\n})();
-(() => {\nconst { cardArtwork } = window.__runaharcArt;\nconst { CARD_LIBRARY, createGame, availableRunes, cardCost, placeRune, playCard, attack, moveCard, endTurn, aiTakeTurn, openLanes, MAX_RUNES } = window.__runaharcEngine;\nconst { isSoundEnabled, playGameEvent, primeAudio, setSoundEnabled } = window.__runaharcEffects;\n${game}\n})();`;
+(() => {\n${engine}\nwindow.__runaharcEngine = { CARD_LIBRARY, createGame, availableRunes, cardCost, placeRune, playCard, attack, moveCard, endTurn, aiTakeTurn, openLanes, MAX_RUNES, DEFAULT_DECK_LIST, validateDeckList, GUARDIAN_MAX_HP, CORE_MAX_HP };\n})();
+(() => {\nconst { cardArtwork } = window.__runaharcArt;\nconst { CARD_LIBRARY, createGame, availableRunes, cardCost, placeRune, playCard, attack, moveCard, endTurn, aiTakeTurn, openLanes, MAX_RUNES, DEFAULT_DECK_LIST, validateDeckList, GUARDIAN_MAX_HP, CORE_MAX_HP } = window.__runaharcEngine;\nconst { isSoundEnabled, playGameEvent, primeAudio, setSoundEnabled } = window.__runaharcEffects;\n${game}\n})();`;
 
 const out = html
   .replace('<link rel="stylesheet" href="styles.css" />', `<style>\n${css}\n</style>`)

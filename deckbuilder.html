@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#090c12" />
+  <title>Rúnaharc — Pakliépítő</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="deck-builder-page">
+  <div class="aurora" aria-hidden="true"></div>
+  <main class="deck-shell">
+    <header class="topbar deck-topbar">
+      <div class="brand"><span class="sigil">ᚱ</span><div><b>RÚNAHARC</b><small>Pakliépítő</small></div></div>
+      <div class="deck-status" id="deckStatus">30 lap · legfeljebb 2 elem · max. 3 példány</div>
+      <a class="online-link" href="/">ONLINE</a>
+      <a class="online-link" href="/ai">AI MÓD</a>
+    </header>
+
+    <section class="deck-intro panelish">
+      <div><span class="eyebrow">SAJÁT PAKLI</span><h1>Építs egy mechanikára.</h1><p>A pakli pontosan 30 lapos. Egy lapból legfeljebb 3 példány tehető bele. A Semlegesen kívül legfeljebb 2 elemet használhatsz.</p></div>
+      <button class="action-btn primary" id="saveDeck" type="button">PAKLI MENTÉSE</button>
+    </section>
+
+    <section class="deck-presets" id="deckPresets" aria-label="Kész paklik"></section>
+
+    <section class="deck-workspace">
+      <aside class="deck-summary panelish">
+        <div class="deck-summary-head"><div><span class="eyebrow">AKTUÁLIS PAKLI</span><h2 id="deckCount">0 / 30</h2></div><button class="ghost" id="clearDeck" type="button">ÜRÍTÉS</button></div>
+        <div class="deck-elements" id="deckElements"></div>
+        <div class="deck-errors" id="deckErrors" role="status"></div>
+        <div class="deck-list" id="deckList"></div>
+      </aside>
+      <section class="collection-panel panelish">
+        <div class="collection-head"><div><span class="eyebrow">KÁRTYAGYŰJTEMÉNY</span><h2>Lapok</h2></div><label>Szűrés <select id="elementFilter"><option value="all">Minden elem</option><option value="vihar">Vihar</option><option value="tuz">Tűz</option><option value="fold">Föld</option><option value="viz">Víz</option><option value="szellem">Szellem</option><option value="semleges">Semleges</option></select></label></div>
+        <div class="collection-grid" id="collectionGrid"></div>
+      </section>
+    </section>
+    <div class="toast" id="toast" role="status"></div>
+  </main>
+  <script type="module" src="deckbuilder.js"></script>
+</body>
+</html>

@@ -101,6 +101,11 @@ const scenes = {
     <rect width="180" height="112" fill="#232015" opacity=".86"/><ellipse cx="90" cy="58" rx="55" ry="38" fill="$A" opacity=".12" filter="url(#soft-$S)"/><g transform="translate(90 58)" filter="url(#shadow-$S)"><path d="m-24-39 21 15 18-15 9 23 25 2-13 21 10 23-25 1-17 19-15-20-25-3 13-20-10-23 24-1Z" fill="#686b5d" stroke="url(#metal-$S)" stroke-width="2"/><path d="M-4-28 3-8-7 5 8 16 1 37M20-22 9-4l12 9-8 17M-24-9l17 14-15 15" fill="none" stroke="#fff2b6" stroke-width="2.5"/><circle r="7" fill="$A" opacity=".8"/></g>`,'#d6cf79','#d0a25c')
 };
 
+const artAliases = {
+  villamvadasz: 'szellovas', mennydorges: 'zivatar', hamufonix: 'parazs', langostrom: 'sarkany',
+  kofal: 'bastya', foldrengeto: 'ostromlo', forrastunder: 'javas', aradas: 'forras',
+  osokhangja: 'taltos', lidercsapat: 'liderc'
+};
 export function cardArtwork(id, uid) {
-  return (scenes[id] || scenes.rovaskor)(uid || `${id}-preview`);
+  return (scenes[id] || scenes[artAliases[id]] || scenes.rovaskor)(uid || `${id}-preview`);
 }

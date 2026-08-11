@@ -1,4 +1,4 @@
-import { createGame, botTakeTurn, CARD_LIBRARY, DEFAULT_DECK_LIST, DECK_SIZE } from '../engine.js';
+import { createGame, botTakeTurn, CARD_LIBRARY, DEFAULT_DECK_LIST, DECK_SIZE, validateDeckList } from '../engine.js';
 
 function rngFrom(seed){let x=seed>>>0;return()=>{x^=x<<13;x^=x>>>17;x^=x<<5;return (x>>>0)/4294967296}}
 const mirrorGames=Number(process.env.GAMES||100000), diverseGames=Number(process.env.DIVERSE_GAMES||0), styles=['aggro','value','control'];
@@ -25,14 +25,19 @@ for(const b of [handEconomy.turn6,handEconomy.turn8]){b.average=b.samples?b.tota
 handEconomy.echoesPerGame=mirrorGames-timeouts?handEconomy.echoes/(mirrorGames-timeouts):null;
 
 function randomDeck(rng){
-  const ids=cardIds;let attempts=0;
-  while(attempts++<120){
+  const nonNeutral=['vihar','tuz','fold','viz','szellem'];
+  let attempts=0;
+  while(attempts++<180){
+    const first=nonNeutral[Math.floor(rng()*nonNeutral.length)];
+    let second=first;while(second===first)second=nonNeutral[Math.floor(rng()*nonNeutral.length)];
+    const allowed=new Set([first,second,'semleges']);
+    const ids=cardIds.filter(id=>allowed.has(CARD_LIBRARY[id].element||'semleges'));
     const deck=[],counts={};
     while(deck.length<DECK_SIZE){const id=ids[Math.floor(rng()*ids.length)];if((counts[id]||0)>=3)continue;counts[id]=(counts[id]||0)+1;deck.push(id)}
     const board=deck.filter(id=>CARD_LIBRARY[id].type!=='spell').length;
     const cheap=deck.filter(id=>CARD_LIBRARY[id].cost<=2).length;
-    const drawish=deck.filter(id=>['taltos','forras','deak','javas','kobzos','rovasvalto','bastya'].includes(id)).length;
-    if(board>=18&&board<=25&&cheap>=7&&drawish<=12)return deck;
+    const drawish=deck.filter(id=>['taltos','forras','deak','javas','kobzos','rovasvalto','bastya','forrastunder','osokhangja'].includes(id)).length;
+    if(board>=17&&board<=25&&cheap>=6&&drawish<=13&&validateDeckList(deck).ok)return deck;
   }
   return [...DEFAULT_DECK_LIST];
 }

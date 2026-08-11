@@ -1,46 +1,78 @@
 export const CARD_LIBRARY = {
-  turul: { id: 'turul', name: 'Turul Őrszem', type: 'creature', cost: 2, atk: 2, hp: 2, glyph: '✦', element: 'vihar', text: 'Kijátszáskor: ha kevesebb Őrköved van, mint az ellenfelednek, +1 támadást és +1 életerőt kap.', rarity: 'nemes' },
+  turul: { id: 'turul', name: 'Turul Őrszem', type: 'creature', cost: 2, atk: 2, hp: 2, glyph: '✦', element: 'vihar', text: 'Kijátszáskor: ha kevesebb Őrkő-életed van, mint az ellenfelednek, +1 támadást és +1 életerőt kap.', rarity: 'nemes' },
   liderc: { id: 'liderc', name: 'Mocsári Lidérc', type: 'creature', cost: 1, atk: 1, hp: 3, glyph: '◈', element: 'szellem', text: 'Olcsó, szívós lény, amely gyorsan lezárhat egy támadási folyosót.', rarity: 'közönséges' },
   betyar: { id: 'betyar', name: 'Rúnabetyár', type: 'creature', cost: 3, atk: 3, hp: 2, glyph: '⚔', element: 'semleges', text: 'Ha ebben a körben már rúnává alakítottál egy lapot, +1 támadást kap.', rarity: 'nemes' },
-  sarkany: { id: 'sarkany', name: 'Bakonyi Sárkány', type: 'creature', cost: 6, atk: 3, hp: 2, glyph: '◆', element: 'tuz', text: 'Áttörés: ha harcban legyőzi a vele szemben álló lényt, 1 sebzést okoz ugyanazon folyosó Őrkövének is.', rarity: 'epikus' },
+  sarkany: { id: 'sarkany', name: 'Bakonyi Sárkány', type: 'creature', cost: 5, atk: 3, hp: 3, glyph: '◆', element: 'tuz', text: 'Áttörés: ha harcban legyőzi a vele szemben álló lényt, 1 sebzést okoz az ellenséges Őrkő-életnek is.', rarity: 'epikus' },
   taltos: { id: 'taltos', name: 'Révülő Táltos', type: 'creature', cost: 4, atk: 2, hp: 3, glyph: '☾', element: 'szellem', text: 'Kijátszáskor húzz 1 lapot.', rarity: 'epikus' },
-  vasorr: { id: 'vasorr', name: 'Vasorrú Bába', type: 'creature', cost: 4, atk: 2, hp: 2, glyph: '△', element: 'tuz', text: 'Kijátszáskor okozz 1 sebzést egy véletlenszerű ellenséges lénynek.', rarity: 'nemes' },
+  vasorr: { id: 'vasorr', name: 'Vasorrú Bába', type: 'creature', cost: 4, atk: 3, hp: 2, glyph: '△', element: 'tuz', text: 'Kijátszáskor okozz 1 sebzést egy véletlenszerű ellenséges lénynek.', rarity: 'nemes' },
   bastya: { id: 'bastya', name: 'Rovásbástya', type: 'structure', cost: 1, atk: 0, hp: 4, glyph: '▣', element: 'fold', passive: true, text: 'Bástya: nem támadhat. Védőmező: a mellette álló saját lapok 1-gyel kevesebb harci sebzést kapnak. Ha elpusztul, húzz 1 lapot.', rarity: 'nemes' },
-  szellovas: { id: 'szellovas', name: 'Széljáró Portyázó', type: 'creature', cost: 3, atk: 2, hp: 2, glyph: '➶', element: 'vihar', bypassShield: true, text: 'Átrepülés: akkor is támadhat Őrkövet, ha ugyanabban a folyosóban ellenséges lap áll. A Magot nem kerülheti meg.', rarity: 'epikus' },
-  zivatar: { id: 'zivatar', name: 'Zivatarige', type: 'spell', cost: 3, glyph: 'ϟ', element: 'vihar', text: 'Vihar: okozz 2 sebzést egy véletlenszerű ellenséges lénynek, majd 1-1 sebzést a közvetlenül mellette állóknak. Ha nincs célpont, okozz 1 sebzést egy véletlenszerű ép Őrkőnek.', rarity: 'nemes' },
-  parazs: { id: 'parazs', name: 'Parázsige', type: 'spell', cost: 2, glyph: '✹', element: 'tuz', text: 'Tűz: okozz 2 sebzést egy véletlenszerű ellenséges lénynek. Ha túléli, a következő saját köre elején 1 további sebzést szenved. Ha nincs célpont, okozz 1 sebzést egy véletlenszerű ép Őrkőnek.', rarity: 'nemes' },
-  forras: { id: 'forras', name: 'Ősforrás', type: 'spell', cost: 2, glyph: '◎', element: 'viz', text: 'Húzz 1 lapot. Ha a kijátszása után legfeljebb 3 lap maradt a kezedben, húzz még 1-et. Ezután egy sérült saját lapod vagy Őrköved visszanyer 1 életerőt.', rarity: 'közönséges' },
+  szellovas: { id: 'szellovas', name: 'Széljáró Portyázó', type: 'creature', cost: 3, atk: 2, hp: 2, glyph: '➶', element: 'vihar', bypassShield: true, text: 'Átrepülés: akkor is támadhatja az Őrkő-életet, ha a saját folyosójában ellenséges lap áll. A Magot nem kerülheti meg.', rarity: 'epikus' },
+  zivatar: { id: 'zivatar', name: 'Zivatarige', type: 'spell', cost: 3, glyph: 'ϟ', element: 'vihar', text: 'Vihar: okozz 2 sebzést egy véletlenszerű ellenséges lénynek, majd 1-1 sebzést a közvetlenül mellette állóknak. Ha nincs célpont, okozz 1 sebzést az ellenséges Őrkő-életnek.', rarity: 'nemes' },
+  parazs: { id: 'parazs', name: 'Parázsige', type: 'spell', cost: 2, glyph: '✹', element: 'tuz', text: 'Tűz: okozz 2 sebzést egy véletlenszerű ellenséges lénynek. Ha túléli, a következő saját köre elején 1 további sebzést szenved. Ha nincs célpont, okozz 1 sebzést az ellenséges Őrkő-életnek.', rarity: 'nemes' },
+  forras: { id: 'forras', name: 'Ősforrás', type: 'spell', cost: 2, glyph: '◎', element: 'viz', text: 'Húzz 1 lapot. Ha a kijátszása után legfeljebb 3 lap maradt a kezedben, húzz még 1-et. Ezután egy sérült saját lapod vagy az Őrkő-életed visszanyer 1 életerőt.', rarity: 'közönséges' },
   vereshold: { id: 'vereshold', name: 'Vérhold', type: 'spell', cost: 1, glyph: '●', element: 'szellem', text: 'Minden saját lényed +1 támadást kap erre a körre. Ha legalább 2 lényed van, húzz 1 lapot.', rarity: 'epikus' },
   rovaskor: { id: 'rovaskor', name: 'Rováskör', type: 'spell', cost: 1, glyph: '◇', element: 'fold', text: 'A következő kijátszott lényed 3 rúnával kevesebbe kerül ebben a körben.', rarity: 'közönséges' },
-  deak: { id: 'deak', name: 'Rovásíró Deák', type: 'creature', cost: 2, atk: 2, hp: 3, glyph: '✎', element: 'szellem', text: 'Kijátszáskor: ha ezután legfeljebb 4 lap van a kezedben, húzz 1 lapot.', rarity: 'közönséges' },
-  javas: { id: 'javas', name: 'Forrásjáró Javas', type: 'creature', cost: 3, atk: 2, hp: 3, glyph: '◉', element: 'viz', text: 'Kijátszáskor: ha a saját folyosód Őrköve sérült, visszanyer 2 életerőt. Ha ép vagy már elpusztult, húzz 1 lapot.', rarity: 'nemes' },
+  deak: { id: 'deak', name: 'Rovásíró Deák', type: 'creature', cost: 2, atk: 1, hp: 3, glyph: '✎', element: 'szellem', text: 'Kijátszáskor: ha ezután legfeljebb 4 lap van a kezedben, húzz 1 lapot.', rarity: 'közönséges' },
+  javas: { id: 'javas', name: 'Forrásjáró Javas', type: 'creature', cost: 3, atk: 2, hp: 3, glyph: '◉', element: 'viz', text: 'Kijátszáskor: ha az Őrkő-életed sérült, visszanyer 2 életerőt. Ha teljes vagy már összeomlott, húzz 1 lapot.', rarity: 'nemes' },
   kobzos: { id: 'kobzos', name: 'Kobzos Hírnök', type: 'creature', cost: 2, atk: 2, hp: 3, glyph: '♫', element: 'semleges', text: 'Utolsó dal: amikor elpusztul, húzz 1 lapot.', rarity: 'közönséges' },
   rovasvalto: { id: 'rovasvalto', name: 'Rovásváltó', type: 'creature', cost: 2, atk: 2, hp: 2, glyph: '↺', element: 'szellem', text: 'Kijátszáskor: ha legalább 3 rúnád van, a legrégebbi rúnád visszakerül a kezedbe.', rarity: 'nemes' },
   csodaszarvas: { id: 'csodaszarvas', name: 'Csodaszarvas', type: 'creature', cost: 5, atk: 2, hp: 3, glyph: '✧', element: 'szellem', text: 'Vándorlás: támadás előtt körönként egyszer átmehet egy szomszédos üres saját folyosóra.', rarity: 'epikus' },
   ostromlo: { id: 'ostromlo', name: 'Kárpáti Ostromló', type: 'creature', cost: 5, atk: 2, hp: 3, glyph: '⬢', element: 'fold', siege: 1, text: 'Ostrom 1: Őrkő megtámadásakor 1 további sebzést okoz. Lény és Mag ellen nem kap bónuszt.', rarity: 'nemes' },
-  orkokovac: { id: 'orkokovac', name: 'Őrkőkovács', type: 'creature', cost: 3, atk: 1, hp: 4, glyph: '⚒', element: 'fold', text: 'Kijátszáskor: a saját folyosód még álló Őrköve legfeljebb 2 életerőt visszanyer.', rarity: 'nemes' },
-  betoro: { id: 'betoro', name: 'Parázsló Betörő', type: 'creature', cost: 3, atk: 3, hp: 2, glyph: '✹', element: 'tuz', text: 'Sebzett fal: sérült Őrkő megtámadásakor +1 sebzést okoz.', rarity: 'nemes' },
-  korepesztes: { id: 'korepesztes', name: 'Kőrepesztés', type: 'spell', cost: 2, glyph: '✦', element: 'fold', text: 'Ostromige: okozz 3 sebzést a legkevesebb életerővel rendelkező, még álló ellenséges Őrkőnek. A védő lényeket megkerüli.', rarity: 'nemes' }
+  orkokovac: { id: 'orkokovac', name: 'Őrkőkovács', type: 'creature', cost: 3, atk: 1, hp: 4, glyph: '⚒', element: 'fold', text: 'Kijátszáskor: a még álló Őrkő-védelmed legfeljebb 3 életerőt visszanyer.', rarity: 'nemes' },
+  betoro: { id: 'betoro', name: 'Parázsló Betörő', type: 'creature', cost: 3, atk: 3, hp: 2, glyph: '✹', element: 'tuz', text: 'Sebzett fal: ha az ellenséges Őrkő-élet már sérült, Őrkő támadásakor +1 sebzést okoz.', rarity: 'nemes' },
+  korepesztes: { id: 'korepesztes', name: 'Kőrepesztés', type: 'spell', cost: 2, glyph: '✦', element: 'fold', text: 'Ostromige: okozz 3 sebzést az ellenséges Őrkő-életnek. A védő lényeket megkerüli.', rarity: 'nemes' },
+  villamvadasz: { id: 'villamvadasz', name: 'Villámvadász', type: 'creature', cost: 3, atk: 3, hp: 2, glyph: 'ϟ', element: 'vihar', siege: 1, text: 'Lendület: Őrkő támadásakor +1 sebzést okoz. Lény és Mag ellen nem kap bónuszt.', rarity: 'nemes' },
+  mennydorges: { id: 'mennydorges', name: 'Mennydörgés', type: 'spell', cost: 4, glyph: '☈', element: 'vihar', text: 'Okozz 1 sebzést minden ellenséges lénynek. Ha legalább kettőt eltalált, húzz 1 lapot.', rarity: 'epikus' },
+  hamufonix: { id: 'hamufonix', name: 'Hamufőnix', type: 'creature', cost: 4, atk: 3, hp: 2, glyph: '✹', element: 'tuz', text: 'Újjászületés: amikor először elpusztul, egy kimerült Hamufőnix kerül a kezedbe. Másodszor már végleg elenyészik.', rarity: 'epikus' },
+  langostrom: { id: 'langostrom', name: 'Lángostrom', type: 'spell', cost: 4, glyph: '🔥', element: 'tuz', text: 'Okozz 4 sebzést az ellenséges Őrkő-életnek. Nem sebzi közvetlenül a Magot.', rarity: 'nemes' },
+  kofal: { id: 'kofal', name: 'Élő Kőfal', type: 'structure', cost: 2, atk: 0, hp: 5, glyph: '▰', element: 'fold', passive: true, text: 'Erődfal: amíg pályán van, az Őrkő-életed a lénytámadásokból 1-gyel kevesebb sebzést kap. Több Kőfal nem halmozódik.', rarity: 'nemes' },
+  foldrengeto: { id: 'foldrengeto', name: 'Földrengető', type: 'creature', cost: 5, atk: 4, hp: 4, glyph: '⬟', element: 'fold', text: 'Visszaverés: amikor Őrkövet sebez, a saját Őrkő-életed 1-et gyógyul.', rarity: 'epikus' },
+  forrastunder: { id: 'forrastunder', name: 'Forrástündér', type: 'creature', cost: 3, atk: 2, hp: 3, glyph: '◉', element: 'viz', text: 'Áramlás: kijátszáskor húzz 1 lapot. Ha már legalább 5 lap van a kezedben, húzás helyett gyógyíts 3 Őrkő-életet.', rarity: 'nemes' },
+  aradas: { id: 'aradas', name: 'Áradás', type: 'spell', cost: 3, glyph: '≈', element: 'viz', text: 'Gyógyíts 4 Őrkő-életet. Ha legalább 3 életerőt ténylegesen visszaállított, húzz 1 lapot.', rarity: 'nemes' },
+  osokhangja: { id: 'osokhangja', name: 'Ősök Hangja', type: 'spell', cost: 3, glyph: '☾', element: 'szellem', text: 'A legrégebbi rúnád visszakerül a kezedbe, majd húzz 1 lapot. Ha nincs rúnád, csak húzz 1 lapot.', rarity: 'epikus' },
+  lidercsapat: { id: 'lidercsapat', name: 'Lidércsereg', type: 'creature', cost: 3, atk: 2, hp: 3, glyph: '◈', element: 'szellem', text: 'Kísértetjárás: ha ebben a párbajban már legalább 2 saját lapod elpusztult, +1/+1-et kap kijátszáskor.', rarity: 'nemes' }
 };
 
-export const DEFAULT_DECK_LIST = [
-  'liderc','liderc','turul','turul','betyar','betyar','sarkany','taltos','vasorr','korepesztes',
-  'korepesztes','szellovas','zivatar','zivatar','parazs','ostromlo','vereshold','rovaskor','betoro','javas',
-  'szellovas','rovasvalto','csodaszarvas','ostromlo','orkokovac','betoro','deak','kobzos','forras','bastya'
-];
-export const DECK_SIZE = DEFAULT_DECK_LIST.length;
+export const DECK_SIZE = 30;
+export const MAX_COPIES = 3;
+export const MAX_DECK_ELEMENTS = 2;
 export const RUNE_ECHO_MIN_RUNES = 3;
 export const RUNE_ECHO_HAND_THRESHOLD = 4;
 export const MAX_RUNES = 7;
+export const GUARDIAN_MAX_HP = 20;
+export const CORE_MAX_HP = 10;
+
+const buildList = entries => entries.flatMap(([id,count]) => Array(count).fill(id));
+export const PRESET_DECKS = {
+  visszhang: { name: 'Révülő Visszhang', description: 'Szellem + Víz: kézelőny, rúnák visszafejtése és hosszú távú érték.', cards: buildList([['liderc',2],['taltos',2],['vereshold',2],['deak',3],['rovasvalto',2],['csodaszarvas',2],['osokhangja',3],['lidercsapat',2],['forras',1],['javas',2],['forrastunder',2],['aradas',1],['betyar',3],['kobzos',3]]) },
+  ostrom: { name: 'Parázsostrom', description: 'Tűz + Föld: célzott Őrkő-rombolás, ostromlapok és nagy befejező támadások.', cards: buildList([['sarkany',2],['vasorr',2],['parazs',2],['betoro',2],['hamufonix',2],['langostrom',2],['bastya',2],['rovaskor',2],['ostromlo',2],['orkokovac',2],['korepesztes',2],['kofal',2],['foldrengeto',2],['betyar',2],['kobzos',2]]) },
+  erod: { name: 'Kőszív Erőd', description: 'Föld + Víz: Bástyák, sebzéscsökkentés, gyógyítás és fokozatos ellenállás.', cards: buildList([['bastya',3],['rovaskor',2],['ostromlo',2],['orkokovac',2],['korepesztes',2],['kofal',3],['foldrengeto',2],['forras',2],['javas',3],['forrastunder',2],['aradas',3],['betyar',2],['kobzos',2]]) },
+  vihar: { name: 'Viharlovasság', description: 'Vihar + Szellem: folyosónyomás, megkerülés, tempó és rugalmas harc.', cards: buildList([['turul',2],['szellovas',2],['zivatar',2],['villamvadasz',2],['mennydorges',2],['liderc',2],['taltos',2],['vereshold',2],['deak',2],['rovasvalto',2],['csodaszarvas',2],['osokhangja',2],['lidercsapat',2],['betyar',2],['kobzos',2]]) },
+  roham: { name: 'Tűzvihar Roham', description: 'Tűz + Vihar: agresszív lények, folyosómegkerülés és gyors nyomás.', cards: buildList([['turul',2],['szellovas',3],['zivatar',2],['villamvadasz',3],['mennydorges',2],['sarkany',2],['vasorr',2],['parazs',3],['betoro',3],['hamufonix',2],['langostrom',2],['betyar',2],['kobzos',2]]) }
+};
+export const DEFAULT_DECK_LIST = [...PRESET_DECKS.vihar.cards];
+
+export function validateDeckList(deckList) {
+  const errors = [];
+  if (!Array.isArray(deckList)) return { ok: false, errors: ['A pakli nem érvényes lista.'], elements: [], counts: {} };
+  if (deckList.length !== DECK_SIZE) errors.push(`A paklinak pontosan ${DECK_SIZE} laposnak kell lennie.`);
+  const counts = {}; const elements = new Set();
+  for (const id of deckList) {
+    const card = CARD_LIBRARY[id];
+    if (!card) { errors.push(`Ismeretlen lap: ${id}`); continue; }
+    counts[id] = (counts[id] || 0) + 1;
+    if (counts[id] > MAX_COPIES) errors.push(`${card.name}: legfeljebb ${MAX_COPIES} példány lehet.`);
+    if (card.element && card.element !== 'semleges') elements.add(card.element);
+  }
+  if (elements.size > MAX_DECK_ELEMENTS) errors.push(`Legfeljebb ${MAX_DECK_ELEMENTS} elemet választhatsz a Semlegesen kívül.`);
+  return { ok: errors.length === 0, errors: [...new Set(errors)], elements: [...elements], counts };
+}
 
 let uid = 1;
 const isBoardCard = card => card.type === 'creature' || card.type === 'structure';
 const enemyIndex = i => i === 0 ? 1 : 0;
 const laneCard = (player, lane) => player.board.find(card => card.lane === lane) || null;
 const validLane = lane => Number.isInteger(lane) && lane >= 0 && lane < 5;
-export const GUARDIAN_MAX_HP = 5;
-export const CORE_MAX_HP = 10;
-const intactGuardians = player => player.guardians.filter(hp => hp > 0).length;
 
 export function makeCard(id) {
   const base = CARD_LIBRARY[id];
@@ -61,11 +93,13 @@ export function shuffle(deck, rng = Math.random) {
 
 export function createPlayer(name, rng = Math.random, deckList = DEFAULT_DECK_LIST) {
   const deck = shuffle(makeDeck(deckList), rng);
-  return { name, deck, hand: deck.splice(0, 5), board: [], runes: [], guardians: Array(5).fill(GUARDIAN_MAX_HP), shields: 5, coreHp: CORE_MAX_HP, coreOpen: false, runePlayed: false, discount: 0, fatigue: 0 };
+  return { name, deck, hand: deck.splice(0, 5), board: [], runes: [], spark: false, guardianHp: GUARDIAN_MAX_HP, coreHp: CORE_MAX_HP, coreOpen: false, runePlayed: false, discount: 0, fatigue: 0, deaths: 0 };
 }
 
 export function createGame(rng = Math.random, names = ['Te', 'Árnyékidéző'], deckLists = null) {
   const players = [createPlayer(names[0], rng, deckLists?.[0] || DEFAULT_DECK_LIST), createPlayer(names[1], rng, deckLists?.[1] || DEFAULT_DECK_LIST)];
+  players[1].spark = true;
+  draw(players[1], 1);
   return {
     players,
     active: 0, turn: 1, phase: 'main', winner: null, log: ['A párbaj elkezdődött.'], eventSeq: 0, lastEvent: null,
@@ -74,7 +108,7 @@ export function createGame(rng = Math.random, names = ['Te', 'Árnyékidéző'],
 }
 
 function recordEvent(game, event) { game.lastEvent = { seq: ++game.eventSeq, ...event }; }
-export function availableRunes(player) { return player.runes.filter(rune => !rune.used).length; }
+export function availableRunes(player) { return player.runes.filter(rune => !rune.used).length + (player.spark ? 1 : 0); }
 export function cardCost(player, card) { return Math.max(0, card.cost - (card.type === 'creature' ? player.discount : 0)); }
 export function canAfford(player, card) { return availableRunes(player) >= cardCost(player, card); }
 export function draw(player, n = 1) {
@@ -83,6 +117,7 @@ export function draw(player, n = 1) {
   return drawn;
 }
 export function spendRunes(player, amount) {
+  if (player.spark && amount > 0) { player.spark = false; amount--; }
   for (const rune of player.runes) if (!rune.used && amount > 0) { rune.used = true; amount--; }
   return amount === 0;
 }
@@ -115,6 +150,7 @@ function cleanupDead(game) {
     const dead = player.board.filter(card => card.hp - card.damage <= 0);
     if (!dead.length) continue;
     player.board = player.board.filter(card => card.hp - card.damage > 0);
+    player.deaths = (player.deaths || 0) + dead.length;
     for (const card of dead) {
       if (card.id === 'bastya') {
         const drawn = draw(player, 1);
@@ -124,33 +160,31 @@ function cleanupDead(game) {
         const drawn = draw(player, 1);
         game.log.unshift(`${player.name} Kobzos Hírnökének utolsó dala${drawn.length ? ' 1 lapot húzott' : ' elnémult, mert elfogyott a pakli'}.`);
       }
+      if (card.id === 'hamufonix' && !card.reborn) {
+        const reborn = makeCard('hamufonix'); reborn.reborn = true; player.hand.push(reborn);
+        game.log.unshift(`${player.name} Hamufőnixe újjászületett a hamuból, és visszatért a kézbe.`);
+      }
     }
   }
 }
 
-function damageGuardian(game, targetIndex, lane, amount) {
+function guardianAttackReduction(player) { return player.board.some(card => card.id === 'kofal') ? 1 : 0; }
+function damageGuardian(game, targetIndex, amount, attackDamage = false) {
   const target = game.players[targetIndex];
-  if (!validLane(lane) || target.guardians[lane] <= 0 || amount <= 0) return { dealt: 0, destroyed: false, remaining: target.guardians[lane] ?? 0 };
-  const before = target.guardians[lane];
-  target.guardians[lane] = Math.max(0, before - amount);
-  target.shields = intactGuardians(target);
-  target.coreOpen = target.shields === 0;
-  return { dealt: before - target.guardians[lane], destroyed: before > 0 && target.guardians[lane] === 0, remaining: target.guardians[lane] };
+  if (target.guardianHp <= 0 || amount <= 0) return { dealt: 0, destroyed: false, remaining: target.guardianHp, blocked: 0 };
+  const blocked = attackDamage ? Math.min(amount, guardianAttackReduction(target)) : 0;
+  const finalAmount = Math.max(0, amount - blocked);
+  const before = target.guardianHp;
+  target.guardianHp = Math.max(0, before - finalAmount);
+  target.coreOpen = target.guardianHp === 0;
+  return { dealt: before - target.guardianHp, destroyed: before > 0 && target.guardianHp === 0, remaining: target.guardianHp, blocked };
 }
 
-function damageRandomGuardian(game, targetIndex, amount) {
-  const target = game.players[targetIndex];
-  const lanes = target.guardians.map((hp, lane) => hp > 0 ? lane : -1).filter(lane => lane >= 0);
-  if (!lanes.length) return null;
-  const lane = lanes[Math.floor(game.rng() * lanes.length)];
-  return { lane, ...damageGuardian(game, targetIndex, lane, amount) };
-}
-
-function healGuardian(player, lane, amount) {
-  if (!validLane(lane) || player.guardians[lane] <= 0 || player.guardians[lane] >= GUARDIAN_MAX_HP || amount <= 0) return 0;
-  const before = player.guardians[lane];
-  player.guardians[lane] = Math.min(GUARDIAN_MAX_HP, before + amount);
-  return player.guardians[lane] - before;
+function healGuardian(player, amount) {
+  if (player.guardianHp <= 0 || player.guardianHp >= GUARDIAN_MAX_HP || amount <= 0) return 0;
+  const before = player.guardianHp;
+  player.guardianHp = Math.min(GUARDIAN_MAX_HP, before + amount);
+  return player.guardianHp - before;
 }
 
 function returnOldestRune(player) {
@@ -174,7 +208,7 @@ function resolveSpell(game, playerIndex, card) {
         neighbor.damage += 1; meta.targets.push(neighbor.uid);
       }
       cleanupDead(game);
-    } else { const hit = damageRandomGuardian(game, enemyIndex(playerIndex), 1); if (hit) meta.guardianLane = hit.lane; }
+    } else { const hit = damageGuardian(game, enemyIndex(playerIndex), 1); if (hit.dealt) meta.guardianDamage = hit.dealt; }
   }
   if (card.id === 'parazs') {
     if (enemy.board.length) {
@@ -182,24 +216,24 @@ function resolveSpell(game, playerIndex, card) {
       target.damage += 2; meta.targets.push(target.uid);
       if (target.hp - target.damage > 0) target.burn = Math.max(target.burn || 0, 1);
       cleanupDead(game);
-    } else { const hit = damageRandomGuardian(game, enemyIndex(playerIndex), 1); if (hit) meta.guardianLane = hit.lane; }
+    } else { const hit = damageGuardian(game, enemyIndex(playerIndex), 1); if (hit.dealt) meta.guardianDamage = hit.dealt; }
   }
   if (card.id === 'forras') {
     const lowHand = player.hand.length <= 3;
     draw(player, lowHand ? 2 : 1);
     const hurt = player.board.filter(unit => unit.damage > 0).sort((a,b) => b.damage - a.damage)[0];
     if (hurt) hurt.damage = Math.max(0, hurt.damage - 1);
-    else {
-      const lane = player.guardians.map((hp,lane)=>({hp,lane})).filter(x=>x.hp>0&&x.hp<GUARDIAN_MAX_HP).sort((a,b)=>a.hp-b.hp)[0]?.lane;
-      if (lane !== undefined) healGuardian(player, lane, 1);
-    }
+    else healGuardian(player, 1);
   }
   if (card.id === 'vereshold') { const creatures=player.board.filter(unit => unit.type === 'creature'); creatures.forEach(unit => { unit.bonusAtk += 1; }); if (creatures.length >= 2) draw(player, 1); }
   if (card.id === 'rovaskor') player.discount = 3;
-  if (card.id === 'korepesztes') {
-    const target = enemy.guardians.map((hp,lane)=>({hp,lane})).filter(x=>x.hp>0).sort((a,b)=>a.hp-b.hp||a.lane-b.lane)[0];
-    if (target) { const hit=damageGuardian(game, enemyIndex(playerIndex), target.lane, 3); meta.guardianLane=target.lane; meta.guardianDamage=hit.dealt; }
+  if (card.id === 'korepesztes') { const hit = damageGuardian(game, enemyIndex(playerIndex), 3); meta.guardianDamage = hit.dealt; }
+  if (card.id === 'mennydorges') {
+    const targets = [...enemy.board]; targets.forEach(unit => { unit.damage += 1; meta.targets.push(unit.uid); }); cleanupDead(game); if (targets.length >= 2) draw(player, 1);
   }
+  if (card.id === 'langostrom') { const hit = damageGuardian(game, enemyIndex(playerIndex), 4); meta.guardianDamage = hit.dealt; }
+  if (card.id === 'aradas') { const healed = healGuardian(player, 4); if (healed >= 3) draw(player, 1); meta.guardianHeal = healed; }
+  if (card.id === 'osokhangja') { const restored = returnOldestRune(player); draw(player, 1); meta.restoredRune = restored?.id || null; }
   return meta;
 }
 
@@ -218,19 +252,21 @@ export function playCard(game, playerIndex, uidToPlay, lane = null) {
     card.lane = lane;
     card.exhausted = true;
     if (card.type === 'creature' && player.discount) player.discount = 0;
-    if (card.id === 'turul' && player.shields < enemy.shields) { card.atk++; card.hp++; }
+    if (card.id === 'turul' && player.guardianHp < enemy.guardianHp) { card.atk++; card.hp++; }
     if (card.id === 'betyar' && player.runePlayed) card.bonusAtk = 1;
     if (card.id === 'taltos') draw(player, 1);
     if (card.id === 'deak' && player.hand.length <= 4) draw(player, 1);
     if (card.id === 'javas') {
-      const healed = healGuardian(player, lane, 2);
+      const healed = healGuardian(player, 2);
       if (!healed) draw(player, 1);
     }
     if (card.id === 'rovasvalto' && player.runes.length >= 3) {
       const restored = returnOldestRune(player);
       if (restored) game.log.unshift(`${player.name} visszafejtette egy korábbi rúnáját: ${restored.name}.`);
     }
-    if (card.id === 'orkokovac') healGuardian(player, lane, 2);
+    if (card.id === 'orkokovac') healGuardian(player, 3);
+    if (card.id === 'forrastunder') { if (player.hand.length >= 5) healGuardian(player, 3); else draw(player, 1); }
+    if (card.id === 'lidercsapat' && (player.deaths || 0) >= 2) { card.atk++; card.hp++; }
     if (card.id === 'vasorr' && enemy.board.length) {
       enemy.board[Math.floor(game.rng() * enemy.board.length)].damage += 1;
       cleanupDead(game);
@@ -273,10 +309,9 @@ export function attack(game, playerIndex, attackerUid, targetUid = null) {
   const opposite = laneCard(enemy, attacker.lane);
   const target = targetUid ? enemy.board.find(card => card.uid === targetUid) : null;
   if (targetUid && (!target || target.lane !== attacker.lane || target.uid !== opposite?.uid)) return false;
-  const guardianAlive = enemy.guardians[attacker.lane] > 0;
+  const guardianAlive = enemy.guardianHp > 0;
   if (!targetUid && opposite && !(attacker.bypassShield && guardianAlive)) return false;
-  if (!targetUid && !guardianAlive && enemy.shields > 0) return false;
-  if (!targetUid && enemy.coreOpen && opposite) return false;
+  if (!targetUid && !guardianAlive && opposite) return false;
   attacker.exhausted = true;
   const attackPower = attacker.atk + attacker.bonusAtk;
   if (target) {
@@ -287,15 +322,16 @@ export function attack(game, playerIndex, attackerUid, targetUid = null) {
     const attackerDied = attacker.hp - attacker.damage <= 0;
     cleanupDead(game);
     let trampleShield = false;
-    if (attacker.id === 'sarkany' && targetDied && !attackerDied && enemy.guardians[attacker.lane] > 0) { damageGuardian(game, enemyIndex(playerIndex), attacker.lane, 1); trampleShield = true; }
+    if (attacker.id === 'sarkany' && targetDied && !attackerDied && enemy.guardianHp > 0) { damageGuardian(game, enemyIndex(playerIndex), 1, true); trampleShield = true; }
     game.log.unshift(`${attacker.name} és ${target.name} összecsaptak a ${attacker.lane + 1}. folyosóban.`);
     recordEvent(game, { type: 'attack', playerIndex, attackerUid, targetUid, targetKind: 'creature', lane: attacker.lane, targetDied, attackerDied, trampleShield });
   } else if (guardianAlive) {
-    const guardianBonus = (attacker.siege || 0) + (attacker.id === 'betoro' && enemy.guardians[attacker.lane] < GUARDIAN_MAX_HP ? 1 : 0);
+    const guardianBonus = (attacker.siege || 0) + (attacker.id === 'betoro' && enemy.guardianHp < GUARDIAN_MAX_HP ? 1 : 0);
     const guardianPower = attackPower + guardianBonus;
-    const hit = damageGuardian(game, enemyIndex(playerIndex), attacker.lane, guardianPower);
-    game.log.unshift(`${attacker.name} ${guardianPower} sebzést mért a ${attacker.lane + 1}. Őrkőre${guardianBonus ? ` (${guardianBonus} bónusz)` : ''}${hit.destroyed ? ', amely összetört' : ''}.`);
-    recordEvent(game, { type: 'attack', playerIndex, attackerUid, targetUid: null, targetKind: 'shield', lane: attacker.lane, bypassed: Boolean(opposite), amount: guardianPower, guardianBonus, guardianRemaining: hit.remaining, guardianDestroyed: hit.destroyed });
+    const hit = damageGuardian(game, enemyIndex(playerIndex), guardianPower, true);
+    if (attacker.id === 'foldrengeto' && hit.dealt > 0) healGuardian(player, 1);
+    game.log.unshift(`${attacker.name} ${hit.dealt} sebzést mért az Őrkő-életre${guardianBonus ? ` (${guardianBonus} támadóbónusz)` : ''}${hit.blocked ? `, a Kőfal ${hit.blocked}-et felfogott` : ''}${hit.destroyed ? ', az Őrkő-védelem összeomlott' : ''}.`);
+    recordEvent(game, { type: 'attack', playerIndex, attackerUid, targetUid: null, targetKind: 'shield', lane: attacker.lane, bypassed: Boolean(opposite), amount: hit.dealt, rawAmount: guardianPower, guardianBonus, guardianBlocked: hit.blocked, guardianRemaining: hit.remaining, guardianDestroyed: hit.destroyed });
   } else if (enemy.coreOpen) {
     enemy.coreHp = Math.max(0, enemy.coreHp - attackPower);
     const destroyed = enemy.coreHp === 0;
@@ -304,10 +340,7 @@ export function attack(game, playerIndex, attackerUid, targetUid = null) {
       game.log.unshift(`${attacker.name} ${attackPower} sebzést mért a Magra. ${player.name} megnyerte a párbajt!`);
     } else game.log.unshift(`${attacker.name} ${attackPower} sebzést mért a Magra. A Mag életereje: ${enemy.coreHp}/${CORE_MAX_HP}.`);
     recordEvent(game, { type: 'attack', playerIndex, attackerUid, targetUid: null, targetKind: 'core', lane: attacker.lane, amount: attackPower, coreRemaining: enemy.coreHp, coreDestroyed: destroyed });
-  } else {
-    attacker.exhausted = false;
-    return false;
-  }
+  } else { attacker.exhausted = false; return false; }
   checkWinner(game);
   return true;
 }
@@ -339,9 +372,10 @@ function resolveStartOfTurnEffects(game, playerIndex) {
   }
 }
 
-export function endTurn(game) {
-  if (game.winner !== null) return false;
+export function endTurn(game, playerIndex = game.active) {
+  if (game.winner !== null || playerIndex !== game.active) return false;
   const current = game.players[game.active];
+  current.spark = false;
   current.board.forEach(card => { card.bonusAtk = 0; });
   game.active = enemyIndex(game.active);
   game.turn++;
@@ -353,15 +387,16 @@ export function endTurn(game) {
   resolveStartOfTurnEffects(game, game.active);
   if (!next.deck.length) {
     next.fatigue = (next.fatigue || 0) + 1;
-    next.coreHp = Math.max(0, next.coreHp - 1);
+    const fatigueDamage = next.fatigue;
+    next.coreHp = Math.max(0, next.coreHp - fatigueDamage);
     if (next.coreHp === 0) {
       game.winner = enemyIndex(game.active);
       game.log.unshift(`${next.name} kimerült. ${game.players[game.winner].name} megnyerte a párbajt!`);
-      recordEvent(game, { type: 'victory', playerIndex: game.winner, reason: 'fatigue', fatigue: next.fatigue });
+      recordEvent(game, { type: 'victory', playerIndex: game.winner, reason: 'fatigue', fatigue: next.fatigue, amount: fatigueDamage });
       return true;
     }
-    game.log.unshift(`${next.name} nem tudott lapot húzni: 1 kimerüléssebzést szenvedett a Magja.`);
-    recordEvent(game, { type: 'fatigue', playerIndex: game.active, amount: 1, coreRemaining: next.coreHp });
+    game.log.unshift(`${next.name} nem tudott lapot húzni: ${fatigueDamage} kimerüléssebzést szenvedett a Magja.`);
+    recordEvent(game, { type: 'fatigue', playerIndex: game.active, amount: fatigueDamage, coreRemaining: next.coreHp });
   } else draw(next, 1);
   game.log.unshift(`${next.name} köre következik.`);
   return true;
@@ -374,21 +409,31 @@ function cardValue(card, game, playerIndex, style) {
   if (card.type === 'structure') value += card.hp * .46 + (style === 'control' ? 1.4 : .35);
   if (card.id === 'taltos') value += 1.1;
   if (card.id === 'vasorr') value += enemy.board.length ? 1.1 : .1;
-  if (card.id === 'szellovas') value += enemy.shields > 0 ? (style === 'aggro' ? 1.8 : 1.15) : .2;
+  if (card.id === 'szellovas') value += enemy.guardianHp > 0 ? (style === 'aggro' ? 1.8 : 1.15) : .2;
   if (card.id === 'zivatar') value += enemy.board.length ? 2 + Math.min(2, enemy.board.length) * .3 : .8;
   if (card.id === 'parazs') value += enemy.board.length ? 1.8 : .65;
   if (card.id === 'forras') value += 2.0;
   if (card.id === 'vereshold') { const count=player.board.filter(unit => unit.type === 'creature').length; value += count * .7 + (count >= 2 ? .8 : 0); }
   if (card.id === 'rovaskor') value += player.hand.some(other => other.type === 'creature' && other.uid !== card.uid) ? 1.5 : -.6;
   if (card.id === 'deak') value += player.hand.length <= 4 ? 1.2 : .2;
-  if (card.id === 'javas') value += player.guardians.some(hp => hp > 0 && hp < GUARDIAN_MAX_HP) ? 1.25 : .85;
+  if (card.id === 'javas') value += player.guardianHp > 0 && player.guardianHp < GUARDIAN_MAX_HP ? 1.25 : .85;
   if (card.id === 'kobzos') value += .75;
   if (card.id === 'rovasvalto') value += player.runes.length >= 3 && player.hand.length <= 4 ? 1.0 : -.2;
   if (card.id === 'csodaszarvas') value += style === 'aggro' ? 1.05 : .7;
-  if (card.id === 'ostromlo') value += enemy.shields > 0 ? (style === 'aggro' ? 1.45 : .85) : .15;
-  if (card.id === 'orkokovac') value += player.guardians.some(hp => hp > 0 && hp < GUARDIAN_MAX_HP) ? 1.1 : .25;
-  if (card.id === 'betoro') value += enemy.guardians.some(hp => hp > 0 && hp < GUARDIAN_MAX_HP) ? .9 : .35;
-  if (card.id === 'korepesztes') value += enemy.shields > 0 ? (style === 'aggro' ? 2.0 : 1.35) : -.5;
+  if (card.id === 'ostromlo') value += enemy.guardianHp > 0 ? (style === 'aggro' ? 1.45 : .85) : .15;
+  if (card.id === 'orkokovac') value += player.guardianHp > 0 && player.guardianHp < GUARDIAN_MAX_HP ? 1.1 : .25;
+  if (card.id === 'betoro') value += enemy.guardianHp > 0 && enemy.guardianHp < GUARDIAN_MAX_HP ? .9 : .35;
+  if (card.id === 'korepesztes') value += enemy.guardianHp > 0 ? (style === 'aggro' ? 2.0 : 1.35) : -.5;
+  if (card.id === 'villamvadasz') value += enemy.guardianHp > 0 ? 1.0 : .2;
+  if (card.id === 'mennydorges') value += enemy.board.length * .55;
+  if (card.id === 'hamufonix') value += .8;
+  if (card.id === 'langostrom') value += enemy.guardianHp > 0 ? 1.8 : -.8;
+  if (card.id === 'kofal') value += style === 'control' ? 1.8 : .5;
+  if (card.id === 'foldrengeto') value += player.guardianHp < GUARDIAN_MAX_HP ? .7 : .25;
+  if (card.id === 'forrastunder') value += 1.1;
+  if (card.id === 'aradas') value += player.guardianHp <= GUARDIAN_MAX_HP - 3 ? 1.4 : -.4;
+  if (card.id === 'osokhangja') value += player.runes.length ? 1.0 : .35;
+  if (card.id === 'lidercsapat') value += (player.deaths || 0) >= 2 ? 1.0 : .25;
   return value;
 }
 
@@ -399,13 +444,13 @@ function chooseLane(game, playerIndex, card, style) {
     let score = game.rng() * .08;
     if (!opposing) {
       if (enemy.coreOpen) score += style === 'aggro' ? 4.2 : 2.3;
-      else if (enemy.guardians[lane] > 0) {
+      else if (enemy.guardianHp > 0) {
         score += style === 'aggro' ? 3.4 : 1.6;
-        score += (GUARDIAN_MAX_HP - enemy.guardians[lane]) * (style === 'aggro' ? .8 : .45);
-        if (card.id === 'ostromlo' || card.id === 'betoro') score += 1.0;
-      } else score -= 2.4;
+        score += (GUARDIAN_MAX_HP - enemy.guardianHp) / 8 * (style === 'aggro' ? .8 : .45);
+        if (['ostromlo','betoro','villamvadasz','foldrengeto'].includes(card.id)) score += 1.0;
+      }
     }
-    if ((card.id === 'javas' || card.id === 'orkokovac') && player.guardians[lane] > 0 && player.guardians[lane] < GUARDIAN_MAX_HP) score += 2.2;
+    if ((card.id === 'javas' || card.id === 'orkokovac' || card.id === 'forrastunder') && player.guardianHp > 0 && player.guardianHp < GUARDIAN_MAX_HP) score += 1.4;
     if (opposing) {
       const remaining = opposing.hp - opposing.damage;
       if (card.type === 'structure') score += 2.2 + opposing.atk * .25;
@@ -413,7 +458,7 @@ function chooseLane(game, playerIndex, card, style) {
         if (card.atk >= remaining) score += 2.8;
         if (card.hp > opposing.atk) score += .7;
       }
-      if (card.bypassShield && game.players[enemyIndex(playerIndex)].guardians[lane] > 0) score += 1.8;
+      if (card.bypassShield && game.players[enemyIndex(playerIndex)].guardianHp > 0) score += 1.8;
       if (style === 'control') score += opposing.atk * .18;
     }
     return { lane, score };
@@ -427,12 +472,13 @@ function shouldBotPlay(card, game, playerIndex) {
   if (card.id === 'forras') {
     const lowHand = player.hand.length <= 4;
     const hurtUnit = player.board.some(unit => unit.damage > 0);
-    const hurtGuardian = player.guardians.some(hp => hp > 0 && hp < GUARDIAN_MAX_HP);
+    const hurtGuardian = player.guardianHp > 0 && player.guardianHp < GUARDIAN_MAX_HP;
     return lowHand || hurtUnit || hurtGuardian;
   }
   if (card.id === 'vereshold') return player.board.some(unit => unit.type === 'creature' && !unit.exhausted);
   if (card.id === 'rovaskor') return player.hand.some(other => other.uid !== card.uid && other.type === 'creature');
-  if (card.id === 'korepesztes') return enemy.guardians.some(hp => hp > 0);
+  if (card.id === 'korepesztes' || card.id === 'langostrom') return enemy.guardianHp > 0;
+  if (card.id === 'aradas') return player.guardianHp > 0 && player.guardianHp <= GUARDIAN_MAX_HP - 3;
   return true;
 }
 
@@ -461,7 +507,7 @@ export function botTakeTurn(game, playerIndex, style = 'value') {
   for (const card of ai.board.filter(unit => unit.id === 'csodaszarvas' && !unit.exhausted && !unit.moved)) {
     const currentOpposite = laneCard(enemy, card.lane);
     const adjacent = [card.lane - 1, card.lane + 1].filter(lane => validLane(lane) && !laneCard(ai, lane));
-    const candidates = adjacent.filter(lane => !laneCard(enemy, lane) && enemy.guardians[lane] > 0);
+    const candidates = adjacent.filter(lane => !laneCard(enemy, lane) && enemy.guardianHp > 0);
     if (currentOpposite && candidates.length && (style !== 'control' || currentOpposite.atk >= card.hp - card.damage)) moveCard(game, playerIndex, card.uid, candidates[0]);
   }
   const attackers = [...ai.board].filter(card => card.type === 'creature' && !card.passive);
@@ -469,7 +515,7 @@ export function botTakeTurn(game, playerIndex, style = 'value') {
     if (card.exhausted || game.winner !== null) continue;
     const opposite = laneCard(enemy, card.lane);
     if (opposite) {
-      const shouldBypass = card.bypassShield && enemy.guardians[card.lane] > 0 && (style === 'aggro' || (style === 'value' && opposite.hp - opposite.damage > card.atk + card.bonusAtk));
+      const shouldBypass = card.bypassShield && enemy.guardianHp > 0 && (style === 'aggro' || (style === 'value' && opposite.hp - opposite.damage > card.atk + card.bonusAtk));
       attack(game, playerIndex, card.uid, shouldBypass ? null : opposite.uid);
     } else attack(game, playerIndex, card.uid, null);
   }

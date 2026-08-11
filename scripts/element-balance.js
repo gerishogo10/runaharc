@@ -1,0 +1,8 @@
+import {createGame,botTakeTurn,CARD_LIBRARY,DECK_SIZE,validateDeckList} from '../engine.js';
+function rngFrom(seed){let x=seed>>>0;return()=>{x^=x<<13;x^=x>>>17;x^=x<<5;return (x>>>0)/4294967296}}
+const els=['vihar','tuz','fold','viz','szellem'];const pairs=[];for(let i=0;i<els.length;i++)for(let j=i+1;j<els.length;j++)pairs.push([els[i],els[j]]);const styles=['aggro','value','control'];
+function deckFor(pair,rng){const allowed=new Set([...pair,'semleges']);const ids=Object.keys(CARD_LIBRARY).filter(id=>allowed.has(CARD_LIBRARY[id].element));for(let att=0;att<200;att++){const d=[],c={};while(d.length<DECK_SIZE){const id=ids[Math.floor(rng()*ids.length)];if((c[id]||0)>=3)continue;c[id]=(c[id]||0)+1;d.push(id)}const board=d.filter(id=>CARD_LIBRARY[id].type!=='spell').length;if(board>=18&&board<=24&&validateDeckList(d).ok)return d}throw Error('deck')}
+function run(g,style){let n=0;while(g.winner===null&&n++<160)botTakeTurn(g,g.active,style);return g.winner}
+const N=Number(process.env.N||200),score=Object.fromEntries(pairs.map(p=>[p.join('+'),{g:0,w:0}]));
+for(let a=0;a<pairs.length;a++)for(let b=a+1;b<pairs.length;b++)for(let n=0;n<N;n++)for(let d=0;d<2;d++){const rng=rngFrom((a*73856093^b*19349663^n*83492791^d*2654435761)>>>0);const da=deckFor(pairs[a],rng),db=deckFor(pairs[b],rng),swap=d===1,g=createGame(rng,['A','B'],swap?[db,da]:[da,db]),w=run(g,styles[(n+d)%3]);if(w===null)continue;const logical=swap?1-w:w;const A=score[pairs[a].join('+')],B=score[pairs[b].join('+')];A.g++;B.g++;if(logical===0)A.w++;else B.w++}
+console.log(Object.entries(score).map(([k,v])=>[k,v.w/v.g,v.g]).sort((a,b)=>b[1]-a[1]));

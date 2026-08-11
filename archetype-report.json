@@ -1,0 +1,178 @@
+{
+  "perPair": 1000,
+  "total": 25000,
+  "timeouts": 0,
+  "averageTurn": 27.52268,
+  "firstNote": "Non-mirror pairings are run in both seat directions.",
+  "winCauses": {
+    "core": 17213,
+    "fatigue": 7787
+  },
+  "matchups": {
+    "visszhang__visszhang": {
+      "a": "visszhang",
+      "b": "visszhang",
+      "games": 1000,
+      "winsA": 541,
+      "winsB": 459,
+      "winRateA": 0.541,
+      "firstPlayerWinRate": 0.541,
+      "averageTurn": 26.461,
+      "fatigueRate": 0.386
+    },
+    "visszhang__ostrom": {
+      "a": "visszhang",
+      "b": "ostrom",
+      "games": 2000,
+      "winsA": 969,
+      "winsB": 1031,
+      "winRateA": 0.4845,
+      "firstPlayerWinRate": 0.4955,
+      "averageTurn": 25.9905,
+      "fatigueRate": 0.263
+    },
+    "visszhang__erod": {
+      "a": "visszhang",
+      "b": "erod",
+      "games": 2000,
+      "winsA": 570,
+      "winsB": 1430,
+      "winRateA": 0.285,
+      "firstPlayerWinRate": 0.457,
+      "averageTurn": 30.047,
+      "fatigueRate": 0.727
+    },
+    "visszhang__vihar": {
+      "a": "visszhang",
+      "b": "vihar",
+      "games": 2000,
+      "winsA": 1255,
+      "winsB": 745,
+      "winRateA": 0.6275,
+      "firstPlayerWinRate": 0.5465,
+      "averageTurn": 24.4015,
+      "fatigueRate": 0.188
+    },
+    "visszhang__roham": {
+      "a": "visszhang",
+      "b": "roham",
+      "games": 2000,
+      "winsA": 1518,
+      "winsB": 482,
+      "winRateA": 0.759,
+      "firstPlayerWinRate": 0.547,
+      "averageTurn": 23.7305,
+      "fatigueRate": 0.1095
+    },
+    "ostrom__ostrom": {
+      "a": "ostrom",
+      "b": "ostrom",
+      "games": 1000,
+      "winsA": 535,
+      "winsB": 465,
+      "winRateA": 0.535,
+      "firstPlayerWinRate": 0.535,
+      "averageTurn": 29.908,
+      "fatigueRate": 0.177
+    },
+    "ostrom__erod": {
+      "a": "ostrom",
+      "b": "erod",
+      "games": 2000,
+      "winsA": 1530,
+      "winsB": 470,
+      "winRateA": 0.765,
+      "firstPlayerWinRate": 0.507,
+      "averageTurn": 31.108,
+      "fatigueRate": 0.522
+    },
+    "ostrom__vihar": {
+      "a": "ostrom",
+      "b": "vihar",
+      "games": 2000,
+      "winsA": 819,
+      "winsB": 1181,
+      "winRateA": 0.4095,
+      "firstPlayerWinRate": 0.5115,
+      "averageTurn": 25.213,
+      "fatigueRate": 0.1305
+    },
+    "ostrom__roham": {
+      "a": "ostrom",
+      "b": "roham",
+      "games": 2000,
+      "winsA": 968,
+      "winsB": 1032,
+      "winRateA": 0.484,
+      "firstPlayerWinRate": 0.521,
+      "averageTurn": 28.619,
+      "fatigueRate": 0.108
+    },
+    "erod__erod": {
+      "a": "erod",
+      "b": "erod",
+      "games": 1000,
+      "winsA": 533,
+      "winsB": 467,
+      "winRateA": 0.533,
+      "firstPlayerWinRate": 0.533,
+      "averageTurn": 33.306,
+      "fatigueRate": 0.839
+    },
+    "erod__vihar": {
+      "a": "erod",
+      "b": "vihar",
+      "games": 2000,
+      "winsA": 1043,
+      "winsB": 957,
+      "winRateA": 0.5215,
+      "firstPlayerWinRate": 0.5205,
+      "averageTurn": 29.074,
+      "fatigueRate": 0.4585
+    },
+    "erod__roham": {
+      "a": "erod",
+      "b": "roham",
+      "games": 2000,
+      "winsA": 746,
+      "winsB": 1254,
+      "winRateA": 0.373,
+      "firstPlayerWinRate": 0.55,
+      "averageTurn": 28.9585,
+      "fatigueRate": 0.3545
+    },
+    "vihar__vihar": {
+      "a": "vihar",
+      "b": "vihar",
+      "games": 1000,
+      "winsA": 527,
+      "winsB": 473,
+      "winRateA": 0.527,
+      "firstPlayerWinRate": 0.527,
+      "averageTurn": 23.844,
+      "fatigueRate": 0.147
+    },
+    "vihar__roham": {
+      "a": "vihar",
+      "b": "roham",
+      "games": 2000,
+      "winsA": 1425,
+      "winsB": 575,
+      "winRateA": 0.7125,
+      "firstPlayerWinRate": 0.5325,
+      "averageTurn": 24.1445,
+      "fatigueRate": 0.105
+    },
+    "roham__roham": {
+      "a": "roham",
+      "b": "roham",
+      "games": 1000,
+      "winsA": 541,
+      "winsB": 459,
+      "winRateA": 0.541,
+      "firstPlayerWinRate": 0.541,
+      "averageTurn": 31.975,
+      "fatigueRate": 0.306
+    }
+  }
+}
