@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#090c12" />
+  <title>Rúnaharc — Őrkövek Párbaja</title>
+  <style>
+:root{--bg:#07090e;--panel:#0e131c;--panel2:#121a25;--ink:#f4efe5;--muted:#8c97a6;--gold:#d3a85c;--cyan:#75e3d4;--danger:#ee776f;--line:rgba(255,255,255,.09);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink);background:var(--bg)}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% 20%,#142131 0,#090d13 42%,#06080c 100%);overflow-x:hidden}.aurora{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 20% 60%,rgba(54,217,194,.08),transparent 30%),radial-gradient(ellipse at 80% 30%,rgba(211,168,92,.09),transparent 28%);mix-blend-mode:screen}.shell{width:min(1380px,100%);margin:auto;padding:18px 24px 80px}.topbar{display:flex;align-items:center;gap:18px;border:1px solid var(--line);border-radius:18px;background:rgba(10,14,20,.78);backdrop-filter:blur(16px);padding:12px 14px;position:sticky;top:10px;z-index:20;box-shadow:0 18px 50px rgba(0,0,0,.28)}.brand{display:flex;align-items:center;gap:10px;margin-right:auto}.brand b{letter-spacing:.22em;font-size:14px}.brand small,.identity small,.hand-head small,.action-copy small{display:block;color:var(--muted);font-size:12px}.sigil,.avatar{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;border:1px solid rgba(211,168,92,.4);background:linear-gradient(145deg,rgba(211,168,92,.18),rgba(211,168,92,.03));color:#f5d39a;font:700 21px Georgia}.avatar.enemy{border-color:rgba(238,119,111,.38);color:#ffaaa4;background:linear-gradient(145deg,rgba(238,119,111,.15),rgba(238,119,111,.02))}.turn-pill{padding:9px 14px;border:1px solid rgba(117,227,212,.25);border-radius:999px;background:rgba(117,227,212,.07);color:#baf5eb;font-weight:700;font-size:12px;letter-spacing:.08em}.ghost,.end-turn,.action-btn{border:0;color:var(--ink);cursor:pointer;font:700 12px inherit;letter-spacing:.08em}.ghost{background:transparent;padding:10px 13px;border:1px solid var(--line);border-radius:10px}.arena{margin-top:16px;border:1px solid var(--line);border-radius:28px;overflow:hidden;background:linear-gradient(180deg,rgba(19,25,35,.83),rgba(8,12,17,.9));box-shadow:inset 0 1px 0 rgba(255,255,255,.03),0 28px 70px rgba(0,0,0,.28);position:relative}.arena:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(to bottom,transparent,#000 25%,#000 75%,transparent);pointer-events:none}.player-zone{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:16px;padding:16px 20px;position:relative;z-index:2}.enemy-zone{border-bottom:1px solid var(--line)}.identity{display:flex;align-items:center;gap:10px}.shields{display:flex;gap:5px}.shield{width:18px;height:26px;border-radius:5px 5px 8px 8px;transform:skewY(-8deg);background:linear-gradient(150deg,#f0c778,#8a5f24);box-shadow:0 0 18px rgba(211,168,92,.18);border:1px solid #f5d89d}.shield.broken{background:#2a313b;border-color:#47515e;box-shadow:none;opacity:.45}.rune-meter{min-width:92px;text-align:right;color:var(--cyan);font:700 12px ui-monospace,monospace}.board-row{min-height:176px;padding:16px 20px;display:flex;align-items:center;justify-content:center;gap:12px;position:relative;z-index:2}.enemy-board{transform:rotate(180deg)}.enemy-board .card{transform:rotate(180deg)}.nexus{display:flex;align-items:center;gap:12px;justify-content:center;color:#687383;font-size:9px;letter-spacing:.25em}.nexus div{text-align:center}.nexus b{display:block;color:#aeb8c5;font-size:10px}.nexus span{width:90px;height:1px;background:linear-gradient(90deg,transparent,#3a4552)}.nexus span:last-child{transform:rotate(180deg)}.card{width:128px;height:166px;border-radius:14px;padding:9px;background:linear-gradient(150deg,#24313c,#0e141c 65%);border:1px solid rgba(117,227,212,.25);box-shadow:0 16px 30px rgba(0,0,0,.28),inset 0 0 0 2px rgba(255,255,255,.018);display:flex;flex-direction:column;position:relative;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;user-select:none}.card.spell{border-color:rgba(211,168,92,.36);background:linear-gradient(150deg,#342a20,#111117 68%)}.card:hover,.card.selected{transform:translateY(-8px);box-shadow:0 22px 42px rgba(0,0,0,.42),0 0 28px rgba(117,227,212,.08);border-color:rgba(117,227,212,.65)}.card.selected{outline:2px solid rgba(117,227,212,.35)}.card.exhausted{filter:saturate(.6);opacity:.72}.card-top{display:flex;gap:7px;align-items:center}.cost{width:25px;height:25px;border-radius:50%;display:grid;place-items:center;background:#0a1118;border:1px solid rgba(117,227,212,.55);color:#b8fff4;font-weight:900}.spell .cost{border-color:rgba(211,168,92,.6);color:#f6d69e}.card-name{font-weight:800;font-size:10px;line-height:1.05;max-width:76px}.art{flex:1;margin:8px 0;border-radius:10px;display:grid;place-items:center;font:700 46px Georgia;color:rgba(236,244,242,.88);background:radial-gradient(circle at 50% 40%,rgba(117,227,212,.24),transparent 38%),linear-gradient(145deg,#182b31,#0b1117);border:1px solid rgba(255,255,255,.06);text-shadow:0 0 24px rgba(117,227,212,.4)}.spell .art{background:radial-gradient(circle at 50% 40%,rgba(211,168,92,.26),transparent 38%),linear-gradient(145deg,#2a2118,#0e0d12);text-shadow:0 0 24px rgba(211,168,92,.45)}.card-text{height:29px;overflow:hidden;color:#aeb8c6;font-size:8px;line-height:1.25}.stats{display:flex;justify-content:space-between;align-items:end;margin-top:5px;font:900 11px ui-monospace,monospace}.stats span{padding:3px 6px;border:1px solid var(--line);border-radius:7px}.stats .hp{color:#ffb0aa}.hand-panel{margin-top:16px;border:1px solid var(--line);border-radius:22px;background:rgba(12,17,24,.84);padding:14px;position:relative}.hand-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.hand-head b{font-size:13px}.end-turn{padding:11px 16px;border-radius:11px;background:linear-gradient(135deg,#84e7d8,#43ac9e);color:#071310;box-shadow:0 8px 24px rgba(67,172,158,.22)}.end-turn:disabled{opacity:.4;cursor:not-allowed}.hand{display:flex;gap:10px;overflow-x:auto;min-height:174px;padding:7px 2px 12px;scrollbar-width:thin}.action-panel{margin-top:12px;display:flex;justify-content:space-between;align-items:center;gap:18px;padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:#0c1118}.action-copy b{display:block;margin:2px 0 4px}.eyebrow{font-size:9px;letter-spacing:.2em;color:var(--gold);font-weight:900}.actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.action-btn{padding:10px 13px;border-radius:10px;background:#202a35;border:1px solid var(--line)}.action-btn.primary{background:rgba(117,227,212,.13);border-color:rgba(117,227,212,.35);color:#bdf6ed}.action-btn.warn{background:rgba(238,119,111,.1);border-color:rgba(238,119,111,.3);color:#ffc1bd}.log{margin:12px 2px;color:#687485;font-size:11px;display:flex;gap:12px;overflow:auto;white-space:nowrap}.log span:first-child{color:#aeb9c6}.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;background:#eef8f6;color:#07100f;padding:11px 16px;border-radius:999px;font-weight:800;font-size:12px;z-index:50;transition:.25s}.toast.show{opacity:1;transform:translate(-50%,0)}dialog{width:min(760px,calc(100% - 24px));border:1px solid var(--line);border-radius:24px;background:#0d131c;color:var(--ink);padding:22px;box-shadow:0 40px 100px #000}dialog::backdrop{background:rgba(0,0,0,.68);backdrop-filter:blur(6px)}.modal-head{display:flex;justify-content:space-between;gap:16px;align-items:start}.modal-head h2{margin:5px 0 0}.rules-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}.rules-grid article{padding:16px;border:1px solid var(--line);border-radius:16px;background:#111923}.rules-grid article span{color:var(--cyan);font:900 11px ui-monospace}.rules-grid h3{margin:8px 0 4px}.rules-grid p{margin:0;color:#9ba7b6;font-size:12px;line-height:1.5}@media(max-width:720px){.shell{padding:10px 10px 90px}.topbar{top:6px}.brand small,.ghost{display:none}.turn-pill{font-size:10px;padding:8px}.player-zone{grid-template-columns:1fr auto;padding:12px}.rune-meter{grid-column:1/-1;text-align:left}.board-row{min-height:150px;padding:10px;justify-content:flex-start;overflow-x:auto}.card{width:112px;height:150px;flex:0 0 auto}.card-name{font-size:9px}.art{font-size:38px}.hand .card{width:122px;height:158px}.action-panel{align-items:flex-start;flex-direction:column}.actions{justify-content:flex-start}.rules-grid{grid-template-columns:1fr}.shields{gap:3px}.shield{width:14px;height:22px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}.card:hover{transform:none}}
+/* Wendy v2 card system */
+.card{width:142px;height:202px;padding:7px;border-radius:16px;background:linear-gradient(160deg,#28343f 0,#10161e 46%,#080c11 100%);border:1px solid rgba(166,235,225,.32);box-shadow:0 18px 38px rgba(0,0,0,.38),inset 0 0 0 1px rgba(255,255,255,.035);overflow:hidden}
+.card.spell{background:linear-gradient(160deg,#433521 0,#17130e 48%,#0c0b0e 100%);border-color:rgba(229,187,102,.4)}
+.card:before{content:"";position:absolute;inset:3px;border-radius:13px;border:1px solid rgba(255,255,255,.08);pointer-events:none}
+.card-top{position:relative;z-index:2;min-height:28px;padding:2px 3px 0}.card-name{color:#fff!important;font-size:10.5px;letter-spacing:.02em;text-shadow:0 2px 6px #000;max-width:91px}.cost{box-shadow:0 0 0 2px rgba(0,0,0,.35),0 0 16px rgba(117,227,212,.15)}
+.art{display:block;flex:0 0 96px;margin:5px 0 6px;border-radius:10px;overflow:hidden;background:#0a1015;border:1px solid rgba(255,255,255,.12);box-shadow:inset 0 0 20px rgba(0,0,0,.3);text-shadow:none}
+.art svg{display:block;width:100%;height:100%;object-fit:cover}.card-text{height:38px;padding:2px 3px 0;color:#d5dce4;font-size:8.4px;line-height:1.24}.stats{margin-top:auto;padding:0 2px 1px;font-size:12px}.stats span{background:rgba(0,0,0,.28);border-color:rgba(255,255,255,.13);color:#fff!important;text-shadow:0 1px 3px #000}.stats .atk{color:#fff!important}.stats .hp{color:#ffd0cb!important}.rarity-gem{position:absolute;right:8px;bottom:8px;width:7px;height:7px;border-radius:50%;background:#c7d2db;box-shadow:0 0 8px currentColor}.card[data-rarity="nemes"] .rarity-gem{background:#62e0d1;box-shadow:0 0 10px #62e0d1}.card[data-rarity="epikus"] .rarity-gem{background:#e4ad58;box-shadow:0 0 11px #e4ad58}.enemy-board .card{box-shadow:0 -18px 38px rgba(0,0,0,.38),inset 0 0 0 1px rgba(255,255,255,.035)}
+.online-link{padding:10px 13px;border-radius:10px;border:1px solid rgba(117,227,212,.3);background:rgba(117,227,212,.1);color:#c8fff7;text-decoration:none;font-size:12px;font-weight:800;letter-spacing:.06em}.online-panel{display:grid;gap:12px;margin:18px 0;padding:16px;border:1px solid var(--line);border-radius:18px;background:rgba(10,15,22,.86)}.online-row{display:flex;gap:8px;flex-wrap:wrap}.online-row input{min-width:150px;flex:1;background:#080d13;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:11px 12px}.room-code{font:900 22px ui-monospace,monospace;letter-spacing:.14em;color:#fff}.connection{font-size:12px;color:var(--muted)}
+@media(max-width:720px){.card{width:126px;height:188px}.art{flex-basis:87px}.hand .card{width:132px;height:194px}.online-link{display:none}}
+
+</style>
+</head>
+<body>
+  <div class="aurora" aria-hidden="true"></div>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand"><span class="sigil">ᚱ</span><div><b>RÚNAHARC</b><small>Őrkövek Párbaja</small></div></div>
+      <div class="turn-pill" id="turnPill">1. kör · Te</div>
+      <a class="online-link" href="online.html">ONLINE PÁRBAJ</a><button class="ghost" id="rulesBtn" type="button">Szabályok</button>
+    </header>
+
+    <section class="arena" aria-label="Játéktér">
+      <div class="player-zone enemy-zone">
+        <div class="identity"><span class="avatar enemy">Á</span><div><b>Árnyékidéző</b><small id="enemyMeta"></small></div></div>
+        <div class="shields" id="enemyShields" aria-label="Ellenfél Őrkövei"></div>
+        <div class="rune-meter" id="enemyRunes"></div>
+      </div>
+      <div class="board-row enemy-board" id="enemyBoard"></div>
+
+      <div class="nexus"><span></span><div><b>MAGKAPU</b><small>Az utolsó Őrkő után sebezhető</small></div><span></span></div>
+
+      <div class="board-row player-board" id="playerBoard"></div>
+      <div class="player-zone">
+        <div class="identity"><span class="avatar">R</span><div><b>Rúnaidéző</b><small id="playerMeta"></small></div></div>
+        <div class="shields" id="playerShields" aria-label="Saját Őrkövek"></div>
+        <div class="rune-meter" id="playerRunes"></div>
+      </div>
+    </section>
+
+    <section class="hand-panel">
+      <div class="hand-head"><div><b>Kéz</b><small> Kattints egy lapra a lehetőségekhez</small></div><button class="end-turn" id="endTurnBtn" type="button">KÖR VÉGE ↗</button></div>
+      <div class="hand" id="hand"></div>
+    </section>
+
+    <aside class="action-panel" id="actionPanel" aria-live="polite">
+      <div class="action-copy"><span class="eyebrow">KIVÁLASZTVA</span><b id="selectedName">Nincs kiválasztott lap</b><small id="selectedText">Válassz egy lapot a kezedből vagy egy támadásra kész lényt.</small></div>
+      <div class="actions" id="actions"></div>
+    </aside>
+
+    <section class="log" id="log" aria-label="Játéknapló"></section>
+  </main>
+
+  <dialog id="rulesDialog">
+    <div class="modal-head"><div><span class="eyebrow">GYORSSZABÁLY</span><h2>Három lépés, egy párbaj.</h2></div><button class="ghost" id="closeRules" type="button">Bezárás</button></div>
+    <div class="rules-grid">
+      <article><span>01</span><h3>Rúna</h3><p>Körönként egyszer alakíts egy kézlapot rúnává. Minden rúna 1 erőforrás, és körönként újratöltődik.</p></article>
+      <article><span>02</span><h3>Idézés</h3><p>Fizess rúnával lényekért és igékért. A frissen idézett lény a következő saját körödben támadhat.</p></article>
+      <article><span>03</span><h3>Áttörés</h3><p>Törd fel az ellenfél 5 Őrkövét. Ha mind elfogyott, a következő közvetlen támadás a Magra győzelmet ér. Ha kör elején nem tudsz húzni, szintén veszítesz.</p></article>
+    </div>
+  </dialog>
+  <div class="toast" id="toast" role="status"></div>
+  <script>
+const CARD_LIBRARY = {
+  turul: { id: 'turul', name: 'Turul Őrszem', type: 'creature', cost: 2, atk: 2, hp: 2, glyph: '✦', text: 'Kijátszáskor: ha kevesebb Őrköved van, mint az ellenfélnek, +1/+1-et kap.', rarity: 'nemes' },
+  lidérc: { id: 'lidérc', name: 'Mocsári Lidérc', type: 'creature', cost: 1, atk: 1, hp: 2, glyph: '◈', text: 'Olcsó, szívós nyitólény.', rarity: 'közönséges' },
+  betyar: { id: 'betyar', name: 'Rúnabetyár', type: 'creature', cost: 3, atk: 3, hp: 2, glyph: '⚔', text: 'Ha ebben a körben rúnát helyeztél le, +1 támadást kap.', rarity: 'nemes' },
+  sarkany: { id: 'sarkany', name: 'Bakonyi Sárkány', type: 'creature', cost: 5, atk: 5, hp: 4, glyph: '◆', text: 'Áttörés: ha lényt győz le, egy Őrkövet is megrepeszt.', rarity: 'epikus' },
+  taltos: { id: 'taltos', name: 'Révülő Táltos', type: 'creature', cost: 4, atk: 2, hp: 4, glyph: '☾', text: 'Kijátszáskor húzz 1 lapot.', rarity: 'epikus' },
+  vasorr: { id: 'vasorr', name: 'Vasorrú Bába', type: 'creature', cost: 4, atk: 3, hp: 3, glyph: '△', text: 'Kijátszáskor 1 sebzés egy ellenséges lényre.', rarity: 'nemes' },
+  zivatar: { id: 'zivatar', name: 'Zivatarige', type: 'spell', cost: 2, glyph: 'ϟ', text: 'Ossz ki 2 sebzést egy véletlen ellenséges lénynek. Ha nincs, repessz 1 Őrkövet.', rarity: 'nemes' },
+  forras: { id: 'forras', name: 'Ősforrás', type: 'spell', cost: 1, glyph: '◎', text: 'Húzz 1 lapot, majd gyógyíts 1-et egy sérült saját lényen.', rarity: 'közönséges' },
+  vereshold: { id: 'vereshold', name: 'Vérhold', type: 'spell', cost: 2, glyph: '●', text: 'Minden saját lény +1 támadást kap erre a körre.', rarity: 'epikus' },
+  rovaskor: { id: 'rovaskor', name: 'Rováskör', type: 'spell', cost: 1, glyph: '◇', text: 'A következő kijátszott lényed 2 rúnával kevesebbe kerül ebben a körben.', rarity: 'közönséges' }
+};
+
+const DECK_LIST = ['lidérc','lidérc','lidérc','turul','turul','turul','betyar','betyar','betyar','taltos','taltos','vasorr','vasorr','sarkany','sarkany','zivatar','zivatar','forras','vereshold','rovaskor'];
+let uid = 1;
+
+function makeCard(id) {
+  const base = CARD_LIBRARY[id];
+  return { ...base, uid: `c${uid++}`, damage: 0, exhausted: true, bonusAtk: 0 };
+}
+
+function makeDeck() { return DECK_LIST.map(makeCard); }
+
+function shuffle(deck, rng = Math.random) {
+  const out = [...deck];
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}
+
+function createPlayer(name, rng = Math.random) {
+  const deck = shuffle(makeDeck(), rng);
+  return { name, deck, hand: deck.splice(0, 5), board: [], runes: [], shields: 5, coreOpen: false, runePlayed: false, discount: 0 };
+}
+
+function createGame(rng = Math.random, names = ['Te', 'Árnyékidéző']) {
+  const game = { players: [createPlayer(names[0], rng), createPlayer(names[1], rng)], active: 0, turn: 1, phase: 'main', winner: null, log: ['A párbaj elkezdődött.'], telemetry: { plays: [[], []], runes: [[], []] }, rng };
+  return game;
+}
+
+function availableRunes(player) { return player.runes.filter(r => !r.used).length; }
+function cardCost(player, card) { return Math.max(0, card.cost - (card.type === 'creature' ? player.discount : 0)); }
+function canAfford(player, card) { return availableRunes(player) >= cardCost(player, card); }
+function draw(player, n = 1) {
+  const drawn = [];
+  while (n-- > 0 && player.deck.length) { const c = player.deck.shift(); player.hand.push(c); drawn.push(c); }
+  return drawn;
+}
+function spendRunes(player, amount) {
+  for (const rune of player.runes) { if (!rune.used && amount > 0) { rune.used = true; amount--; } }
+  return amount === 0;
+}
+function placeRune(game, playerIndex, uidToUse) {
+  if (game.winner !== null || game.active !== playerIndex) return false;
+  const p = game.players[playerIndex];
+  if (p.runePlayed) return false;
+  const idx = p.hand.findIndex(c => c.uid === uidToUse);
+  if (idx < 0) return false;
+  const [card] = p.hand.splice(idx, 1);
+  p.runes.push({ uid: card.uid, id: card.id, name: card.name, used: false });
+  game.telemetry?.runes[playerIndex].push(card.id);
+  p.runePlayed = true;
+  game.log.unshift(`${p.name} rúnává alakította: ${card.name}.`);
+  return true;
+}
+
+function removeDead(board) { return board.filter(c => c.hp - c.damage > 0); }
+function enemyIndex(i) { return i === 0 ? 1 : 0; }
+
+function playCard(game, playerIndex, uidToPlay) {
+  if (game.winner !== null || game.active !== playerIndex) return false;
+  const p = game.players[playerIndex], e = game.players[enemyIndex(playerIndex)];
+  const idx = p.hand.findIndex(c => c.uid === uidToPlay);
+  if (idx < 0) return false;
+  const card = p.hand[idx];
+  if (!canAfford(p, card) || (card.type === 'creature' && p.board.length >= 5)) return false;
+  spendRunes(p, cardCost(p, card)); p.hand.splice(idx, 1);
+  game.telemetry?.plays[playerIndex].push(card.id);
+  if (card.type === 'creature') {
+    if (p.discount) p.discount = 0;
+    card.exhausted = true;
+    if (card.id === 'turul' && p.shields < e.shields) { card.atk++; card.hp++; }
+    if (card.id === 'betyar' && p.runePlayed) card.bonusAtk = 1;
+    if (card.id === 'taltos') draw(p, 1);
+    if (card.id === 'vasorr' && e.board.length) e.board[Math.floor(game.rng() * e.board.length)].damage += 1;
+    p.board.push(card); e.board = removeDead(e.board);
+    game.log.unshift(`${p.name} kijátszotta: ${card.name}.`);
+  } else {
+    resolveSpell(game, playerIndex, card);
+    game.log.unshift(`${p.name} elsütötte: ${card.name}.`);
+  }
+  checkWinner(game);
+  return true;
+}
+
+function resolveSpell(game, i, card) {
+  const p = game.players[i], e = game.players[enemyIndex(i)];
+  if (card.id === 'zivatar') {
+    if (e.board.length) e.board[Math.floor(game.rng() * e.board.length)].damage += 2;
+    else breakShield(game, enemyIndex(i), 1);
+    e.board = removeDead(e.board);
+  }
+  if (card.id === 'forras') {
+    draw(p, 1);
+    const hurt = p.board.find(c => c.damage > 0); if (hurt) hurt.damage = Math.max(0, hurt.damage - 1);
+  }
+  if (card.id === 'vereshold') p.board.forEach(c => c.bonusAtk += 1);
+  if (card.id === 'rovaskor') p.discount = 2;
+}
+
+function attack(game, playerIndex, attackerUid, targetUid = null) {
+  if (game.winner !== null || game.active !== playerIndex) return false;
+  const p = game.players[playerIndex], e = game.players[enemyIndex(playerIndex)];
+  const attacker = p.board.find(c => c.uid === attackerUid);
+  if (!attacker || attacker.exhausted) return false;
+  const target = targetUid ? e.board.find(c => c.uid === targetUid) : null;
+  if (targetUid && !target) return false;
+  attacker.exhausted = true;
+  if (target) {
+    target.damage += attacker.atk + attacker.bonusAtk;
+    attacker.damage += target.atk + target.bonusAtk;
+    const targetDied = target.hp - target.damage <= 0;
+    p.board = removeDead(p.board); e.board = removeDead(e.board);
+    if (attacker.id === 'sarkany' && targetDied) breakShield(game, enemyIndex(playerIndex), 1);
+    game.log.unshift(`${attacker.name} összecsapott: ${target.name}.`);
+  } else {
+    if (e.shields > 0) { breakShield(game, enemyIndex(playerIndex), 1); game.log.unshift(`${attacker.name} megrepesztett egy Őrkövet.`); }
+    else { game.winner = playerIndex; game.log.unshift(`${attacker.name} elérte a Magot. ${p.name} győzött!`); }
+  }
+  checkWinner(game); return true;
+}
+
+function breakShield(game, targetIndex, amount) {
+  const e = game.players[targetIndex];
+  e.shields = Math.max(0, e.shields - amount);
+  if (e.shields === 0) e.coreOpen = true;
+}
+function checkWinner(game) {
+  for (let i = 0; i < 2; i++) {
+    const p = game.players[i];
+    if (!p.deck.length && !p.hand.length && !p.board.length) game.winner = enemyIndex(i);
+  }
+}
+
+function endTurn(game) {
+  if (game.winner !== null) return false;
+  const p = game.players[game.active];
+  p.board.forEach(c => { c.bonusAtk = 0; });
+  game.active = enemyIndex(game.active); game.turn++;
+  const next = game.players[game.active];
+  next.runePlayed = false; next.discount = 0; next.runes.forEach(r => r.used = false); next.board.forEach(c => c.exhausted = false);
+  if (!next.deck.length) {
+    game.winner = enemyIndex(game.active);
+    game.log.unshift(`${next.name} nem tudott lapot húzni. ${game.players[game.winner].name} győzött!`);
+    return true;
+  }
+  // Az első saját körében egyik játékos sem húz; ez megszünteti a mérhető kezdőjátékos-előnyt.
+  if (!(game.turn === 2 && game.active === 1)) draw(next, 1);
+  game.log.unshift(`${next.name} köre következik.`); return true;
+}
+
+function botTakeTurn(game, playerIndex, style = 'value') {
+  if (game.active !== playerIndex || game.winner !== null) return;
+  const ai = game.players[playerIndex];
+  const enemy = game.players[enemyIndex(playerIndex)];
+  const counts = ai.hand.reduce((m,c)=>(m[c.id]=(m[c.id]||0)+1,m),{});
+  const runeScore = c => {
+    let score = c.cost;
+    if (counts[c.id] > 1) score += 2;
+    if (c.cost <= ai.runes.length + 1) score -= 2;
+    if (c.id === 'sarkany' && ai.runes.length >= 3) score -= 4;
+    if (c.id === 'taltos' && ai.runes.length >= 2) score -= 3;
+    if (c.id === 'vasorr' && ai.runes.length >= 2 && enemy.board.length) score -= 2;
+    return score;
+  };
+  const runeChoice = ai.hand.slice().sort((a,b)=>runeScore(b)-runeScore(a))[0];
+  if (runeChoice) placeRune(game, playerIndex, runeChoice.uid);
+  let guard = 0;
+  while (guard++ < 20) {
+    const playable = ai.hand.filter(c => {
+      if (!canAfford(ai, c) || (c.type === 'creature' && ai.board.length >= 5)) return false;
+      if (c.id === 'vereshold' && ai.board.length < 2) return false;
+      if (c.id === 'rovaskor') {
+        const after = availableRunes(ai) - cardCost(ai, c);
+        const combo = ai.hand.find(x => x.uid !== c.uid && x.type === 'creature' && Math.max(0, x.cost - 2) <= after);
+        if (!combo) return false;
+      }
+      return true;
+    });
+    if (!playable.length) break;
+    const value = c => {
+      if (c.type === 'creature') {
+        const base = c.atk + c.hp - c.cost * .45;
+        if (style === 'aggro') return base + c.atk * .8 - c.cost * .2;
+        if (style === 'control') return base + c.hp * .55;
+        return base + (c.id === 'taltos' ? 2 : 0) + (c.id === 'vasorr' && enemy.board.length ? 1.3 : 0);
+      }
+      let v = 2.4 - c.cost * .25;
+      if (c.id === 'zivatar') v += enemy.board.length ? 2.2 : 1.1;
+      if (c.id === 'forras') v += 1.2;
+      if (c.id === 'vereshold') v += ai.board.length * .75;
+      if (c.id === 'rovaskor') v += ai.hand.some(x=>x.type==='creature' && x.uid!==c.uid) ? 1.6 : -1;
+      return v;
+    };
+    playable.sort((a,b)=>value(b)-value(a));
+    if (!playCard(game, playerIndex, playable[0].uid)) break;
+  }
+  for (const c of [...ai.board]) {
+    if (c.exhausted) continue;
+    const power = c.atk + c.bonusAtk;
+    const killable = enemy.board.filter(t => t.hp - t.damage <= power).sort((a,b)=>(b.atk+b.hp)-(a.atk+a.hp))[0];
+    const favorable = enemy.board.filter(t => power >= t.hp-t.damage && (c.hp-c.damage) > t.atk+t.bonusAtk).sort((a,b)=>b.atk-a.atk)[0];
+    const target = style === 'control' ? (favorable || killable) : killable;
+    attack(game, playerIndex, c.uid, target?.uid ?? null);
+    if (game.winner !== null) break;
+  }
+  if (game.winner === null) endTurn(game);
+}
+
+function aiTakeTurn(game) { return botTakeTurn(game, 1, 'value'); }
+
+const scenes = {
+  'turul': `<svg viewBox="0 0 160 96" role="img" aria-label="Turul az éjszakai hegyek fölött"><defs><linearGradient id="tbg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#143642"/><stop offset="1" stop-color="#071119"/></linearGradient><radialGradient id="sun"><stop stop-color="#d6fff8"/><stop offset="1" stop-color="#63d9cb" stop-opacity="0"/></radialGradient></defs><rect width="160" height="96" fill="url(#tbg)"/><circle cx="112" cy="24" r="24" fill="url(#sun)"/><path d="M0 82L31 58l23 14 26-30 23 28 26-20 31 32v14H0z" fill="#0a171e"/><path d="M31 42c18-21 36-18 49-4 13-13 31-16 48 4-18-6-31-4-44 7l-4 15-4-15c-12-11-26-13-45-7z" fill="#e9fdf9"/><path d="M75 47l5-14 5 14-5 7z" fill="#d9a85f"/></svg>`,
+  'lidérc': `<svg viewBox="0 0 160 96" role="img" aria-label="Mocsári lidérc a ködben"><defs><linearGradient id="lbg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#17352e"/><stop offset="1" stop-color="#07130f"/></linearGradient><radialGradient id="gl"><stop stop-color="#b8ffe6"/><stop offset=".35" stop-color="#52dfab"/><stop offset="1" stop-color="#52dfab" stop-opacity="0"/></radialGradient></defs><rect width="160" height="96" fill="url(#lbg)"/><path d="M0 70c26-14 44 10 70-4s44 10 90-3v33H0z" fill="#0b201b"/><ellipse cx="82" cy="44" rx="34" ry="26" fill="url(#gl)" opacity=".7"/><path d="M68 72c2-25 0-39 14-49 13 11 11 26 13 49l-9-11-7 12-5-12z" fill="#d9fff1" opacity=".8"/><circle cx="76" cy="43" r="2" fill="#0a2b22"/><circle cx="88" cy="43" r="2" fill="#0a2b22"/></svg>`,
+  'betyar': `<svg viewBox="0 0 160 96" role="img" aria-label="Rúnabetyár karddal"><defs><linearGradient id="bbg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#3a2419"/><stop offset="1" stop-color="#0c1015"/></linearGradient></defs><rect width="160" height="96" fill="url(#bbg)"/><circle cx="124" cy="24" r="17" fill="#e6ad63" opacity=".55"/><path d="M0 84l46-23 30 12 27-31 57 42v12H0z" fill="#15181d"/><path d="M70 74l5-39 11-13 13 12-1 40z" fill="#151014"/><path d="M73 37l18-18 17 10-28 5z" fill="#9e2f2c"/><path d="M89 33l7 8-4 8-9-1-4-8z" fill="#d5aa73"/><path d="M102 44l25 31-5 4-26-30z" fill="#e6ded0"/><path d="M121 70l15 16-5 5-15-17z" fill="#c89b52"/></svg>`,
+  'sarkany': `<svg viewBox="0 0 160 96" role="img" aria-label="Bakonyi sárkány a hegyek fölött"><defs><linearGradient id="sbg"><stop stop-color="#4b1f1b"/><stop offset="1" stop-color="#120b0b"/></linearGradient><radialGradient id="fire"><stop stop-color="#fff0a8"/><stop offset=".4" stop-color="#ff8a3d"/><stop offset="1" stop-color="#ff512c" stop-opacity="0"/></radialGradient></defs><rect width="160" height="96" fill="url(#sbg)"/><circle cx="42" cy="62" r="37" fill="url(#fire)" opacity=".65"/><path d="M0 85l35-28 24 20 35-41 28 34 38-21v47H0z" fill="#170d0c"/><path d="M45 51c17-28 39-31 56-21l23-10-10 18c13 9 18 22 18 37l-25-18-19 8-15 19 1-25-29-8z" fill="#d9c2a1"/><path d="M88 42l9-5 4 4-10 5z" fill="#ffda6b"/></svg>`,
+  'taltos': `<svg viewBox="0 0 160 96" role="img" aria-label="Révülő táltos csillagos ég alatt"><defs><linearGradient id="tabg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1f2754"/><stop offset="1" stop-color="#0b1024"/></linearGradient></defs><rect width="160" height="96" fill="url(#tabg)"/><circle cx="116" cy="26" r="17" fill="#dbe8ff"/><circle cx="122" cy="22" r="17" fill="#1f2754"/><g fill="#fff" opacity=".8"><circle cx="24" cy="18" r="1"/><circle cx="45" cy="30" r="1.2"/><circle cx="79" cy="17" r="1"/><circle cx="137" cy="49" r="1.1"/></g><path d="M65 83l5-43 10-15 11 15 5 43z" fill="#17131e"/><path d="M70 41l10-18 11 18-11 9z" fill="#d6c2a8"/><path d="M50 75l29-18 31 18" fill="none" stroke="#78e8d9" stroke-width="3" stroke-linecap="round"/><circle cx="80" cy="58" r="5" fill="#78e8d9"/></svg>`,
+  'vasorr': `<svg viewBox="0 0 160 96" role="img" aria-label="Vasorrú bába rézüst mellett"><defs><linearGradient id="vbg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#412634"/><stop offset="1" stop-color="#100b12"/></linearGradient></defs><rect width="160" height="96" fill="url(#vbg)"/><circle cx="43" cy="72" r="26" fill="#ce7d39" opacity=".5"/><path d="M95 79l-6-40 11-17 14 13 4 44z" fill="#160f18"/><path d="M90 39l13-23 23 12-30 7z" fill="#29202b"/><path d="M100 40l10-3 10 9-11 6-13-5z" fill="#c7a37d"/><path d="M110 44l18 4-17 4z" fill="#d6d8db"/><path d="M27 63h32l-5 23H31z" fill="#6f3f24" stroke="#d89a58"/><path d="M33 59c5-10 14-10 20 0" fill="none" stroke="#d89a58" stroke-width="3"/></svg>`,
+  'zivatar': `<svg viewBox="0 0 160 96" role="img" aria-label="Villámcsapás a pusztán"><defs><linearGradient id="zbg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#202b4d"/><stop offset="1" stop-color="#090d18"/></linearGradient></defs><rect width="160" height="96" fill="url(#zbg)"/><path d="M0 74c34-10 64 5 92-3 28-8 47-2 68 2v23H0z" fill="#0b1118"/><path d="M84 8L58 47h21L65 88l42-52H84z" fill="#f8f3bc"/><path d="M76 9l-28 35M111 17L94 34M41 15L29 31" stroke="#75e3d4" stroke-width="2" opacity=".7"/></svg>`,
+  'forras': `<svg viewBox="0 0 160 96" role="img" aria-label="Ősforrás kövek között"><defs><linearGradient id="fbg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#183b41"/><stop offset="1" stop-color="#071416"/></linearGradient><radialGradient id="water"><stop stop-color="#d7fffb"/><stop offset=".4" stop-color="#55d7ca"/><stop offset="1" stop-color="#1c615e" stop-opacity="0"/></radialGradient></defs><rect width="160" height="96" fill="url(#fbg)"/><ellipse cx="80" cy="69" rx="54" ry="19" fill="url(#water)"/><path d="M35 72l18-24 17 16 18-32 17 33 18-17 17 24z" fill="#142425"/><path d="M80 30c-12 17-15 27-3 35 17-4 18-16 3-35z" fill="#b7fff6" opacity=".9"/></svg>`,
+  'vereshold': `<svg viewBox="0 0 160 96" role="img" aria-label="Vérhold vörös fénnyel"><defs><linearGradient id="vhbg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#3d1118"/><stop offset="1" stop-color="#0d090d"/></linearGradient><radialGradient id="moon"><stop stop-color="#ffb17e"/><stop offset="1" stop-color="#b52735"/></radialGradient></defs><rect width="160" height="96" fill="url(#vhbg)"/><circle cx="81" cy="37" r="27" fill="url(#moon)"/><path d="M0 86l28-25 25 13 23-31 19 33 21-19 44 29v10H0z" fill="#140a0d"/><path d="M48 73l12-15 8 10 12-16 11 18 12-13 13 16" fill="none" stroke="#ff6a70" stroke-width="2" opacity=".7"/></svg>`,
+  'rovaskor': `<svg viewBox="0 0 160 96" role="img" aria-label="Fénylő rováskör kőpadlón"><defs><linearGradient id="rbg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#352b1c"/><stop offset="1" stop-color="#0d1014"/></linearGradient></defs><rect width="160" height="96" fill="url(#rbg)"/><ellipse cx="80" cy="69" rx="57" ry="19" fill="#080a0d"/><ellipse cx="80" cy="61" rx="42" ry="27" fill="none" stroke="#e2b85e" stroke-width="3"/><ellipse cx="80" cy="61" rx="28" ry="18" fill="none" stroke="#79e7d8" stroke-width="2"/><path d="M80 34v54M44 61h72M55 42l50 38M105 42L55 80" stroke="#e6d6a9" stroke-width="1.5" opacity=".8"/><circle cx="80" cy="61" r="7" fill="#e6fdf9"/></svg>`
+};
+function cardArtwork(id){ return scenes[id] || scenes.rovaskor; }
+
+
+let game = createGame();
+let selected = null;
+const $ = id => document.getElementById(id);
+const els = Object.fromEntries(['hand','playerBoard','enemyBoard','playerShields','enemyShields','playerRunes','enemyRunes','playerMeta','enemyMeta','turnPill','selectedName','selectedText','actions','log','endTurnBtn','toast','rulesDialog','rulesBtn','closeRules'].map(id=>[id,$(id)]));
+
+function cardEl(card, zone, owner) {
+  const el = document.createElement('button'); el.type='button'; el.className=`card ${card.type} ${card.exhausted && zone==='board' ? 'exhausted' : ''} ${selected?.uid===card.uid ? 'selected' : ''}`;
+  el.dataset.rarity = card.rarity; el.setAttribute('aria-label', `${card.name}, ${card.cost} rúna${card.type==='creature' ? `, ${card.atk + card.bonusAtk} támadás, ${card.hp-card.damage} életerő` : ''}`);
+  el.innerHTML = `<div class="card-top"><span class="cost">${card.cost}</span><span class="card-name">${card.name}</span></div><div class="art">${cardArtwork(card.id)}</div><div class="card-text">${card.text}</div>${card.type==='creature'?`<div class="stats"><span class="atk">⚔ ${card.atk+card.bonusAtk}</span><span class="hp">♥ ${Math.max(0,card.hp-card.damage)}</span></div>`:''}<i class="rarity-gem" aria-hidden="true"></i>`;
+  el.onclick = () => select(card, zone, owner); return el;
+}
+function renderShields(el, count) { el.innerHTML=''; for(let i=0;i<5;i++){const s=document.createElement('i');s.className=`shield ${i>=count?'broken':''}`;el.appendChild(s);} }
+function renderRunes(el,p){ el.textContent=`RÚNA ${availableRunes(p)} / ${p.runes.length}`; }
+function render(){
+  const p=game.players[0],e=game.players[1];
+  els.hand.replaceChildren(...p.hand.map(c=>cardEl(c,'hand',0))); els.playerBoard.replaceChildren(...p.board.map(c=>cardEl(c,'board',0))); els.enemyBoard.replaceChildren(...e.board.map(c=>cardEl(c,'board',1)));
+  renderShields(els.playerShields,p.shields);renderShields(els.enemyShields,e.shields);renderRunes(els.playerRunes,p);renderRunes(els.enemyRunes,e);
+  els.playerMeta.textContent=`${p.hand.length} kézlap · ${p.deck.length} pakli`;els.enemyMeta.textContent=`${e.hand.length} kézlap · ${e.deck.length} pakli`;
+  els.turnPill.textContent=game.winner!==null?`${game.players[game.winner].name} győzött`:`${game.turn}. kör · ${game.active===0?'Te':'Ellenfél'}`;
+  els.endTurnBtn.disabled=game.active!==0||game.winner!==null;
+  els.log.innerHTML=game.log.slice(0,5).map(x=>`<span>${x}</span>`).join('');
+  renderActions();
+  if(game.winner!==null) toast(`${game.players[game.winner].name} megnyerte a párbajt.`);
+}
+function select(card,zone,owner){ selected={...card,zone,owner}; render(); }
+function clearSelection(){selected=null;render();}
+function button(label,cls,fn){const b=document.createElement('button');b.type='button';b.className=`action-btn ${cls||''}`;b.textContent=label;b.onclick=fn;return b;}
+function renderActions(){
+  els.actions.innerHTML='';
+  if(!selected){els.selectedName.textContent='Nincs kiválasztott lap';els.selectedText.textContent='Válassz egy lapot a kezedből vagy egy támadásra kész lényt.';return;}
+  els.selectedName.textContent=selected.name;els.selectedText.textContent=selected.text;
+  const p=game.players[0];
+  if(game.active!==0||game.winner!==null)return;
+  if(selected.zone==='hand'&&selected.owner===0){
+    const live=p.hand.find(c=>c.uid===selected.uid); if(!live)return;
+    if(!p.runePlayed) els.actions.append(button('RÚNÁVÁ TESZEM','',()=>{placeRune(game,0,live.uid);clearSelection();}));
+    if(availableRunes(p)>=cardCost(p,live)) els.actions.append(button(`KIJÁTSZOM · ${cardCost(p,live)} RÚNA`,'primary',()=>{if(playCard(game,0,live.uid)){clearSelection();}}));
+  }
+  if(selected.zone==='board'&&selected.owner===0){
+    const live=p.board.find(c=>c.uid===selected.uid);if(!live||live.exhausted)return;
+    els.actions.append(button(game.players[1].shields>0?'ŐRKŐ TÁMADÁSA':'MAG TÁMADÁSA','warn',()=>{attack(game,0,live.uid);clearSelection();}));
+    game.players[1].board.forEach(t=>els.actions.append(button(`↳ ${t.name}`,'',()=>{attack(game,0,live.uid,t.uid);clearSelection();})));
+  }
+}
+function toast(msg){els.toast.textContent=msg;els.toast.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>els.toast.classList.remove('show'),1800)}
+els.endTurnBtn.onclick=()=>{if(endTurn(game)){selected=null;render();setTimeout(()=>{aiTakeTurn(game);render();},550)}};
+els.rulesBtn.onclick=()=>els.rulesDialog.showModal();els.closeRules.onclick=()=>els.rulesDialog.close();
+els.rulesDialog.addEventListener('click',e=>{if(e.target===els.rulesDialog)els.rulesDialog.close()});
+window.addEventListener('keydown',e=>{if(e.key==='Escape'){selected=null;render();}if(e.key==='Enter'&&game.active===0&&!game.winner)els.endTurnBtn.click();});
+render();
+</script>
+</body>
+</html>

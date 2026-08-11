@@ -1,0 +1,7 @@
+import {createGame,botTakeTurn,CARD_LIBRARY} from '../engine.js';
+function rngFrom(seed){let x=seed>>>0;return()=>{x^=x<<13;x^=x>>>17;x^=x<<5;return (x>>>0)/4294967296}}
+const N=Number(process.env.GAMES||100000),styles=['aggro','value','control'],wins=[0,0],byStyle=Object.fromEntries(styles.map(s=>[s,{games:0,wins:[0,0],turns:0}]));let turns=0,timeouts=0;
+const rec=Object.fromEntries(Object.keys(CARD_LIBRARY).map(id=>[id,{plays:0,playersPlaying:0,winsWhenPlayed:0,runes:0}]));
+for(let n=1;n<=N;n++){const rng=rngFrom((n*2654435761)>>>0),g=createGame(rng),style=styles[n%styles.length];let guard=0;while(g.winner===null&&guard++<120)botTakeTurn(g,g.active,style);if(g.winner===null){timeouts++;continue}wins[g.winner]++;turns+=g.turn;const bs=byStyle[style];bs.games++;bs.wins[g.winner]++;bs.turns+=g.turn;for(let i=0;i<2;i++){const set=new Set(g.telemetry.plays[i]);for(const id of g.telemetry.plays[i])rec[id].plays++;for(const id of set){rec[id].playersPlaying++;if(g.winner===i)rec[id].winsWhenPlayed++}for(const id of g.telemetry.runes[i])rec[id].runes++}}
+for(const r of Object.values(rec)){r.winRateWhenPlayed=r.playersPlaying?r.winsWhenPlayed/r.playersPlaying:null;r.playShare=r.plays/Object.values(rec).reduce((a,x)=>a+x.plays,0)}for(const s of styles){const x=byStyle[s];x.firstPlayerWinRate=x.wins[0]/x.games;x.averageTurn=x.turns/x.games}
+console.log(JSON.stringify({games:N,completed:N-timeouts,timeouts,wins,firstPlayerWinRate:wins[0]/(N-timeouts),averageTurn:turns/(N-timeouts),byStyle,cards:rec},null,2));

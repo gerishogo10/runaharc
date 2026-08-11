@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#090c12" />
+  <title>Rúnaharc — Őrkövek Párbaja</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="aurora" aria-hidden="true"></div>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand"><span class="sigil">ᚱ</span><div><b>RÚNAHARC</b><small>Őrkövek Párbaja</small></div></div>
+      <div class="turn-pill" id="turnPill">1. kör · Te</div>
+      <button class="ghost" id="rulesBtn" type="button">Szabályok</button>
+    </header>
+
+    <section class="arena" aria-label="Játéktér">
+      <div class="player-zone enemy-zone">
+        <div class="identity"><span class="avatar enemy">Á</span><div><b>Árnyékidéző</b><small id="enemyMeta"></small></div></div>
+        <div class="shields" id="enemyShields" aria-label="Ellenfél Őrkövei"></div>
+        <div class="rune-meter" id="enemyRunes"></div>
+      </div>
+      <div class="board-row enemy-board" id="enemyBoard"></div>
+
+      <div class="nexus"><span></span><div><b>MAGKAPU</b><small>Az utolsó Őrkő után sebezhető</small></div><span></span></div>
+
+      <div class="board-row player-board" id="playerBoard"></div>
+      <div class="player-zone">
+        <div class="identity"><span class="avatar">R</span><div><b>Rúnaidéző</b><small id="playerMeta"></small></div></div>
+        <div class="shields" id="playerShields" aria-label="Saját Őrkövek"></div>
+        <div class="rune-meter" id="playerRunes"></div>
+      </div>
+    </section>
+
+    <section class="hand-panel">
+      <div class="hand-head"><div><b>Kéz</b><small> Kattints egy lapra a lehetőségekhez</small></div><button class="end-turn" id="endTurnBtn" type="button">KÖR VÉGE ↗</button></div>
+      <div class="hand" id="hand"></div>
+    </section>
+
+    <aside class="action-panel" id="actionPanel" aria-live="polite">
+      <div class="action-copy"><span class="eyebrow">KIVÁLASZTVA</span><b id="selectedName">Nincs kiválasztott lap</b><small id="selectedText">Válassz egy lapot a kezedből vagy egy támadásra kész lényt.</small></div>
+      <div class="actions" id="actions"></div>
+    </aside>
+
+    <section class="log" id="log" aria-label="Játéknapló"></section>
+  </main>
+
+  <dialog id="rulesDialog">
+    <div class="modal-head"><div><span class="eyebrow">GYORSSZABÁLY</span><h2>Három lépés, egy párbaj.</h2></div><button class="ghost" id="closeRules" type="button">Bezárás</button></div>
+    <div class="rules-grid">
+      <article><span>01</span><h3>Rúna</h3><p>Körönként egyszer alakíts egy kézlapot rúnává. Minden rúna 1 erőforrás, és körönként újratöltődik.</p></article>
+      <article><span>02</span><h3>Idézés</h3><p>Fizess rúnával lényekért és igékért. A frissen idézett lény a következő saját körödben támadhat.</p></article>
+      <article><span>03</span><h3>Áttörés</h3><p>Törd fel az ellenfél 5 Őrkövét. Ha mind elfogyott, a következő közvetlen támadás a Magra győzelmet ér. Ha kör elején nem tudsz húzni, szintén veszítesz.</p></article>
+    </div>
+  </dialog>
+  <div class="toast" id="toast" role="status"></div>
+  <script type="module" src="game.js"></script>
+</body>
+</html>

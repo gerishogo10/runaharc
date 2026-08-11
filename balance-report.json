@@ -1,0 +1,125 @@
+{
+  "games": 100000,
+  "completed": 100000,
+  "timeouts": 0,
+  "wins": [
+    49961,
+    50039
+  ],
+  "firstPlayerWinRate": 0.49961,
+  "averageTurn": 16.52945,
+  "byStyle": {
+    "aggro": {
+      "games": 33333,
+      "wins": [
+        17020,
+        16313
+      ],
+      "turns": 540456,
+      "firstPlayerWinRate": 0.5106051060510605,
+      "averageTurn": 16.213842138421384
+    },
+    "value": {
+      "games": 33334,
+      "wins": [
+        16499,
+        16835
+      ],
+      "turns": 553232,
+      "firstPlayerWinRate": 0.494960100797984,
+      "averageTurn": 16.59662806743865
+    },
+    "control": {
+      "games": 33333,
+      "wins": [
+        16442,
+        16891
+      ],
+      "turns": 559257,
+      "firstPlayerWinRate": 0.49326493264932647,
+      "averageTurn": 16.77787777877779
+    }
+  },
+  "cards": {
+    "turul": {
+      "plays": 206049,
+      "playersPlaying": 157337,
+      "winsWhenPlayed": 83508,
+      "runes": 180212,
+      "winRateWhenPlayed": 0.5307588170614668,
+      "playShare": 0.2209756866580657
+    },
+    "lidérc": {
+      "plays": 260745,
+      "playersPlaying": 179050,
+      "winsWhenPlayed": 87800,
+      "runes": 136929,
+      "winRateWhenPlayed": 0.4903658196034627,
+      "playShare": 0.27963399685345397
+    },
+    "betyar": {
+      "plays": 78216,
+      "playersPlaying": 75930,
+      "winsWhenPlayed": 44248,
+      "runes": 308935,
+      "winRateWhenPlayed": 0.5827472672198077,
+      "playShare": 0.08388215573794226
+    },
+    "sarkany": {
+      "plays": 16716,
+      "playersPlaying": 16463,
+      "winsWhenPlayed": 13526,
+      "runes": 240559,
+      "winRateWhenPlayed": 0.8215999514061836,
+      "playShare": 0.01792694736774372
+    },
+    "taltos": {
+      "plays": 60699,
+      "playersPlaying": 54499,
+      "winsWhenPlayed": 40902,
+      "runes": 196027,
+      "winRateWhenPlayed": 0.750509183654746,
+      "playShare": 0.06509618199776718
+    },
+    "vasorr": {
+      "plays": 20635,
+      "playersPlaying": 20438,
+      "winsWhenPlayed": 14431,
+      "runes": 236902,
+      "winRateWhenPlayed": 0.706086701242783,
+      "playShare": 0.022129849182423528
+    },
+    "zivatar": {
+      "plays": 122302,
+      "playersPlaying": 109676,
+      "winsWhenPlayed": 53612,
+      "runes": 133983,
+      "winRateWhenPlayed": 0.4888216200444947,
+      "playShare": 0.13116185193645563
+    },
+    "forras": {
+      "plays": 83145,
+      "playersPlaying": 83145,
+      "winsWhenPlayed": 43469,
+      "runes": 41736,
+      "winRateWhenPlayed": 0.5228095495820555,
+      "playShare": 0.08916822438927086
+    },
+    "vereshold": {
+      "plays": 14943,
+      "playersPlaying": 14943,
+      "winsWhenPlayed": 6137,
+      "runes": 112644,
+      "winRateWhenPlayed": 0.41069397042093286,
+      "playShare": 0.01602550697033946
+    },
+    "rovaskor": {
+      "plays": 69001,
+      "playersPlaying": 69001,
+      "winsWhenPlayed": 20822,
+      "runes": 57904,
+      "winRateWhenPlayed": 0.3017637425544557,
+      "playShare": 0.07399959890653772
+    }
+  }
+}
